@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-  <config/>
+	<display-name>Open Graph</display-name>
+	<info>Adds support for Open Graph metadata on your site.</info>
+	<vendor>
+		<name>Enonic AS</name>
+		<url>http://www.enonic.com</url>
+	</vendor>
+	<dependencies system-min-version="6.2.0" system-max-version="7.0.0"/>
+	<config>
+		<field-set name="settings">
+			<label>Open Graph default settings</label>
+			<items>
+				<input name="og-default" type="ImageSelector">
+					<label>Image</label>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+				<input name="og-title" type="TextLine">
+					<label>Title</label>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+				<input name="og-description" type="TextArea">
+					<label>Description</label>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+			</items>
+		</field-set>
+	</config>
 </site>
