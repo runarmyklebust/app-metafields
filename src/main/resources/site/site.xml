@@ -11,7 +11,7 @@
 		<field-set name="settings">
 			<label>Open Graph default settings</label>
 			<items>
-				<input name="og-default" type="ImageSelector">
+				<input name="og-image" type="ImageSelector">
 					<label>Image</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
