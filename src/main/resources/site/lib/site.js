@@ -13,9 +13,6 @@ exports.getPageTitle = function(content, site) {
 	var metaTitle = '';
 	var siteConfig = libs.portal.getSiteConfig();
 
-	log.info("Test:");
-	log.info(site._path);
-
 	if (content.x[appNamePropertyName]) {
 		if (content.x[appNamePropertyName]['meta-data']) {
 			if (content.x[appNamePropertyName]['meta-data']['seo-title']) {
