@@ -26,4 +26,5 @@
 			</items>
 		</field-set>
 	</config>
+	<x-data mixin="meta-data" /><!-- This actually adds this mixin to all CTY on current site ^^ -->
 </site>
