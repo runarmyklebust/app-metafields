@@ -7,61 +7,33 @@ var libs = {
 
 var view = resolve('add-metadata.html');
 
+// Format locale into the ISO format that Open Graph wants
+var localeMap = {
+    da: 'da_DK',
+    sv: 'sv_SE',
+    pl: 'pl_PL',
+    no: 'nb_NO',
+    en: 'en_GB'
+};
 
 exports.responseFilter = function (req, res) {
-
     var site = libs.portal.getSite();
     var content = libs.portal.getContent();
     var siteConfig = libs.portal.getSiteConfig();
 
-	var params = {};
-	var og = {};
+    var lang = content.language || site.language || 'en';
 
-    var pageTitle = libs.site.getPageTitle(content, site);
-    var metaDescription = libs.site.getMetaDescription(content, site);
-
-    var og = {};
-    og.title = pageTitle;
-    og.description = metaDescription;
-
-	// Set Language/locale
-	var lang;
-    if (!content.language) {
-        if (!site.language) {
-            lang = "en";
-        } else {
-            lang = site.language;
-        }
-    } else {
-        lang = content.language;
-    }
-    // Format locale into the ISO format that Open Graph wants
-	var locale;
-	switch (lang) {
-		case "da": locale = "da_DK"; break;
-		case "sv": locale = "sv_SE"; break;
-		case "pl": locale = "pl_PL"; break;
-		case "no": locale = "nb_NO"; break;
-		default: locale = "en_GB"; break;
-	}
-	og.locale = locale;
-
-    og.type = ( site['_path'] === content["_path"] ) ? "website" : "article";
-    og.sitename = site['displayName'];
-
-    var currentpage = libs.portal.pageUrl({
-        path: content["_path"],
-        type: "absolute"
-    });
-    og.url = currentpage;
-
-    var ogImage = libs.site.getOpenGraphImage(content, siteConfig["og-default"]);
-
-    og.image = ogImage;
-    og.image_width = 600;
-    og.image_height = 315;
-
-    params.og = og;
+    var params = {
+        title: libs.site.getPageTitle(content, site),
+        description: libs.site.getMetaDescription(content, site),
+        sitename: site.displayName,
+        locale: localeMap[lang] || localeMap.en,
+        type: site._path === content._path ? 'website' : 'article',
+        url: libs.portal.pageUrl({ path: content._path, type: "absolute" }),
+        image: libs.site.getOpenGraphImage(content, siteConfig['og-default']),
+        imageWidth: 1200,
+        imageHeight: 630
+    };
 
 	var metadata = libs.thymeleaf.render(view, params);
 
