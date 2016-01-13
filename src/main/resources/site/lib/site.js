@@ -33,7 +33,7 @@ exports.getPageTitle = function(content, site) {
 
 	// None of that either? Use the Site's title instead. Used when not viewing a Content.
 	if ( metaTitle.trim() === '') {
-		metaTitle = site.data.title;
+		metaTitle = site['displayName'];
 	}
 
 	metaTitle = metaTitle + ' - ' + site['displayName']; // Content Title + Site Title
@@ -62,6 +62,7 @@ exports.getMetaDescription = function(content, site) {
 	// None of that either? Use the Apps defined default title.
 	if ( metaDescription.trim() === '') {
 		metaDescription = siteConfig["og-description"];
+		libs.util.log(site);
 	}
 
 	if ( metaDescription.trim() === '') {
