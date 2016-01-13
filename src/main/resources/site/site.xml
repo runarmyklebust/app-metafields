@@ -20,4 +20,7 @@
 		</field-set>
 	</config>
 	<x-data mixin="meta-data" /><!-- This actually adds this mixin to all CTY on current site ^^ -->
+	<filters>
+    	<response-filter name="add-metadata" order="10"/>
+	</filters>
 </site>
