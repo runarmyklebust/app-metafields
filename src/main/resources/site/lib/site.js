@@ -1,54 +1,9 @@
 var portal = require('/lib/xp/portal');
 var content = require('/lib/xp/content');
-var UTIL = require('/lib/enonic/util/util');
-
-// A place for site specific functions that I don't want to polute the controllers with.
-// Include it in any controller like so:
-
-// var SITE = require('/lib/site');
-
-// Use any of the functions like so:
-
-// SITE.getPageTitle(content, site);
-
 
 // "Globals":
 var moduleNamePropertyName = app.name.replace(/\./g,'-');
 
-
-// Get current language based on site, current content, or parent content
-exports.getLang = function(data) {
-
-	var siteConfig = portal.getSiteConfig();
-	var eng_content = content.get({
-		'key': siteConfig.english
-	});
-
-	var lang = "no";
-	var thepath = eng_content._path;
-	var pathlength = thepath.length;
-
-	//log.info(thepath);
-
-	if ( Object.keys(data).length ) {
-		//log.info("data.length / object.length = true");
-		if (!data.hasOwnProperty('language')) {
-			//log.info("has not language setting");
-			if ( data._path.substring(0,pathlength) === thepath ) {
-				//log.info( "content path: " + data._path.substring(0,pathlength) );
-				lang = "en";
-			} else {
-				lang = "no";
-			}
-		} else {
-			lang = data.language;
-		}
-	}
-
-	//log.info(lang);
-
-	return lang;
-}
 
 exports.getPageTitle = function(content, site) {
 	var metaTitle = '';
@@ -149,36 +104,4 @@ exports.getOpenGraphImage = function(content, default_img) {
 	}
 
 	return image_url;
-};
-
-// Explode by "/", remove the last element with pop, join again with "/".
-exports.removeLastDirectoryPart = function(the_url) {
-	var the_arr = the_url.split('/');
-	the_arr.pop();
-	return( the_arr.join('/') );
-};
-
-exports.isSubMenuActivated = function(content) {
-	var has_submenu = false;
-
-	// Does it have children
-	if ( content.hasChildren ) {
-
-		// Is the menuitem activated
-		if ( content.data.menuItem ) {
-			has_submenu = true;
-		}
-	}
-
-	return has_submenu;
-};
-
-// We need a unique ID for the html code sometimes, get that from the title. But format must be html valid
-exports.getIdFromTitle = function(title) {
-	var id = title;
-	id = id.toLowerCase();
-	id = id.replace(/ /g,"_");
-	id = id.replace(/å|æ/g,"a");
-	id = id.replace(/ø/g,"o");
-	return id;
 };
