@@ -26,7 +26,7 @@ exports.responseFilter = function (req, res) {
     var params = {
         title: libs.site.getPageTitle(content, site),
         description: libs.site.getMetaDescription(content, site),
-        sitename: site.displayName,
+        siteName: site.displayName,
         locale: localeMap[lang] || localeMap.en,
         type: site._path === content._path ? 'website' : 'article',
         url: libs.portal.pageUrl({ path: content._path, type: "absolute" }),
