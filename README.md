@@ -13,8 +13,10 @@ An app to give your Site support for Open Graph meta data, automatically extract
   - [x] Filter controller
   - [x] Filter view
 - [x] Actually use the data from site.xml (defaults)
-- [ ] Support mixin as x-data and inline (waterfall through)
 - [ ] Support more names for all fields ("image", "images", "photo", etc), create waterfall logic
+  - [x] On Title
+  - [x] On Description
+  - [ ] On Image
 - [x] If siteConfig (app config) not set, also fallback to parent site data
 
 ## Nice-to-have TODO:s
@@ -24,6 +26,7 @@ An app to give your Site support for Open Graph meta data, automatically extract
   - [ ] Title page and site name separator?
   - [ ] Remove sitename append on frontpage?
 - [ ] Ability to choose og-image format (small/portrait, wide) for site
+- [ ] -Support mixin as both x-data and inline (waterfall through)- (not needed because we supply the mixin!)
 
 ## Big TODO:s
 
