@@ -65,7 +65,7 @@ exports.getMetaDescription = function(content, site) {
 	}
 
 	if ( metaDescription.trim() === '') {
-		metaDescription = site.data.description;
+		metaDescription = site.description;
 	}
 
 	return metaDescription;
