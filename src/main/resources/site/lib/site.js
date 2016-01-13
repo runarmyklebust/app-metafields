@@ -2,16 +2,16 @@ var portal = require('/lib/xp/portal');
 var content = require('/lib/xp/content');
 
 // "Globals":
-var moduleNamePropertyName = app.name.replace(/\./g,'-');
+var appNamePropertyName = app.name.replace(/\./g,'-');
 
 
 exports.getPageTitle = function(content, site) {
 	var metaTitle = '';
 
-	if (content.x[moduleNamePropertyName]) {
-		if (content.x[moduleNamePropertyName]['meta-data']) {
-			if (content.x[moduleNamePropertyName]['meta-data']['seo-title']) {
-				metaTitle = content.x[moduleNamePropertyName]['meta-data']['seo-title'];
+	if (content.x[appNamePropertyName]) {
+		if (content.x[appNamePropertyName]['meta-data']) {
+			if (content.x[appNamePropertyName]['meta-data']['seo-title']) {
+				metaTitle = content.x[appNamePropertyName]['meta-data']['seo-title'];
 			}
 		}
 	}
@@ -34,10 +34,10 @@ exports.getPageTitle = function(content, site) {
 exports.getMetaDescription = function(content, site) {
 	var metaDescription = '';
 
-	if (content.x[moduleNamePropertyName]) {
-		if (content.x[moduleNamePropertyName]['meta-data']) {
-			if (content.x[moduleNamePropertyName]['meta-data']['seo-preface']) {
-				metaDescription = content.x[moduleNamePropertyName]['meta-data']['seo-preface'];
+	if (content.x[appNamePropertyName]) {
+		if (content.x[appNamePropertyName]['meta-data']) {
+			if (content.x[appNamePropertyName]['meta-data']['seo-preface']) {
+				metaDescription = content.x[appNamePropertyName]['meta-data']['seo-preface'];
 			}
 		}
 	}
