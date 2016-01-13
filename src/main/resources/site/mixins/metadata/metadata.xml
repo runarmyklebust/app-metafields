@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mixin>
+	<display-name>SEO Metadata</display-name>
+	<items>
+		<input name="seo-title" type="TextLine">
+			<label>Override "Title"</label>
+			<occurrences minimum="0" maximum="1"/>
+			<help-text>As a default the text in the "Title"-field will be used.</help-text>
+		</input>
+		<input name="seo-preface" type="TextArea">
+			<label>Override "Description"</label>
+			<occurrences minimum="0" maximum="1"/>
+			<help-text>As a default the text in the "Preface"-field will be used.</help-text>
+		</input>
+	</items>
+</mixin>
