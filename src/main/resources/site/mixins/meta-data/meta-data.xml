@@ -7,7 +7,7 @@
 			<occurrences minimum="0" maximum="1"/>
 			<help-text>As a default the text in the "Title"-field will be used.</help-text>
 		</input>
-		<input name="seo-preface" type="TextArea">
+		<input name="seo-description" type="TextArea">
 			<label>Override "Description"</label>
 			<occurrences minimum="0" maximum="1"/>
 			<help-text>As a default the text in the "Preface"-field will be used.</help-text>
