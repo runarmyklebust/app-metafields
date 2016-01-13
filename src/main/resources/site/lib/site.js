@@ -1,12 +1,23 @@
-var portal = require('/lib/xp/portal');
-var content = require('/lib/xp/content');
+var libs = {
+    portal: require('/lib/xp/portal'),
+    content: require('/lib/xp/content'),
+    thymeleaf: require('/lib/xp/thymeleaf'),
+    util: require('/lib/enonic/util/util')
+};
 
 // "Globals":
 var appNamePropertyName = app.name.replace(/\./g,'-');
 
 
+//var site = libs.portal.getSite();
+//var siteConfig = libs.portal.getSiteConfig();
+
 exports.getPageTitle = function(content, site) {
 	var metaTitle = '';
+	var siteConfig = libs.portal.getSiteConfig();
+
+	log.info("Test:");
+	log.info(site._path);
 
 	if (content.x[appNamePropertyName]) {
 		if (content.x[appNamePropertyName]['meta-data']) {
@@ -21,6 +32,11 @@ exports.getPageTitle = function(content, site) {
 		metaTitle = content['displayName'];
 	}
 
+	// None of that either? Use the Apps defined default title.
+	if ( metaTitle.trim() === '') {
+		metaTitle = siteConfig["og-title"];
+	}
+
 	// None of that either? Use the Site's title instead. Used when not viewing a Content.
 	if ( metaTitle.trim() === '') {
 		metaTitle = site.data.title;
@@ -33,6 +49,7 @@ exports.getPageTitle = function(content, site) {
 
 exports.getMetaDescription = function(content, site) {
 	var metaDescription = '';
+	var siteConfig = libs.portal.getSiteConfig();
 
 	if (content.x[appNamePropertyName]) {
 		if (content.x[appNamePropertyName]['meta-data']) {
@@ -46,6 +63,11 @@ exports.getMetaDescription = function(content, site) {
 		if (content.data.preface) {
 			metaDescription = content.data.preface;
 		}
+	}
+
+	// None of that either? Use the Apps defined default title.
+	if ( metaDescription.trim() === '') {
+		metaDescription = siteConfig["og-description"];
 	}
 
 	if ( metaDescription.trim() === '') {
@@ -72,10 +94,10 @@ exports.getOpenGraphImage = function(content, default_img) {
 		}
 
 		if (og_images) {
-			og_images_arr = UTIL.data.forceArray( og_images );
+			og_images_arr = libs.util.data.forceArray( og_images );
 
 			if ( og_images_arr.length > 0 ) {
-				image_url = portal.imageUrl({
+				image_url = libs.portal.imageUrl({
 					id: og_images_arr[0],
 					scale: og_scale,
 					quality: 75,
@@ -89,7 +111,7 @@ exports.getOpenGraphImage = function(content, default_img) {
 	// No image found, fallback to the default one that's been uploaded in Admin.
 	if ( image_url === '' ) {
 		if ( default_img ) {
-			image_url = portal.imageUrl({
+			image_url = libs.portal.imageUrl({
 				id: default_img,
 				scale: og_scale,
 				quality: 75,
