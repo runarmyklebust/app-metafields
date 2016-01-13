@@ -19,6 +19,7 @@ exports.getPageTitle = function(content, site) {
 
     var metaTitle = setInMixin ? content.x[appNamePropertyName]['meta-data']['seo-title'] // Get from mixin
             :  content.displayName // Use content's display name
+            || content.data.title || content.data.heading || content.data.header // Use other typical content titles (overrides displayName)
             || siteConfig["seo-title"] // Use default og-title for site
             || site.displayName; // Use site default
 
