@@ -1,7 +1,8 @@
 var libs = {
     portal: require('/lib/xp/portal'),
     content: require('/lib/xp/content'),
-    thymeleaf: require('/lib/xp/thymeleaf')
+    thymeleaf: require('/lib/xp/thymeleaf'),
+    site: require('/lib/site')
 };
 
 var view = resolve('add-metadata.html');
