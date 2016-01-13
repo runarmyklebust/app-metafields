@@ -1,19 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
 	<config>
-		<field-set name="settings">
-			<label>Open Graph default settings</label>
+		<field-set name="defaults">
+			<label>Default settings</label>
 			<items>
 				<input name="seo-image" type="ImageSelector">
-					<label>Image</label>
+					<label>Open Graph Image</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
 				<input name="seo-title" type="TextLine">
-					<label>Title</label>
+					<label>SEO Title</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
 				<input name="seo-description" type="TextArea">
-					<label>Description</label>
+					<label>SEO Description</label>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+			</items>
+		</field-set>
+		<field-set name="titles">
+			<label>Title config</label>
+			<items>
+				<input name="title-behaviour" type="CheckBox">
+					<label>Append site title with site name?</label>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+				<input name="title-separator" type="TextLine">
+					<label>Separator ('content - site')</label>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+				<input name="title-frontpage-behaviour" type="CheckBox">
+					<label>Remove site name on frontpage?</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
 			</items>
