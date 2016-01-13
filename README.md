@@ -4,8 +4,8 @@ An app to give your Site support for Open Graph meta data, automatically extract
 
 ## TODO
 
-* Actually use the data from site.xml (defaults)
-* Let user control how page title is built up
-** Always append site name?
-** Title page and site name separator?
-** Remove sitename append on frontpage?
+- [ ] Actually use the data from site.xml (defaults)
+- [ ] Let user control how page title is built up
+  - [ ] Always append site name?
+  - [ ] Title page and site name separator?
+  - [ ] Remove sitename append on frontpage?
