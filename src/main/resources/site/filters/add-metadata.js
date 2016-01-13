@@ -14,12 +14,8 @@ exports.responseFilter = function (req, res) {
     var content = libs.portal.getContent();
     var siteConfig = libs.portal.getSiteConfig();
 
-    var trackingScript = '<!-- I was here - again =) -->';
-
 	var params = {};
 	var og = {};
-
-	og.description = "I was here too";
 
     var pageTitle = libs.site.getPageTitle(content, site);
     var metaDescription = libs.site.getMetaDescription(content, site);
@@ -72,11 +68,10 @@ exports.responseFilter = function (req, res) {
     if (!res.pageContributions.headEnd) {
         res.pageContributions.headEnd = [];
     }
-    res.pageContributions.headEnd.push(trackingScript);
     res.pageContributions.headEnd.push(metadata);
 
     if (req.params.debug === 'true') {
-        res.applyFilters = false; // skip other filters
+        res.applyFilters = false; // Skip other filters
     }
 
     return res;
