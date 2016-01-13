@@ -12,6 +12,7 @@ An app to give your Site support for Open Graph meta data, automatically extract
 - [ ] Support mixin as x-data and inline (waterfall through)
 - [ ] Support more names for all fields ("image", "images", "photo", etc), create waterfall logic
 - [ ] If siteConfig (app config) not set, also fallback to parent site data
+- [ ] Ability to choose og-image format (small/portrait, wide) for site
 
 ## Big TODO:s
 

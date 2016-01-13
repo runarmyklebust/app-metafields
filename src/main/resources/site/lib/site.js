@@ -9,9 +9,6 @@ var libs = {
 var appNamePropertyName = app.name.replace(/\./g,'-');
 
 
-//var site = libs.portal.getSite();
-//var siteConfig = libs.portal.getSiteConfig();
-
 exports.getPageTitle = function(content, site) {
 	var metaTitle = '';
 	var siteConfig = libs.portal.getSiteConfig();
