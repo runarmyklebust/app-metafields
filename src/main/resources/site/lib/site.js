@@ -9,9 +9,9 @@ exports.getPageTitle = function(content, site) {
 	var metaTitle = '';
 
 	if (content.x[moduleNamePropertyName]) {
-		if (content.x[moduleNamePropertyName]['metadata']) {
-			if (content.x[moduleNamePropertyName]['metadata']['seo-title']) {
-				metaTitle = content.x[moduleNamePropertyName]['metadata']['seo-title'];
+		if (content.x[moduleNamePropertyName]['meta-data']) {
+			if (content.x[moduleNamePropertyName]['meta-data']['seo-title']) {
+				metaTitle = content.x[moduleNamePropertyName]['meta-data']['seo-title'];
 			}
 		}
 	}
@@ -35,9 +35,9 @@ exports.getMetaDescription = function(content, site) {
 	var metaDescription = '';
 
 	if (content.x[moduleNamePropertyName]) {
-		if (content.x[moduleNamePropertyName]['metadata']) {
-			if (content.x[moduleNamePropertyName]['metadata']['seo-preface']) {
-				metaDescription = content.x[moduleNamePropertyName]['metadata']['seo-preface'];
+		if (content.x[moduleNamePropertyName]['meta-data']) {
+			if (content.x[moduleNamePropertyName]['meta-data']['seo-preface']) {
+				metaDescription = content.x[moduleNamePropertyName]['meta-data']['seo-preface'];
 			}
 		}
 	}
