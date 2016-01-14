@@ -30,5 +30,6 @@ An app to give your Site support for Open Graph meta data, automatically extract
 
 ## Big TODO:s
 
-- [ ] Remove the mixin and "force" it to be added by all sites?
-- [ ] Or ... expand this App to also do SEO-stuff (then mixin is useful for both)
+- [ ] Expand this App to also do SEO-stuff (then mixin is useful for both)
+  - [x] Control meta description
+  - [ ] Control title (detect if already present - then replace)
