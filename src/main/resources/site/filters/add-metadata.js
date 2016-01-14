@@ -13,7 +13,7 @@ var localeMap = {
     sv: 'sv_SE',
     pl: 'pl_PL',
     no: 'nb_NO',
-    en: 'en_GB'
+    en: 'en_US' // en_GB use before
 };
 
 exports.responseFilter = function (req, res) {
