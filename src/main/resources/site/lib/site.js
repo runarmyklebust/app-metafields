@@ -23,14 +23,6 @@ exports.getPageTitle = function(content, site, frontpage) {
             || siteConfig["seo-title"] // Use default og-title for site
             || site.displayName; // Use site default
 
-    // Concat site title?
-    if (siteConfig['title-behaviour']) {
-        var concatenator = siteConfig['title-separator'] || '-';
-        if ((frontpage && !siteConfig['title-frontpage-behaviour']) || !frontpage) {
-            metaTitle += ' ' + concatenator + ' ' + site.displayName; // Content Title + Site Title
-        }
-    }
-
 	return metaTitle;
 };
 

@@ -24,9 +24,20 @@ exports.responseFilter = function(req, res) {
 
     var lang = content.language || site.language || 'en';
     var frontpage = site._path === content._path;
+    var pageTitle = libs.site.getPageTitle(content, site, frontpage);
+
+    // Concat site title?
+    var titleAppendix = "";
+    if (siteConfig['title-behaviour']) {
+        var concatenator = siteConfig['title-separator'] || '-';
+        if ((frontpage && !siteConfig['title-frontpage-behaviour']) || !frontpage) {
+            pageTitle += ' ' + concatenator + ' ' + site.displayName; // Content Title + Site Title
+        }
+    }
 
     var params = {
-        title: libs.site.getPageTitle(content, site, frontpage),
+        pageTitle: pageTitle + titleAppendix,
+        title: pageTitle,
         description: libs.site.getMetaDescription(content, site),
         siteName: site.displayName,
         locale: localeMap[lang] || localeMap.en,
