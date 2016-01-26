@@ -13,10 +13,10 @@ var localeMap = {
     sv: 'sv_SE',
     pl: 'pl_PL',
     no: 'nb_NO',
-    en: 'en_US' // en_GB use before
+    en: 'en_US' // 'en_GB' used before
 };
 
-exports.responseFilter = function (req, res) {
+exports.responseFilter = function(req, res) {
     var site = libs.portal.getSite();
     var content = libs.portal.getContent();
     var siteConfig = libs.portal.getSiteConfig();
@@ -31,7 +31,7 @@ exports.responseFilter = function (req, res) {
         type: site._path === content._path ? 'website' : 'article',
         url: libs.portal.pageUrl({ path: content._path, type: "absolute" }),
         image: libs.site.getOpenGraphImage(content, siteConfig['og-default']),
-        imageWidth: 1200,
+        imageWidth: 1200, // Twice of 600x315, for retina
         imageHeight: 630
     };
 
