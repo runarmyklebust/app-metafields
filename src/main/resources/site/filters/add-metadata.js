@@ -30,8 +30,8 @@ exports.responseFilter = function(req, res) {
     var titleAppendix = "";
     if (siteConfig['title-behaviour']) {
         var concatenator = siteConfig['title-separator'] || '-';
-        if ((frontpage && !siteConfig['title-frontpage-behaviour']) || !frontpage) {
-            pageTitle += ' ' + concatenator + ' ' + site.displayName; // Content Title + Site Title
+        if (!frontpage || !siteConfig['title-frontpage-behaviour']) {
+            titleAppendix = ' ' + concatenator + ' ' + site.displayName; // Content Title + Site Title
         }
     }
 
