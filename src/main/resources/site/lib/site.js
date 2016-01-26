@@ -24,7 +24,9 @@ exports.getPageTitle = function(content, site) {
             || site.displayName; // Use site default
 
     if(metaTitle != site.displayName) {
-       metaTitle += ' - ' + site.displayName; // Content Title + Site Title
+        var concatenator = siteConfig['title-separator'] || '-';
+        concatenator = ' ' + concatenator + ' ';
+        metaTitle += concatenator + site.displayName; // Content Title + Site Title
     }
 
 	return metaTitle;

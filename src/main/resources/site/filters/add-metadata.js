@@ -2,6 +2,7 @@ var libs = {
     portal: require('/lib/xp/portal'),
     content: require('/lib/xp/content'),
     thymeleaf: require('/lib/xp/thymeleaf'),
+    util: require('/lib/enonic/util/util'),
     site: require('/lib/site')
 };
 
@@ -45,6 +46,9 @@ exports.responseFilter = function(req, res) {
     if (req.params.debug === 'true') {
         res.applyFilters = false; // Skip other filters
     }
+
+//    libs.util.log(req);
+//    libs.util.log(res);
 
     return res;
 };
