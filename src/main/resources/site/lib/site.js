@@ -48,7 +48,7 @@ exports.getOpenGraphImage = function(content, defaultImg) {
     // Set basic image options
     var imageOpts = {
         scale: 'block(1200,630)',
-        quality: 75,
+        quality: 85,
         format: 'jpg',
         type: 'absolute'
     };
