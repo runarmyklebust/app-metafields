@@ -27,7 +27,7 @@ exports.getPageTitle = function(content, site, frontpage) {
     if (siteConfig['title-behaviour']) {
         var concatenator = siteConfig['title-separator'] || '-';
         concatenator = ' ' + concatenator + ' ';
-        if ((frontpage && siteConfig['title-frontpage-behaviour']) || !frontpage) {
+        if ((frontpage && !siteConfig['title-frontpage-behaviour']) || !frontpage) {
             metaTitle += concatenator + site.displayName; // Content Title + Site Title
         }
     }
