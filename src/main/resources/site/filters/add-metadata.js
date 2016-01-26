@@ -23,9 +23,10 @@ exports.responseFilter = function(req, res) {
     var siteConfig = libs.portal.getSiteConfig();
 
     var lang = content.language || site.language || 'en';
+    var frontpage = site._path === content._path;
 
     var params = {
-        title: libs.site.getPageTitle(content, site),
+        title: libs.site.getPageTitle(content, site, frontpage),
         description: libs.site.getMetaDescription(content, site),
         siteName: site.displayName,
         locale: localeMap[lang] || localeMap.en,

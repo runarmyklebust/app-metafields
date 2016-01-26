@@ -10,7 +10,7 @@ function getConfig() {
     return libs.portal.getSiteConfig();
 }
 
-exports.getPageTitle = function(content, site) {
+exports.getPageTitle = function(content, site, frontpage) {
 	var siteConfig = getConfig();
 
     var setInMixin = content.x[appNamePropertyName]
@@ -23,10 +23,13 @@ exports.getPageTitle = function(content, site) {
             || siteConfig["seo-title"] // Use default og-title for site
             || site.displayName; // Use site default
 
-    if(metaTitle != site.displayName) {
+    // Concat site title?
+    if (siteConfig['title-behaviour']) {
         var concatenator = siteConfig['title-separator'] || '-';
         concatenator = ' ' + concatenator + ' ';
-        metaTitle += concatenator + site.displayName; // Content Title + Site Title
+        if ((frontpage && siteConfig['title-frontpage-behaviour']) || !frontpage) {
+            metaTitle += concatenator + site.displayName; // Content Title + Site Title
+        }
     }
 
 	return metaTitle;
