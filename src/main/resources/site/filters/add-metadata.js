@@ -48,8 +48,5 @@ exports.responseFilter = function(req, res) {
         res.applyFilters = false; // Skip other filters
     }
 
-//    libs.util.log(req);
-//    libs.util.log(res);
-
     return res;
 };
