@@ -22,7 +22,7 @@ back to those fields.
 - As a last resort, we default to the site's name and description fields.
 
 ### For images
-- If a content has a `image` or `images` ContentSelector, we use that
+- If a content has an `image` or `images` ContentSelector, we use that
 - If not, but the Opengraph app has been set up with a default image for the
 site in question, we fall back to that image (your logo for example).
 - If neither is set, we don't show an image (the tags are not added).
