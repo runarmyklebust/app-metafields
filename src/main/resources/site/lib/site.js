@@ -10,7 +10,7 @@ function getConfig() {
     return libs.portal.getSiteConfig();
 }
 
-exports.getPageTitle = function(content, site, frontpage) {
+exports.getPageTitle = function(content, site) {
 	var siteConfig = getConfig();
 
     var setInMixin = content.x[appNamePropertyName]

@@ -24,7 +24,7 @@ exports.responseFilter = function(req, res) {
 
     var lang = content.language || site.language || 'en';
     var frontpage = site._path === content._path;
-    var pageTitle = libs.site.getPageTitle(content, site, frontpage);
+    var pageTitle = libs.site.getPageTitle(content, site);
 
     // Concat site title?
     var titleAppendix = "";
