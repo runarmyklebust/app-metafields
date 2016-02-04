@@ -38,15 +38,15 @@
 		<field-set name="json">
 			<label>Additional JSON paths for</label>
 			<items>
-				<input name="paths-images" type="TextLine">
+				<input name="pathsImages" type="TextLine">
 					<label>Images (comma-separated)</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
-				<input name="paths-titles" type="TextLine">
+				<input name="pathsTitles" type="TextLine">
 					<label>Titles (comma-separated)</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
-				<input name="paths-descriptions" type="TextLine">
+				<input name="pathsDescriptions" type="TextLine">
 					<label>Descriptions (comma-separated)</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
