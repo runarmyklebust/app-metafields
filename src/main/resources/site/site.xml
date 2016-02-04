@@ -35,6 +35,23 @@
 				</input>
 			</items>
 		</field-set>
+		<field-set name="json">
+			<label>Additional JSON paths for</label>
+			<items>
+				<input name="paths-images" type="TextLine">
+					<label>Images (comma-separated)</label>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+				<input name="paths-titles" type="TextLine">
+					<label>Titles (comma-separated)</label>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+				<input name="paths-descriptions" type="TextLine">
+					<label>Descriptions (comma-separated)</label>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+			</items>
+		</field-set>
 	</config>
 	<x-data mixin="meta-data" /><!-- This actually adds this mixin to all CTY on current site ^^ -->
 	<filters>
