@@ -15,13 +15,13 @@ function commaStringToArray(string) {
 	arr = string.split(',');
 	return arr;
 }
-function findValueInJson(paths) {
+function findValueInJson(json,paths) {
 	var value = null;
 	var pathLength = paths.length;
 	var jsonPath = ";"
 	for (var i = 0; i < pathLength; i++) {
 		if ( paths[i] ) {
-			jsonPath = 'content.data.' + paths[i];
+			jsonPath = 'json.data.' + paths[i];
 			if ( eval(jsonPath) ) {
 				value = eval(jsonPath);
 				break; // Expect the first property in the string is the most important one to use
@@ -43,23 +43,10 @@ exports.getPageTitle = function(content, site) {
 	var userDefinedArray = commaStringToArray(userDefinedPaths);
 //	userDefinedArray.push('title');
 
-	var userDefinedValue = findValueInJson(userDefinedArray);
-/*
-	var userDefinedValue = null;
-	var userDefinitionsLength = userDefinedArray.length;
-	var jsonPath = ";"
-	for (var i = 0; i < userDefinitionsLength; i++) {
-		if ( userDefinedArray[i] ) {
-			jsonPath = 'content.data.' + userDefinedArray[i];
-			if ( eval(jsonPath) ) {
-				userDefinedValue = eval(jsonPath);
-				break; // Expect the first property in the string is the most important one to use
-			}
-		}
-	}
-*/
-	libs.util.log(userDefinedArray);
-	log.info(userDefinedValue);
+	var userDefinedValue = findValueInJson(content,userDefinedArray);
+
+//	libs.util.log(userDefinedArray);
+//	log.info(userDefinedValue);
 
 	var metaTitle = setInMixin ? content.x[appNamePropertyName]['meta-data']['seo-title'] // Get from mixin
 			:  content.displayName // Use content's display name
@@ -75,12 +62,15 @@ exports.getMetaDescription = function(content, site) {
 	var siteConfig = getConfig();
 
 	var userDefinedPaths = siteConfig.pathsDescriptions;
+	var userDefinedArray = commaStringToArray(userDefinedPaths);
+	var userDefinedValue = findValueInJson(content,userDefinedArray);
 
 	var setWithMixin = content.x[appNamePropertyName]
 			&& content.x[appNamePropertyName]['meta-data']
 			&& content.x[appNamePropertyName]['meta-data']['seo-description'];
 	var metaDescription = setWithMixin ? content.x[appNamePropertyName]['meta-data']['seo-description'] // Get from mixin
-					:  content.data.preface || content.data.description || content.data.summary // Use typical content summary names
+					: userDefinedValue
+					|| content.data.preface || content.data.description || content.data.summary // Use typical content summary names
 					|| siteConfig["seo-description"] // Use default for site
 					|| site.description; // Use bottom default
 
@@ -91,6 +81,8 @@ exports.getOpenGraphImage = function(content, defaultImg) {
 	var siteConfig = getConfig();
 
 	var userDefinedPaths = siteConfig.pathsImages;
+	var userDefinedArray = commaStringToArray(userDefinedPaths);
+	var userDefinedValue = findValueInJson(content,userDefinedArray);
 
 	// Set basic image options
 	var imageOpts = {
@@ -102,7 +94,7 @@ exports.getOpenGraphImage = function(content, defaultImg) {
 
 
 	// Try to find an image in the content's image or images properties
-	var imageArray = libs.util.data.forceArray(content.data.image || content.data.images || []);
+	var imageArray = libs.util.data.forceArray( userDefinedValue || content.data.image || content.data.images || []);
 
 	// Set the ID to either the first image in the set or the default image ID
 	imageOpts.id = imageArray.length ? imageArray[0] : defaultImg;
