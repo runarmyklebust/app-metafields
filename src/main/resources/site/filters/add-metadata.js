@@ -59,6 +59,7 @@ exports.responseFilter = function(req, res) {
     // Do we find a title here? Use that instead of adding our own title
     var titleStart = res.indexOf('<title>');
     log.info(titleStart);
+    libs.util.log('{yolo:' + titleStart + '}');
     if ( titleStart > -1 ) {
         //var titleEnd = res.indexOf('</title>');
         res = res.replace(/<title>(.*)<\/title>/i, pageTitle + titleAppendix);
