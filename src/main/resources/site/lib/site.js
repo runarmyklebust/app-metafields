@@ -9,6 +9,12 @@ var appNamePropertyName = app.name.replace(/\./g,'-');
 function getConfig() {
 	return libs.portal.getSiteConfig();
 }
+function commaStringToArray(string) {
+	var arr = [];
+	string = string.replace(/ /g,''); // Remove all spaces in the string
+	arr = string.split(',');
+	return arr;
+}
 
 exports.getPageTitle = function(content, site) {
 	var siteConfig = getConfig();
@@ -20,6 +26,10 @@ exports.getPageTitle = function(content, site) {
 	var userDefinedPaths = siteConfig.pathsTitles;
 	// TODO: If any string here (after trim) split it on comma (,) and loop this as different paths
 	// Should be its own variable ...
+	var userDefinedArray = commaStringToArray(userDefinedPaths);
+	userDefinedArray.push('title');
+
+	libs.util.log(userDefinedArray);
 
 	var metaTitle = setInMixin ? content.x[appNamePropertyName]['meta-data']['seo-title'] // Get from mixin
 			:  content.displayName // Use content's display name
