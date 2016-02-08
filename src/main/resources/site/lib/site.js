@@ -15,6 +15,21 @@ function commaStringToArray(string) {
 	arr = string.split(',');
 	return arr;
 }
+function findValueInJson(paths) {
+	var value = null;
+	var pathLength = paths.length;
+	var jsonPath = ";"
+	for (var i = 0; i < pathLength; i++) {
+		if ( paths[i] ) {
+			jsonPath = 'content.data.' + paths[i];
+			if ( eval(jsonPath) ) {
+				value = eval(jsonPath);
+				break; // Expect the first property in the string is the most important one to use
+			}
+		}
+	}
+	return value;
+}
 
 exports.getPageTitle = function(content, site) {
 	var siteConfig = getConfig();
@@ -24,15 +39,31 @@ exports.getPageTitle = function(content, site) {
 		&& content.x[appNamePropertyName]['meta-data']['seo-title'];
 
 	var userDefinedPaths = siteConfig.pathsTitles;
-	// TODO: If any string here (after trim) split it on comma (,) and loop this as different paths
-	// Should be its own variable ...
+	// If any string here (after trim) split it on comma (,) and loop this as different paths
 	var userDefinedArray = commaStringToArray(userDefinedPaths);
-	userDefinedArray.push('title');
+//	userDefinedArray.push('title');
 
+	var userDefinedValue = findValueInJson(userDefinedArray);
+/*
+	var userDefinedValue = null;
+	var userDefinitionsLength = userDefinedArray.length;
+	var jsonPath = ";"
+	for (var i = 0; i < userDefinitionsLength; i++) {
+		if ( userDefinedArray[i] ) {
+			jsonPath = 'content.data.' + userDefinedArray[i];
+			if ( eval(jsonPath) ) {
+				userDefinedValue = eval(jsonPath);
+				break; // Expect the first property in the string is the most important one to use
+			}
+		}
+	}
+*/
 	libs.util.log(userDefinedArray);
+	log.info(userDefinedValue);
 
 	var metaTitle = setInMixin ? content.x[appNamePropertyName]['meta-data']['seo-title'] // Get from mixin
 			:  content.displayName // Use content's display name
+			|| userDefinedValue // json property defined by user as important
 			|| content.data.title || content.data.heading || content.data.header // Use other typical content titles (overrides displayName)
 			|| siteConfig["seo-title"] // Use default og-title for site
 			|| site.displayName; // Use site default
