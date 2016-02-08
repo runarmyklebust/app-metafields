@@ -86,7 +86,7 @@ exports.getOpenGraphImage = function(content, defaultImg) {
 
 	// Set basic image options
 	var imageOpts = {
-		scale: 'block(1200,630)',
+		scale: 'block(1200,630)', // Open Graph requires 600x315 for landscape format. Double that for retina display.
 		quality: 85,
 		format: 'jpg',
 		type: 'absolute'
