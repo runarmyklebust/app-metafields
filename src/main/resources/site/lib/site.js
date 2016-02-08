@@ -21,7 +21,7 @@ function findValueInJson(json,paths) {
 	var jsonPath = ";"
 	for (var i = 0; i < pathLength; i++) {
 		if ( paths[i] ) {
-			jsonPath = 'json.data.' + paths[i];
+			jsonPath = 'json.data["' + paths[i] + '"]'; // Wrap property so we can have dashes in it
 			if ( eval(jsonPath) ) {
 				value = eval(jsonPath);
 				break; // Expect the first property in the string is the most important one to use
@@ -64,6 +64,9 @@ exports.getMetaDescription = function(content, site) {
 	var userDefinedPaths = siteConfig.pathsDescriptions;
 	var userDefinedArray = commaStringToArray(userDefinedPaths);
 	var userDefinedValue = findValueInJson(content,userDefinedArray);
+
+//	libs.util.log(userDefinedArray);
+//	log.info(userDefinedValue);
 
 	var setWithMixin = content.x[appNamePropertyName]
 			&& content.x[appNamePropertyName]['meta-data']
