@@ -36,7 +36,6 @@ exports.responseFilter = function(req, res) {
     }
 
     var params = {
-//        pageTitle: pageTitle + titleAppendix,
         title: pageTitle,
         description: libs.site.getMetaDescription(content, site),
         siteName: site.displayName,
@@ -56,21 +55,15 @@ exports.responseFilter = function(req, res) {
 
     res.pageContributions.headEnd.push(metadata);
 
-//    libs.util.log(res);
-//    libs.util.log(req);
-
     if ( res.body ) {
-        // Do we find a title here? Use that instead of adding our own title
+        // Can we find a title in the html? Use that instead of adding our own title
         var titleStart = res.body.indexOf('<title>');
-        //log.info(titleStart);
-//        libs.util.log('{yolo:' + titleStart + '}');
         if ( titleStart > -1 ) {
-            //var titleEnd = res.indexOf('</title>');
-            res.body = res.body.replace(/(<title>)(.*?)(<\/title>)/i, '<title data-recycled="true">' + pageTitle + titleAppendix + '</title>');
+            res.body = res.body.replace(/(<title>)(.*?)(<\/title>)/i, '<title>' + pageTitle + titleAppendix + '</title>');
             log.info("Title found, just inserted new title");
         } else {
             // Add title tag, it's not there
-            res.pageContributions.headEnd.push("<title data-manmade='true'>" + pageTitle + titleAppendix + "</title>");
+            res.pageContributions.headEnd.push('<title>' + pageTitle + titleAppendix + '</title>');
             log.info("Title not found, appending new title tag with data");
         }
     }
