@@ -36,7 +36,7 @@ exports.responseFilter = function(req, res) {
     }
 
     var params = {
-        pageTitle: pageTitle + titleAppendix,
+//        pageTitle: pageTitle + titleAppendix,
         title: pageTitle,
         description: libs.site.getMetaDescription(content, site),
         siteName: site.displayName,
@@ -53,7 +53,21 @@ exports.responseFilter = function(req, res) {
     if (!res.pageContributions.headEnd) {
         res.pageContributions.headEnd = [];
     }
+
     res.pageContributions.headEnd.push(metadata);
+
+    // Do we find a title here? Use that instead of adding our own title
+    var titleStart = res.indexOf('<title>');
+    log.info(titleStart);
+    if ( titleStart > -1 ) {
+        //var titleEnd = res.indexOf('</title>');
+        res = res.replace(/<title>(.*)<\/title>/i, pageTitle + titleAppendix);
+        log.info("Title found, just inserted new title");
+    } else {
+        // Add title tag, it's not there
+        res.pageContributions.headEnd.push("<title data-manmade='true'>" + pageTitle + titleAppendix + "</title>");
+        log.info("Title not found, appending new title tag with data");
+    }
 
     if (req.params.debug === 'true') {
         res.applyFilters = false; // Skip other filters
