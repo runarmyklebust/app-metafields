@@ -56,18 +56,23 @@ exports.responseFilter = function(req, res) {
 
     res.pageContributions.headEnd.push(metadata);
 
-    // Do we find a title here? Use that instead of adding our own title
-    var titleStart = res.indexOf('<title>');
-    log.info(titleStart);
-    libs.util.log('{yolo:' + titleStart + '}');
-    if ( titleStart > -1 ) {
-        //var titleEnd = res.indexOf('</title>');
-        res = res.replace(/<title>(.*)<\/title>/i, pageTitle + titleAppendix);
-        log.info("Title found, just inserted new title");
-    } else {
-        // Add title tag, it's not there
-        res.pageContributions.headEnd.push("<title data-manmade='true'>" + pageTitle + titleAppendix + "</title>");
-        log.info("Title not found, appending new title tag with data");
+    libs.util.log(res);
+    libs.util.log(req);
+
+    if ( res.body ) {
+        // Do we find a title here? Use that instead of adding our own title
+        var titleStart = res.body.indexOf('<title>');
+        //log.info(titleStart);
+//        libs.util.log('{yolo:' + titleStart + '}');
+        if ( titleStart > -1 ) {
+            //var titleEnd = res.indexOf('</title>');
+            res.body = res.body.replace(/<title>(.*)<\/title>/i, pageTitle + titleAppendix);
+            log.info("Title found, just inserted new title");
+        } else {
+            // Add title tag, it's not there
+            res.pageContributions.headEnd.push("<title data-manmade='true'>" + pageTitle + titleAppendix + "</title>");
+            log.info("Title not found, appending new title tag with data");
+        }
     }
 
     if (req.params.debug === 'true') {
