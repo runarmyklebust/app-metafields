@@ -56,8 +56,8 @@ exports.responseFilter = function(req, res) {
 
     res.pageContributions.headEnd.push(metadata);
 
-    libs.util.log(res);
-    libs.util.log(req);
+//    libs.util.log(res);
+//    libs.util.log(req);
 
     if ( res.body ) {
         // Do we find a title here? Use that instead of adding our own title
@@ -66,7 +66,7 @@ exports.responseFilter = function(req, res) {
 //        libs.util.log('{yolo:' + titleStart + '}');
         if ( titleStart > -1 ) {
             //var titleEnd = res.indexOf('</title>');
-            res.body = res.body.replace(/<title>(.*)<\/title>/i, pageTitle + titleAppendix);
+            res.body = res.body.replace(/(<title>)(.*?)(<\/title>)/i, '<title data-recycled="true">' + pageTitle + titleAppendix + '</title>');
             log.info("Title found, just inserted new title");
         } else {
             // Add title tag, it's not there
