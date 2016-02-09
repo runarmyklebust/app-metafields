@@ -38,12 +38,10 @@ exports.getPageTitle = function(content, site) {
 		&& content.x[appNamePropertyName]['meta-data']
 		&& content.x[appNamePropertyName]['meta-data']['seo-title'];
 
-	var userDefinedPaths = siteConfig.pathsTitles;
-	// If any string here (after trim) split it on comma (,) and loop this as different paths
-	var userDefinedArray = commaStringToArray(userDefinedPaths);
+	var userDefinedPaths = siteConfig.pathsTitles || '';
+	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
 //	userDefinedArray.push('title');
-
-	var userDefinedValue = findValueInJson(content,userDefinedArray);
+	var userDefinedValue = userDefinedPaths ? findValueInJson(content,userDefinedArray) : null;
 
 //	libs.util.log(userDefinedArray);
 //	log.info(userDefinedValue);
@@ -61,9 +59,9 @@ exports.getPageTitle = function(content, site) {
 exports.getMetaDescription = function(content, site) {
 	var siteConfig = getConfig();
 
-	var userDefinedPaths = siteConfig.pathsDescriptions;
-	var userDefinedArray = commaStringToArray(userDefinedPaths);
-	var userDefinedValue = findValueInJson(content,userDefinedArray);
+	var userDefinedPaths = siteConfig.pathsDescription || '';
+	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
+	var userDefinedValue = userDefinedPaths ? findValueInJson(content,userDefinedArray) : null;
 
 //	libs.util.log(userDefinedArray);
 //	log.info(userDefinedValue);
@@ -83,9 +81,9 @@ exports.getMetaDescription = function(content, site) {
 exports.getOpenGraphImage = function(content, defaultImg) {
 	var siteConfig = getConfig();
 
-	var userDefinedPaths = siteConfig.pathsImages;
-	var userDefinedArray = commaStringToArray(userDefinedPaths);
-	var userDefinedValue = findValueInJson(content,userDefinedArray);
+	var userDefinedPaths = siteConfig.pathsImages || '';
+	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
+	var userDefinedValue = userDefinedPaths ? findValueInJson(content,userDefinedArray) : null;
 
 	// Set basic image options
 	var imageOpts = {
