@@ -72,7 +72,7 @@ exports.getMetaDescription = function(content, site) {
 	var metaDescription = setWithMixin ? content.x[appNamePropertyName]['meta-data'].seoDescription // Get from mixin
 					: userDefinedValue
 					|| content.data.preface || content.data.description || content.data.summary // Use typical content summary names
-					|| siteConfig["seoDescription"] // Use default for site
+					|| siteConfig.seoDescription // Use default for site
 					|| site.description; // Use bottom default
 
 	return metaDescription;
