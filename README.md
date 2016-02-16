@@ -86,12 +86,8 @@ It's important to understand the waterfall logic we use when evaluating which da
 * App is launched
 * Renamed to SEO Meta Fields
 * Multiple changes and improvements
+* **NOT** compatible with the older versions
 
 ### Version 0.5.0
 
 * First Beta-launch (as "Open Graph app")
-
-## Notes
-
-* The Disqus comments will not be visible in the admin console or in preview mode.
-* Single Sign On (SSO) is not yet supported but may be added in a future version.
