@@ -20,6 +20,8 @@ If you are upgrading to a newer version of this app, make sure to remove the old
 
 After adding this app you should see `SEO Metadata` fields on both your site and on all of your contents. With these fields you can on each content set a custom title and description to be used on your site for SEO purposes.
 
+**NB!** You do not need to change anything in your sites code for this app to work. It will however add meta description and open graph meta fields even if you already added this in your code, so please remove those fields first! The logic behind adding a SEO friendly title is smarter and it will never insert duplicate `<title>` tags.
+
 This app also introduces a few settings. They're controlled on the app itself on your site. These settings are used on the entire site, and/or as default fallback settings.
 
 1. Default settings
