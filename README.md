@@ -22,7 +22,7 @@ After adding this app you should see `SEO Metadata` fields on both your site and
 
 **NB!** You do not need to change anything in your sites code for this app to work. It will however add meta description and open graph meta fields even if you already added this in your code, so please remove those fields first! The logic behind adding a SEO friendly title is smarter and it will never insert duplicate `<title>` tags.
 
-This app also introduces a few settings. They're controlled on the app itself on your site. These settings are used on the entire site, and/or as default fallback settings.
+This app introduces a few settings. They're controlled on the app itself on your site and are used on the entire site, and/or as default fallback settings.
 
 1. Default settings
 2. Title behaviour
