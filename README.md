@@ -4,9 +4,9 @@ This Enonic XP application adds [Open Graph](http://ogp.me/) meta-tags to your [
 
 This app will add this to your site:
 
-1. Open Graph meta data
-2. Update (or insert) SEO friendly titles
-3. SEO meta description
+1. SEO friendly titles
+2. SEO meta description
+3. Open Graph meta data
 
 ## Building and deploying
 
@@ -18,7 +18,9 @@ If you are upgrading to a newer version of this app, make sure to remove the old
 
 ## How to use this app
 
-This app introduces a few settings for you. The settings are controlled on the app itself on your site. These settings are used on the entire site, and/or as default fallback settings.
+After adding this app you should see `SEO Metadata` fields on both your site and on all of your contents. With these fields you can on each content set a custom title and description to be used on your site for SEO purposes.
+
+This app also introduces a few settings. They're controlled on the app itself on your site. These settings are used on the entire site, and/or as default fallback settings.
 
 1. Default settings
 2. Title behaviour
@@ -26,13 +28,15 @@ This app introduces a few settings for you. The settings are controlled on the a
 
 ### Default settings
 
-This app adds Open Graph, description, and title meta fields on all your pages. If you have set any custom data inside any content, this data will be used. However, on some pages, there might not be any custom data set, like on your sites first page. That's what the first settings are for: default fallbacks. Here you can add an image to be used for Open Graph. You can at the same time customize any fallback title and meta description.
+This app tries to figure out which data to use for all the meta fields based on the current content. However, on some pages, there might not be any custom data set, like on your site's first page. That's what the first settings are for: default fallbacks. Here is where you add an image to be used for Open Graph and any fallback title and meta description.
 
 ### Title behaviour
 
 With the title configuration you can control how we create the titles for you. If you already have a `<title>` tag in your source html, we will overwrite it and use it's location in the source code. If you do not have this tag already, we will append it at the end of the `<head>`-tag.
 
 The settings here let you control if you want to add the site's name at the end of all page's title's. You can activate this on all pages, but also control to not do this on the frontpage. There's also an option for controlling what separator sign to use between page name and site name (defaults to the dash character).
+
+Meta fields for Open Graph does not use these settings, it never adds site name to it's title meta field as it is redundant data.
 
 ### Custom json paths
 
@@ -44,7 +48,7 @@ We only evaluate for matches in the json `data`-node for each content.
 
 ## Waterfall logic for meta fields
 
-After adding this app you should see `SEO Metadata` fields on both your site and on all of your contents. We will always add the meta fields for title and description, and most of the meta fields for Open Graph. However, if we cannot find any image to use, we won't add the meta fields for Open Graph image.
+We will always add the meta fields for title and description, and most of the meta fields for Open Graph. However, if we cannot find any image to use, we won't add the meta fields for Open Graph image.
 
 It's important to understand the waterfall logic we use when evaluating which data to use for our meta fields (with the first match/hit overwriting all the following ones):
 
