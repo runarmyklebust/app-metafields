@@ -1,37 +1,93 @@
-# Open Graph app
+# SEO Meta Fields app for Enonic XP version 6
 
-This Enonic XP application adds [Open Graph](http://ogp.me/) meta-tags to your
-site by applying mixin fields to each content (or as a site-wide setting). This
-is a great way to improve your SEO and social sharing presence.
+This Enonic XP application adds [Open Graph](http://ogp.me/) meta-tags to your [Enonic XP](https://github.com/enonic/xp) site, it also let's you better customize your sites title tag and meta description information on each page. By applying mixin fields to each content you can easily improve your SEO and social sharing presence for your sites and apps.
 
-## Usage
+This app will add this to your site:
 
-Clone this project, deploy it to your server and add the `Open Graph App`
-application to your site. This app introduces a few settings for you. One part
-is for the default data to use when generating Open Graph meta data (it's always good
-to have some fallbacks). The second part is for how to "design" your page titles as they
-will be generated and inserted automatically into your site.
+1. Open Graph meta data
+2. Update (or insert) SEO friendly titles
+3. Insert meta description information
 
-After adding this app you should see `SEO Metadata` fields on both
-your site and on all of your contents. We select the information to use based on
-the following:
+## Building and deploying
 
-### For title and description
+There are two options. One is to simply download the app [JAR file](http://repo.enonic.com/public/com/enonic/social/app-metafields/1.0.0/app-metafields-1.0.0.jar) and move it to the XP installation's `$XP_HOME/deploy` folder.
 
-- If a content has a SEO title or description field filled out, we use that
-- If not, but the app config has custom json path / input names to look for,
-we'll use these values (in the order defined)
-- If no custom fields added, but the content has a `displayName` (title) or
-`[preface, description, summary]` (description) field, we fall back to those fields.
-- If not, but the site itself has the SEO Metadata fields filled out, we fall
-back to those fields.
-- As a last resort, we default to the site's name and description fields.
+Or you can build this app with gradle. First, download the zip file of this repo. Unpack it locally. In the terminal, from the root of the project, type `./gradlew build`. On Windows, just type `gradlew build`. Next, move the JAR file from `build/libs` to your `$XP_HOME/deploy` directory. The SEO Meta Fields app will now be available to add to your websites through the Content Manager admin tool in Enonic XP.
+
+If you are upgrading to a newer version of this app, make sure to remove the old version's JAR file from the `$XP_HOME/deploy` directory.
+
+## How to use this app
+
+This app introduces a few settings for you. The settings are controlled on the app itself on your site. These settings are used on the entire site, and/or as default fallback settings.
+
+1. Default settings
+2. Title behaviour
+3. Custom json paths
+
+### Default settings
+
+This app adds Open Graph, description, and title meta fields on all your pages. If you have set any custom data inside any content, this data will be used. However, on some pages, there might not be any custom data set, like on your sites first page. That's what the first settings are for: default fallbacks. Here you can add an image to be used for Open Graph. You can at the same time customize any fallback title and meta description.
+
+### Title behaviour
+
+With the title configuration you can control how we create the titles for you. If you already have a `<title>` tag in your source html, we will overwrite it and use it's location in the source code. If you do not have this tag already, we will append it at the end of the `<head>`-tag.
+
+The settings here let you control if you want to add the site's name at the end of all page's title's. You can activate this on all pages, but also control to not do this on the frontpage. There's also an option for controlling what separator sign to use between page name and site name.
+
+### Custom json paths
+
+When figuring out what data to put in your meta fields, this app analyzes the current content you're viewing. It will fetch a pre-defined set of fields in a pre-defined order (more on that later). You might however have fields with different names, or want to add more fields. Then these settings are for you.
+
+Add field names as comma separated strings, like `field1, field2, long-fieldname3`. It will remove space and it will handle dashes and other special characters in your field names. These custom fields will preceed any other fields this app looks in. If you add more than one field here, we'll let the first one overwrite any other fields on it right hand side. So if we find data in `field2` we won't look in `long-fieldname3`.
+
+## Waterfall logic for meta fields
+
+After adding this app you should see `SEO Metadata` fields on both your site and on all of your contents. We select the information to use based on the following logic (with the first match/hit overwriting all the preceding ones):
+
+### For the title
+
+1. Current content has the `SEO Metadata` mixin's `title` field filled out
+2. The app config has custom json path / input names to look for, we'll use these values (in the order defined)
+3. Check for some commonly used field names on the content itself (in the json `data`-node): `title`, `header`, `heading`
+4. If no match there, we'll use the content's `displayName` field (all content has this field)
+5. If for some reason that is not found either, but the site itself has the `SEO Metadata` field `title` filled out, we fall back to this
+6. As a last resort, we default to the site's `displayName` field (from when editing the site).
+
+### For the description
+
+1. Current content has the `SEO Metadata` mixin's `description` field filled out
+2. The app config has custom json path / input names to look for, we'll use these values (in the order defined)
+3. Check for some commonly used field names on the content itself (in the json `data`-node): `preface`, `description`, `summary`
+4. If for some reason that is not found either, but the site itself has the `SEO Metadata` field `description` filled out, we fall back to this
+5. As a last resort, we default to the site's `description` field (from when editing the site).
 
 ### For images
-- If the app config has custom json path / input names to look for, we'll use these
-values (in the order defined) to find an image on the current content.
-- If no custom fields added, we'll check for commonly used field names like `image`
-or `images` and use that
-- If not, but the Opengraph app has been set up with a default image for the site in
-question, we fall back to that image (your logo for example).
-- If neither is set, we don't show an image (the tags are not added).
+
+1. The app config has custom json path / input names to look for, we'll use these values (in the order defined)
+2. Check for some commonly used field names on the content itself (in the json `data`-node): `image`, `images`
+3. Resort to the default images set on the app itself
+4. If still nothing is found we won't show an image at all (the meta fields for the image are not added).
+
+## Releases and Compatibility
+
+| Version        | XP version |
+| ------------- | ------------- |
+| 1.0.0 | 6.3.1 |
+| 0.5.0 | 6.3.0 |
+
+## Changelog
+
+### Version 1.0.0
+
+* App is launched
+* Renamed to SEO Meta Fields
+* Multiple changes and improvements
+
+### Version 0.5.0
+
+* First Beta-launch (as "Open Graph app")
+
+## Notes
+
+* The Disqus comments will not be visible in the admin console or in preview mode.
+* Single Sign On (SSO) is not yet supported but may be added in a future version.

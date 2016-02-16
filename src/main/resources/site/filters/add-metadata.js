@@ -1,6 +1,5 @@
 var libs = {
     portal: require('/lib/xp/portal'),
-    content: require('/lib/xp/content'),
     thymeleaf: require('/lib/xp/thymeleaf'),
     util: require('/lib/enonic/util/util'),
     site: require('/lib/site')
@@ -60,11 +59,11 @@ exports.responseFilter = function(req, res) {
         var titleStart = res.body.indexOf('<title>');
         if ( titleStart > -1 ) {
             res.body = res.body.replace(/(<title>)(.*?)(<\/title>)/i, '<title>' + pageTitle + titleAppendix + '</title>');
-            log.info("Title found, just inserted new title");
+            //log.info("Title found, just inserted new title");
         } else {
             // Add title tag, it's not there
             res.pageContributions.headEnd.push('<title>' + pageTitle + titleAppendix + '</title>');
-            log.info("Title not found, appending new title tag with data");
+            //log.info("Title not found, appending new title tag with data");
         }
     }
 
