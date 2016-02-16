@@ -36,7 +36,7 @@ exports.getPageTitle = function(content, site) {
 
 	var setInMixin = content.x[appNamePropertyName]
 		&& content.x[appNamePropertyName]['meta-data']
-		&& content.x[appNamePropertyName]['meta-data']['seo-title'];
+		&& content.x[appNamePropertyName]['meta-data'].seoTitle;
 
 	var userDefinedPaths = siteConfig.pathsTitles || '';
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
@@ -46,11 +46,11 @@ exports.getPageTitle = function(content, site) {
 //	libs.util.log(userDefinedArray);
 //	log.info(userDefinedValue);
 
-	var metaTitle = setInMixin ? content.x[appNamePropertyName]['meta-data']['seo-title'] // Get from mixin
+	var metaTitle = setInMixin ? content.x[appNamePropertyName]['meta-data'].seoTitle // Get from mixin
 			:  content.displayName // Use content's display name
 			|| userDefinedValue // json property defined by user as important
 			|| content.data.title || content.data.heading || content.data.header // Use other typical content titles (overrides displayName)
-			|| siteConfig["seo-title"] // Use default og-title for site
+			|| siteConfig.seoTitle // Use default og-title for site
 			|| site.displayName; // Use site default
 
 	return metaTitle;
@@ -68,11 +68,11 @@ exports.getMetaDescription = function(content, site) {
 
 	var setWithMixin = content.x[appNamePropertyName]
 			&& content.x[appNamePropertyName]['meta-data']
-			&& content.x[appNamePropertyName]['meta-data']['seo-description'];
-	var metaDescription = setWithMixin ? content.x[appNamePropertyName]['meta-data']['seo-description'] // Get from mixin
+			&& content.x[appNamePropertyName]['meta-data'].seoDescription;
+	var metaDescription = setWithMixin ? content.x[appNamePropertyName]['meta-data'].seoDescription // Get from mixin
 					: userDefinedValue
 					|| content.data.preface || content.data.description || content.data.summary // Use typical content summary names
-					|| siteConfig["seo-description"] // Use default for site
+					|| siteConfig["seoDescription"] // Use default for site
 					|| site.description; // Use bottom default
 
 	return metaDescription;
@@ -92,7 +92,6 @@ exports.getOpenGraphImage = function(content, defaultImg) {
 		format: 'jpg',
 		type: 'absolute'
 	};
-
 
 	// Try to find an image in the content's image or images properties
 	var imageArray = libs.util.data.forceArray( userDefinedValue || content.data.image || content.data.images || []);

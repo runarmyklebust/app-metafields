@@ -27,9 +27,9 @@ exports.responseFilter = function(req, res) {
 
     // Concat site title?
     var titleAppendix = "";
-    if (siteConfig['title-behaviour']) {
-        var concatenator = siteConfig['title-separator'] || '-';
-        if (!frontpage || !siteConfig['title-frontpage-behaviour']) {
+    if (siteConfig.titleBehaviour) {
+        var concatenator = siteConfig.titleSeparator || '-';
+        if (!frontpage || !siteConfig.titleFrontpageBehaviour) {
             titleAppendix = ' ' + concatenator + ' ' + site.displayName; // Content Title + Site Title
         }
     }
@@ -41,7 +41,7 @@ exports.responseFilter = function(req, res) {
         locale: localeMap[lang] || localeMap.en,
         type: site._path === content._path ? 'website' : 'article',
         url: libs.portal.pageUrl({ path: content._path, type: "absolute" }),
-        image: libs.site.getOpenGraphImage(content, siteConfig['og-default']),
+        image: libs.site.getOpenGraphImage(content, siteConfig.seoImage),
         imageWidth: 1200, // Twice of 600x315, for retina
         imageHeight: 630
     };

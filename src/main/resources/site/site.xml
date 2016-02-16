@@ -4,15 +4,15 @@
 		<field-set name="defaults">
 			<label>Default settings</label>
 			<items>
-				<input name="seo-image" type="ImageSelector">
+				<input name="seoImage" type="ImageSelector">
 					<label>Open Graph Image</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
-				<input name="seo-title" type="TextLine">
+				<input name="seoTitle" type="TextLine">
 					<label>SEO Title</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
-				<input name="seo-description" type="TextArea">
+				<input name="seoDescription" type="TextArea">
 					<label>SEO Description</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
@@ -21,15 +21,15 @@
 		<field-set name="titles">
 			<label>Title config</label>
 			<items>
-				<input name="title-behaviour" type="CheckBox">
+				<input name="titleBehaviour" type="CheckBox">
 					<label>Append site title with site name?</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
-				<input name="title-separator" type="TextLine">
+				<input name="titleSeparator" type="TextLine">
 					<label>Separator ('content - site')</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
-				<input name="title-frontpage-behaviour" type="CheckBox">
+				<input name="titleFrontpageBehaviour" type="CheckBox">
 					<label>Remove site name on frontpage?</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
