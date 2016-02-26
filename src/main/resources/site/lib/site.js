@@ -3,32 +3,27 @@ var libs = {
 	util: require('/lib/enonic/util/util')
 };
 
-// "Globals":
 var appNamePropertyName = app.name.replace(/\./g,'-');
 
 function getConfig() {
 	return libs.portal.getSiteConfig();
 }
-function commaStringToArray(string) {
-	var arr = [];
-	string = string.replace(/ /g,''); // Remove all spaces in the string
-	arr = string.split(',');
-	return arr;
+function commaStringToArray(str) {
+	return str.split(',').trim();
 }
-function findValueInJson(json,paths) {
-	var value = null;
-	var pathLength = paths.length;
-	var jsonPath = ";"
-	for (var i = 0; i < pathLength; i++) {
+function findValueInJson(json, paths) {
+	var value;
+	var jsonPath = ';';
+
+	for (var i = 0; i < paths.length; i++) {
 		if ( paths[i] ) {
 			jsonPath = 'json.data["' + paths[i] + '"]'; // Wrap property so we can have dashes in it
-			if ( eval(jsonPath) ) {
-				value = eval(jsonPath);
-				break; // Expect the first property in the string is the most important one to use
+			var evaledJson = eval(jsonPath);
+			if (evaledJson) {
+				return evaledJson; // Expect the first property in the string is the most important one to use
 			}
 		}
 	}
-	return value;
 }
 
 exports.getBlockRobots = function(content) {
@@ -44,11 +39,7 @@ exports.getPageTitle = function(content, site) {
 
 	var userDefinedPaths = siteConfig.pathsTitles || '';
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
-//	userDefinedArray.push('title');
 	var userDefinedValue = userDefinedPaths ? findValueInJson(content,userDefinedArray) : null;
-
-//	libs.util.log(userDefinedArray);
-//	log.info(userDefinedValue);
 
 	var metaTitle = setInMixin ? content.x[appNamePropertyName]['meta-data'].seoTitle // Get from mixin
 			:  content.displayName // Use content's display name
