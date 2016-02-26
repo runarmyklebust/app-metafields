@@ -31,6 +31,10 @@ function findValueInJson(json,paths) {
 	return value;
 }
 
+exports.getBlockRobots = function(content) {
+	return content.x[appNamePropertyName]['meta-data'].blockRobots;
+}
+
 exports.getPageTitle = function(content, site) {
 	var siteConfig = getConfig();
 
@@ -62,9 +66,6 @@ exports.getMetaDescription = function(content, site) {
 	var userDefinedPaths = siteConfig.pathsDescription || '';
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
 	var userDefinedValue = userDefinedPaths ? findValueInJson(content,userDefinedArray) : null;
-
-//	libs.util.log(userDefinedArray);
-//	log.info(userDefinedValue);
 
 	var setWithMixin = content.x[appNamePropertyName]
 			&& content.x[appNamePropertyName]['meta-data']

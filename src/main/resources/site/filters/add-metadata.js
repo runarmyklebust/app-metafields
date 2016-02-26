@@ -43,7 +43,8 @@ exports.responseFilter = function(req, res) {
         url: libs.portal.pageUrl({ path: content._path, type: "absolute" }),
         image: libs.site.getOpenGraphImage(content, siteConfig.seoImage),
         imageWidth: 1200, // Twice of 600x315, for retina
-        imageHeight: 630
+        imageHeight: 630,
+        blockRobots: siteConfig.blockRobots || libs.site.getBlockRobots(content)
     };
 
 	var metadata = libs.thymeleaf.render(view, params);
