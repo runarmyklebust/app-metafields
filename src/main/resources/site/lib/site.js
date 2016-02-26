@@ -12,18 +12,8 @@ function commaStringToArray(str) {
 	return str.split(',').trim();
 }
 function findValueInJson(json, paths) {
-	var value;
-	var jsonPath = ';';
-
-	for (var i = 0; i < paths.length; i++) {
-		if ( paths[i] ) {
-			jsonPath = 'json.data["' + paths[i] + '"]'; // Wrap property so we can have dashes in it
-			var evaledJson = eval(jsonPath);
-			if (evaledJson) {
-				return evaledJson; // Expect the first property in the string is the most important one to use
-			}
-		}
-	}
+	var hits = paths.filter(function(path) { return json.data[path]; });
+	return hits.length ? hits[0] : false;
 }
 
 exports.getBlockRobots = function(content) {
