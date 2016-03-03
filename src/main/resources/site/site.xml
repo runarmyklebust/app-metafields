@@ -19,7 +19,7 @@
 			</items>
 		</field-set>
 		<field-set name="settings">
-			<label>Search Engine settings<label>
+			<label>Search Engine settings</label>
 			<items>
 				<input name="siteVerification" type="TextLine">
 					<label>Google Search Console (site verification code)</label>
