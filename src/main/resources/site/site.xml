@@ -16,6 +16,10 @@
 					<label>SEO Description</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
+				<input name="blockRobots" type="CheckBox">
+					<label>Hide site from search engines?</label>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
 			</items>
 		</field-set>
 		<field-set name="titles">

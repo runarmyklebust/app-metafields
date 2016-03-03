@@ -3,19 +3,22 @@ var libs = {
 	util: require('/lib/enonic/util/util')
 };
 
-// "Globals":
-var appNamePropertyName = app.name.replace(/\./g,'-');
+var appNamePath = app.name.replace(/\./g,'-');
+var mixinPath = 'meta-data';
 
 function getConfig() {
 	return libs.portal.getSiteConfig();
 }
-function commaStringToArray(string) {
-	var arr = [];
-	string = string.replace(/ /g,''); // Remove all spaces in the string
-	arr = string.split(',');
+function commaStringToArray(str) {
+	var commas = str || '';
+	var arr = commas.split(',');
+	if (arr) {
+		arr.map(function(s) { return s.trim() });
+	}
+	libs.util.log(arr);
 	return arr;
 }
-function findValueInJson(json,paths) {
+function findValueInJson(json, paths) {
 	var value = null;
 	var pathLength = paths.length;
 	var jsonPath = ";"
@@ -31,22 +34,22 @@ function findValueInJson(json,paths) {
 	return value;
 }
 
+exports.getBlockRobots = function(content) {
+	return content.x[appNamePath][mixinPath].blockRobots;
+}
+
 exports.getPageTitle = function(content, site) {
 	var siteConfig = getConfig();
 
-	var setInMixin = content.x[appNamePropertyName]
-		&& content.x[appNamePropertyName]['meta-data']
-		&& content.x[appNamePropertyName]['meta-data'].seoTitle;
+	var setInMixin = content.x[appNamePath]
+		&& content.x[appNamePath][mixinPath]
+		&& content.x[appNamePath][mixinPath].seoTitle;
 
 	var userDefinedPaths = siteConfig.pathsTitles || '';
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
-//	userDefinedArray.push('title');
 	var userDefinedValue = userDefinedPaths ? findValueInJson(content,userDefinedArray) : null;
 
-//	libs.util.log(userDefinedArray);
-//	log.info(userDefinedValue);
-
-	var metaTitle = setInMixin ? content.x[appNamePropertyName]['meta-data'].seoTitle // Get from mixin
+	var metaTitle = setInMixin ? content.x[appNamePath][mixinPath].seoTitle // Get from mixin
 			:  content.displayName // Use content's display name
 			|| userDefinedValue // json property defined by user as important
 			|| content.data.title || content.data.heading || content.data.header // Use other typical content titles (overrides displayName)
@@ -63,13 +66,10 @@ exports.getMetaDescription = function(content, site) {
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
 	var userDefinedValue = userDefinedPaths ? findValueInJson(content,userDefinedArray) : null;
 
-//	libs.util.log(userDefinedArray);
-//	log.info(userDefinedValue);
-
-	var setWithMixin = content.x[appNamePropertyName]
-			&& content.x[appNamePropertyName]['meta-data']
-			&& content.x[appNamePropertyName]['meta-data'].seoDescription;
-	var metaDescription = setWithMixin ? content.x[appNamePropertyName]['meta-data'].seoDescription // Get from mixin
+	var setWithMixin = content.x[appNamePath]
+			&& content.x[appNamePath][mixinPath]
+			&& content.x[appNamePath][mixinPath].seoDescription;
+	var metaDescription = setWithMixin ? content.x[appNamePath][mixinPath].seoDescription // Get from mixin
 					: userDefinedValue
 					|| content.data.preface || content.data.description || content.data.summary // Use typical content summary names
 					|| siteConfig.seoDescription // Use default for site

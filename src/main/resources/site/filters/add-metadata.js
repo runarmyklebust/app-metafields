@@ -13,7 +13,7 @@ var localeMap = {
     sv: 'sv_SE',
     pl: 'pl_PL',
     no: 'nb_NO',
-    en: 'en_US' // 'en_GB' used before
+    en: 'en_US'
 };
 
 exports.responseFilter = function(req, res) {
@@ -26,11 +26,11 @@ exports.responseFilter = function(req, res) {
     var pageTitle = libs.site.getPageTitle(content, site);
 
     // Concat site title?
-    var titleAppendix = "";
+    var titleAppendix = '';
     if (siteConfig.titleBehaviour) {
-        var concatenator = siteConfig.titleSeparator || '-';
+        var separator = siteConfig.titleSeparator || '-';
         if (!frontpage || !siteConfig.titleFrontpageBehaviour) {
-            titleAppendix = ' ' + concatenator + ' ' + site.displayName; // Content Title + Site Title
+            titleAppendix = ' ' + separator + ' ' + site.displayName;
         }
     }
 
@@ -43,27 +43,23 @@ exports.responseFilter = function(req, res) {
         url: libs.portal.pageUrl({ path: content._path, type: "absolute" }),
         image: libs.site.getOpenGraphImage(content, siteConfig.seoImage),
         imageWidth: 1200, // Twice of 600x315, for retina
-        imageHeight: 630
+        imageHeight: 630,
+        blockRobots: siteConfig.blockRobots || libs.site.getBlockRobots(content)
     };
 
 	var metadata = libs.thymeleaf.render(view, params);
 
-    if (!res.pageContributions.headEnd) {
-        res.pageContributions.headEnd = [];
-    }
-
+    res.pageContributions.headEnd = res.pageContributions.headEnd || [];
     res.pageContributions.headEnd.push(metadata);
 
-    if ( res.body ) {
+    if (res.body) {
         // Can we find a title in the html? Use that instead of adding our own title
-        var titleStart = res.body.indexOf('<title>');
-        if ( titleStart > -1 ) {
-            res.body = res.body.replace(/(<title>)(.*?)(<\/title>)/i, '<title>' + pageTitle + titleAppendix + '</title>');
-            //log.info("Title found, just inserted new title");
+        var hasIndex = res.body.indexOf('<title>') > -1;
+        var title = '<title>' + pageTitle + titleAppendix + '</title>';
+        if (hasIndex) {
+            res.body = res.body.replace(/(<title>)(.*?)(<\/title>)/i, title);
         } else {
-            // Add title tag, it's not there
-            res.pageContributions.headEnd.push('<title>' + pageTitle + titleAppendix + '</title>');
-            //log.info("Title not found, appending new title tag with data");
+            res.pageContributions.headEnd.push(title);
         }
     }
 
