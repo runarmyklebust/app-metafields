@@ -3,35 +3,53 @@ var libs = {
 	util: require('/lib/enonic/util/util')
 };
 
-var appNamePropertyName = app.name.replace(/\./g,'-');
+var appNamePath = app.name.replace(/\./g,'-');
+var mixinPath = 'meta-data';
 
 function getConfig() {
 	return libs.portal.getSiteConfig();
 }
 function commaStringToArray(str) {
-	return str.split(',').trim();
+	var commas = str || '';
+	var arr = commas.split(',');
+	if (arr) {
+		arr.map(function(s) { return s.trim() });
+	}
+	libs.util.log(arr);
+	return arr;
 }
 function findValueInJson(json, paths) {
-	var hits = paths.filter(function(path) { return json.data[path]; });
-	return hits.length ? hits[0] : false;
+	var value = null;
+	var pathLength = paths.length;
+	var jsonPath = ";"
+	for (var i = 0; i < pathLength; i++) {
+		if ( paths[i] ) {
+			jsonPath = 'json.data["' + paths[i] + '"]'; // Wrap property so we can have dashes in it
+			if ( eval(jsonPath) ) {
+				value = eval(jsonPath);
+				break; // Expect the first property in the string is the most important one to use
+			}
+		}
+	}
+	return value;
 }
 
 exports.getBlockRobots = function(content) {
-	return content.x[appNamePropertyName]['meta-data'].blockRobots;
+	return content.x[appNamePath][mixinPath].blockRobots;
 }
 
 exports.getPageTitle = function(content, site) {
 	var siteConfig = getConfig();
 
-	var setInMixin = content.x[appNamePropertyName]
-		&& content.x[appNamePropertyName]['meta-data']
-		&& content.x[appNamePropertyName]['meta-data'].seoTitle;
+	var setInMixin = content.x[appNamePath]
+		&& content.x[appNamePath][mixinPath]
+		&& content.x[appNamePath][mixinPath].seoTitle;
 
 	var userDefinedPaths = siteConfig.pathsTitles || '';
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
 	var userDefinedValue = userDefinedPaths ? findValueInJson(content,userDefinedArray) : null;
 
-	var metaTitle = setInMixin ? content.x[appNamePropertyName]['meta-data'].seoTitle // Get from mixin
+	var metaTitle = setInMixin ? content.x[appNamePath][mixinPath].seoTitle // Get from mixin
 			:  content.displayName // Use content's display name
 			|| userDefinedValue // json property defined by user as important
 			|| content.data.title || content.data.heading || content.data.header // Use other typical content titles (overrides displayName)
@@ -48,10 +66,10 @@ exports.getMetaDescription = function(content, site) {
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
 	var userDefinedValue = userDefinedPaths ? findValueInJson(content,userDefinedArray) : null;
 
-	var setWithMixin = content.x[appNamePropertyName]
-			&& content.x[appNamePropertyName]['meta-data']
-			&& content.x[appNamePropertyName]['meta-data'].seoDescription;
-	var metaDescription = setWithMixin ? content.x[appNamePropertyName]['meta-data'].seoDescription // Get from mixin
+	var setWithMixin = content.x[appNamePath]
+			&& content.x[appNamePath][mixinPath]
+			&& content.x[appNamePath][mixinPath].seoDescription;
+	var metaDescription = setWithMixin ? content.x[appNamePath][mixinPath].seoDescription // Get from mixin
 					: userDefinedValue
 					|| content.data.preface || content.data.description || content.data.summary // Use typical content summary names
 					|| siteConfig.seoDescription // Use default for site
