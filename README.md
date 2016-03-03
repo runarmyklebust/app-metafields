@@ -2,11 +2,13 @@
 
 This Enonic XP application adds [Open Graph](http://ogp.me/) meta-tags to your [Enonic XP](https://github.com/enonic/xp) site, it also let's you better customize your site's title tag and meta description information on each page and content. By applying mixin fields to each content you can easily improve your SEO and social sharing presence for your sites and apps.
 
-This app will add this to your site:
+This app will add this functionality to your site:
 
 1. SEO friendly titles
 2. SEO meta description
 3. Open Graph meta data
+4. Goole search console tag
+5. Robots exclude setting
 
 ## Building and deploying
 
@@ -25,12 +27,18 @@ After adding this app you should see `SEO Metadata` fields on both your site and
 This app introduces a few settings. They're controlled on the app itself on your site and are used on the entire site, and/or as default fallback settings.
 
 1. Default settings
-2. Title behaviour
-3. Custom json paths
+2. Search engine settings
+3. Title behaviour
+4. Custom json paths
 
 ### Default settings
 
 This app tries to figure out which data to use for all the meta fields based on the current content. However, on some pages, there might not be any custom data set, like on your site's first page. That's what the first settings are for: default fallbacks. Here is where you add an image to be used for Open Graph and any fallback title and meta description.
+
+### Search engine settings
+
+Add meta tag for Google search console (formerly known as Google Webmaster Tools). Just fill in your ID here to generate the proper tag on all pages.
+Here we also introduce a setting for hiding the entire site from search engine robots.
 
 ### Title behaviour
 
