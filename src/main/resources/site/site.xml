@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
 	<config>
+		<field-set name="settings">
+			<label>Search Engine settings<label>
+			<items>
+				<input name="siteVerification" type="TextLine">
+					<label>Google Search Console (site verification code)</label>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+				<input name="blockRobots" type="CheckBox">
+					<label>Hide site from search engines?</label>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+			</items>
+		</field-set>
 		<field-set name="defaults">
 			<label>Default settings</label>
 			<items>
@@ -14,14 +27,6 @@
 				</input>
 				<input name="seoDescription" type="TextArea">
 					<label>SEO Description</label>
-					<occurrences minimum="0" maximum="1"/>
-				</input>
-				<input name="siteVerification" type="TextLine">
-					<label>Google Search Console (site verification code)</label>
-					<occurrences minimum="0" maximum="1"/>
-				</input>
-				<input name="blockRobots" type="CheckBox">
-					<label>Hide site from search engines?</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
 			</items>
@@ -63,6 +68,6 @@
 	</config>
 	<x-data mixin="meta-data" /><!-- This actually adds this mixin to all CTY on current site ^^ -->
 	<filters>
-    	<response-filter name="add-metadata" order="10"/>
+		<response-filter name="add-metadata" order="10"/>
 	</filters>
 </site>
