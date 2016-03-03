@@ -34,6 +34,8 @@ exports.responseFilter = function(req, res) {
         }
     }
 
+	 var siteVerification = siteConfig.siteVerification || null;
+
     var params = {
         title: pageTitle,
         description: libs.site.getMetaDescription(content, site),
@@ -44,7 +46,8 @@ exports.responseFilter = function(req, res) {
         image: libs.site.getOpenGraphImage(content, siteConfig.seoImage),
         imageWidth: 1200, // Twice of 600x315, for retina
         imageHeight: 630,
-        blockRobots: siteConfig.blockRobots || libs.site.getBlockRobots(content)
+        blockRobots: siteConfig.blockRobots || libs.site.getBlockRobots(content),
+		  siteVerification: siteVerification
     };
 
 	var metadata = libs.thymeleaf.render(view, params);

@@ -15,7 +15,6 @@ function commaStringToArray(str) {
 	if (arr) {
 		arr.map(function(s) { return s.trim() });
 	}
-	libs.util.log(arr);
 	return arr;
 }
 function findValueInJson(json, paths) {
