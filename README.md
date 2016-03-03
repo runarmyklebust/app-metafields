@@ -7,7 +7,7 @@ This app will add this functionality to your site:
 1. SEO friendly titles
 2. SEO meta description
 3. Open Graph meta data
-4. Goole search console tag
+4. Google search console tag
 5. Robots exclude setting
 
 ## Building and deploying
