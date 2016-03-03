@@ -82,10 +82,17 @@ It's important to understand the waterfall logic we use when evaluating which da
 
 | Version        | XP version |
 | ------------- | ------------- |
+| 1.1.0 | 6.4.0 |
 | 1.0.0 | 6.3.1 |
 | 0.5.0 | 6.3.0 |
 
 ## Changelog
+
+### Version 1.1.0
+
+* Added settings on app, and for all content, to "exclude from search" (robots)
+* Added setting for Google search console (old webmaster tools)
+* Improved handling of nulls, empties, and multiple app setups
 
 ### Version 1.0.0
 
