@@ -52,7 +52,7 @@ exports.responseFilter = function(req, res) {
 
 	var metadata = libs.thymeleaf.render(view, params);
 
-    res.pageContributions.headEnd = res.pageContributions.headEnd || [];
+    res.pageContributions.headEnd = libs.util.data.forceArray(res.pageContributions.headEnd);
     res.pageContributions.headEnd.push(metadata);
 
     if (res.body) {

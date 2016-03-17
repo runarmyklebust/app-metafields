@@ -34,7 +34,10 @@ function findValueInJson(json, paths) {
 }
 
 exports.getBlockRobots = function(content) {
-	return content.x[appNamePath][mixinPath].blockRobots;
+	var setInMixin = content.x[appNamePath]
+		&& content.x[appNamePath][mixinPath]
+		&& content.x[appNamePath][mixinPath].blockRobots;
+	return setInMixin;
 }
 
 exports.getPageTitle = function(content, site) {
