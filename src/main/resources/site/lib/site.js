@@ -1,6 +1,6 @@
 var libs = {
 	portal: require('/lib/xp/portal'),
-	util: require('/lib/enonic/util/util')
+	util: require('/lib/enonic/util')
 };
 
 var appNamePath = app.name.replace(/\./g,'-');
@@ -38,7 +38,7 @@ exports.getBlockRobots = function(content) {
 		&& content.x[appNamePath][mixinPath]
 		&& content.x[appNamePath][mixinPath].blockRobots;
 	return setInMixin;
-}
+};
 
 exports.getPageTitle = function(content, site) {
 	var siteConfig = getConfig();
