@@ -26,7 +26,10 @@ function findValueInJson(json, paths) {
 			jsonPath = 'json.data["' + paths[i] + '"]'; // Wrap property so we can have dashes in it
 			if ( eval(jsonPath) ) {
 				value = eval(jsonPath);
-				break; // Expect the first property in the string is the most important one to use
+				if (value.trim() === "")
+					value = null; // Reset value if empty string (skip empties)
+				else
+					break; // Expect the first property in the string is the most important one to use
 			}
 		}
 	}

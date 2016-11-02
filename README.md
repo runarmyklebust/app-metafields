@@ -12,7 +12,7 @@ This app will add this functionality to your site:
 
 ## Building and deploying
 
-There are two options. One is to simply download the app [JAR file](http://repo.enonic.com/public/com/enonic/app/metafields/1.1.2/metafields-1.1.2.jar) and move it to the XP installation's `$XP_HOME/deploy` folder.
+There are two options. One is to simply download the app [JAR file](http://repo.enonic.com/public/com/enonic/app/metafields/1.1.3/metafields-1.1.3.jar) and move it to the XP installation's `$XP_HOME/deploy` folder.
 
 Or you can build this app with Gradle. First, download the zip file of this repo. Unpack it locally. In the terminal, from the root of the project, type `./gradlew build`. On Windows, just type `gradlew build`. Next, move the JAR file from `build/libs` to your `$XP_HOME/deploy` directory. The SEO Meta Fields app will now be available to add to your websites through the Content Manager admin tool in Enonic XP.
 
@@ -90,6 +90,7 @@ It's important to understand the waterfall logic we use when evaluating which da
 
 | Version        | XP version |
 | ------------- | ------------- |
+| 1.1.3 | 6.4.0 |
 | 1.1.2 | 6.4.0 |
 | 1.1.1 | 6.4.0 |
 | 1.1.0 | 6.4.0 |
@@ -97,6 +98,10 @@ It's important to understand the waterfall logic we use when evaluating which da
 | 0.5.0 | 6.3.0 |
 
 ## Changelog
+
+### Version 1.1.3
+
+* Better handle data from CMS2XP (empty data fields) for custom fields setting
 
 ### Version 1.1.2
 
