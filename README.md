@@ -90,6 +90,7 @@ It's important to understand the waterfall logic we use when evaluating which da
 
 | Version        | XP version |
 | ------------- | ------------- |
+| 1.1.4 | 6.7.3 |
 | 1.1.3 | 6.4.0 |
 | 1.1.2 | 6.4.0 |
 | 1.1.1 | 6.4.0 |
@@ -98,6 +99,9 @@ It's important to understand the waterfall logic we use when evaluating which da
 | 0.5.0 | 6.3.0 |
 
 ## Changelog
+### Version 1.1.4
+
+* Upgrade to version 6.7.3
 
 ### Version 1.1.3
 
