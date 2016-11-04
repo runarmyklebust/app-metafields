@@ -12,7 +12,7 @@ This app will add this functionality to your site:
 
 ## Building and deploying
 
-There are two options. One is to simply download the app [JAR file](http://repo.enonic.com/public/com/enonic/app/metafields/1.1.5/metafields-1.1.5.jar) and move it to the XP installation's `$XP_HOME/deploy` folder.
+There are two options. One is to simply download the app [JAR file](http://repo.enonic.com/public/com/enonic/app/metafields/1.2.0/metafields-1.2.0.jar) and move it to the XP installation's `$XP_HOME/deploy` folder.
 
 Or you can build this app with Gradle. First, download the zip file of this repo. Unpack it locally. In the terminal, from the root of the project, type `./gradlew build`. On Windows, just type `gradlew build`. Next, move the JAR file from `build/libs` to your `$XP_HOME/deploy` directory. The SEO Meta Fields app will now be available to add to your websites through the Content Manager admin tool in Enonic XP.
 
