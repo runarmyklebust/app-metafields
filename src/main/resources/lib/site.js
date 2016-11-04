@@ -13,7 +13,9 @@ function commaStringToArray(str) {
 	var commas = str || '';
 	var arr = commas.split(',');
 	if (arr) {
-		arr.map(function(s) { return s.trim() });
+		arr = arr.map(function(s) { return s.trim() });
+	} else {
+		arr = libs.util.data.forceArray(arr); // Make sure we always work with an array
 	}
 	return arr;
 }
@@ -21,6 +23,7 @@ function findValueInJson(json, paths) {
 	var value = null;
 	var pathLength = paths.length;
 	var jsonPath = ";"
+
 	for (var i = 0; i < pathLength; i++) {
 		if ( paths[i] ) {
 			jsonPath = 'json.data["' + paths[i] + '"]'; // Wrap property so we can have dashes in it
@@ -67,7 +70,7 @@ exports.getPageTitle = function(content, site) {
 exports.getMetaDescription = function(content, site) {
 	var siteConfig = getConfig();
 
-	var userDefinedPaths = siteConfig.pathsDescription || '';
+	var userDefinedPaths = siteConfig.pathsDescriptions || '';
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
 	var userDefinedValue = userDefinedPaths ? findValueInJson(content,userDefinedArray) : null;
 
