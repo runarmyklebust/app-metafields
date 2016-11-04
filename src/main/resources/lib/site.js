@@ -15,7 +15,7 @@ function commaStringToArray(str) {
 	if (arr) {
 		arr = arr.map(function(s) { return s.trim() });
 	} else {
-		arr = libs.util.data.forceArray(arr); // Make sure we always work with an array
+		arr = libs.util.data.forceArray(str); // Make sure we always work with an array
 	}
 	return arr;
 }
@@ -53,14 +53,14 @@ exports.getPageTitle = function(content, site) {
 		&& content.x[appNamePath][mixinPath]
 		&& content.x[appNamePath][mixinPath].seoTitle;
 
-	var userDefinedPaths = siteConfig.pathsTitles || '';
+	var userDefinedPaths = siteConfig.pathsTitles;
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
 	var userDefinedValue = userDefinedPaths ? findValueInJson(content,userDefinedArray) : null;
 
 	var metaTitle = setInMixin ? content.x[appNamePath][mixinPath].seoTitle // Get from mixin
-			:  content.displayName // Use content's display name
-			|| userDefinedValue // json property defined by user as important
+			: userDefinedValue // json property defined by user as important
 			|| content.data.title || content.data.heading || content.data.header // Use other typical content titles (overrides displayName)
+			|| content.displayName // Use content's display name
 			|| siteConfig.seoTitle // Use default og-title for site
 			|| site.displayName; // Use site default
 
@@ -70,7 +70,7 @@ exports.getPageTitle = function(content, site) {
 exports.getMetaDescription = function(content, site) {
 	var siteConfig = getConfig();
 
-	var userDefinedPaths = siteConfig.pathsDescriptions || '';
+	var userDefinedPaths = siteConfig.pathsDescriptions;
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
 	var userDefinedValue = userDefinedPaths ? findValueInJson(content,userDefinedArray) : null;
 

@@ -12,7 +12,7 @@ This app will add this functionality to your site:
 
 ## Building and deploying
 
-There are two options. One is to simply download the app [JAR file](http://repo.enonic.com/public/com/enonic/app/metafields/1.1.4/metafields-1.1.4.jar) and move it to the XP installation's `$XP_HOME/deploy` folder.
+There are two options. One is to simply download the app [JAR file](http://repo.enonic.com/public/com/enonic/app/metafields/1.1.5/metafields-1.1.5.jar) and move it to the XP installation's `$XP_HOME/deploy` folder.
 
 Or you can build this app with Gradle. First, download the zip file of this repo. Unpack it locally. In the terminal, from the root of the project, type `./gradlew build`. On Windows, just type `gradlew build`. Next, move the JAR file from `build/libs` to your `$XP_HOME/deploy` directory. The SEO Meta Fields app will now be available to add to your websites through the Content Manager admin tool in Enonic XP.
 
@@ -64,32 +64,36 @@ It's important to understand the waterfall logic we use when evaluating which da
 
 ### For the title
 
-1. Current content's `SEO Metadata` mixin's `title` field
-2. The app config has custom JSON path added (in the order defined)
-3. Check in some commonly used fields: `title`, `header`, `heading`
-4. The content's `displayName` field (all content has this field)
-5. See if the site itself has the `SEO Metadata` field `title` filled out
+1. Current content's `SEO Metadata` mixin's `title` field.
+2. The app config has custom JSON path added (in the order defined).
+3. Check in some commonly used fields: `title`, `header`, `heading`.
+4. The content's `displayName` field (all content has this field).
+5. See if the site itself has the `SEO Metadata` field `title` filled out.
 6. As a last resort, we default to the site's `displayName` field.
+
+For titles there is no way it can be empty, at least the last fallback will always trigger.
 
 ### For the description
 
-1. Current content's `SEO Metadata` mixin's `description` field
-2. The app config has custom JSON path added (in the order defined)
-3. Check in some commonly used fields: `preface`, `description`, `summary`
-4. See if the site itself has the `SEO Metadata` field `description` filled out
+1. Current content's `SEO Metadata` mixin's `description` field.
+2. The app config has custom JSON path added (in the order defined).
+3. Check in some commonly used fields: `preface`, `description`, `summary`.
+4. See if the site itself has the `SEO Metadata` field `description` filled out.
 5. As a last resort, we default to the site's `description` field.
+6. An empty description is created.
 
 ### For images
 
-1. The app config has custom JSON path added (in the order defined)
-2. Check in some commonly used fields: `image`, `images`
-3. Resort to the default images set on the app itself
+1. The app config has custom JSON path added (in the order defined).
+2. Check in some commonly used fields: `image`, `images`.
+3. Resort to the default images set on the app itself.
 4. If still nothing is found we won't show an image at all (the meta fields for the image are not added).
 
 ## Releases and Compatibility
 
 | Version        | XP version |
 | ------------- | ------------- |
+| 1.2.0 | 6.7.3 |
 | 1.1.4 | 6.7.3 |
 | 1.1.3 | 6.4.0 |
 | 1.1.2 | 6.4.0 |
@@ -99,6 +103,14 @@ It's important to understand the waterfall logic we use when evaluating which da
 | 0.5.0 | 6.3.0 |
 
 ## Changelog
+
+### Version 1.2.0
+
+* Fixed bug where user-defined paths for meta description always failed.
+* Fixed a bug on how multiple user-defined paths (for all scenarios) where trimmed (only first field worked if space characters where used between the commas).
+* Prefer user-defined paths before content DisplayName, when generating titles.
+* Updates to readme to reflect the new and improved "waterfall" logic (also contained some errors).
+
 ### Version 1.1.4
 
 * Upgrade to version 6.7.3
