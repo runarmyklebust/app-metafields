@@ -47,8 +47,11 @@ exports.responseFilter = function(req, res) {
         imageWidth: 1200, // Twice of 600x315, for retina
         imageHeight: 630,
         blockRobots: siteConfig.blockRobots || libs.site.getBlockRobots(content),
-		  siteVerification: siteVerification
+        siteVerification: siteVerification,
+        canonicalUrl : siteConfig.canonicalUrl
     };
+
+    libs.util.log(params);
 
 	var metadata = libs.thymeleaf.render(view, params);
 

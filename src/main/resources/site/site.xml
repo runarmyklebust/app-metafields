@@ -65,6 +65,19 @@
 				</input>
 			</items>
 		</field-set>
+		<field-set name="other">
+			<label>Other</label>
+			<items>
+				<input name="twitterId" type="TextLine">
+					<label>Twitter username</label>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+				<input name="canonicalUrl" type="TextLine">
+					<label>Canonical Url</label>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+			</items>
+		</field-set>
 	</config>
 	<x-data mixin="meta-data" /><!-- This actually adds this mixin to all CTY on current site ^^ -->
 	<filters>

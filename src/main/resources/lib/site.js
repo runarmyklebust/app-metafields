@@ -110,3 +110,4 @@ exports.getOpenGraphImage = function(content, defaultImg) {
 	// Return the image URL or nothing
 	return imageOpts.id ? libs.portal.imageUrl(imageOpts) : null;
 };
+
