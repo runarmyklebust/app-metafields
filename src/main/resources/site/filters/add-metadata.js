@@ -48,7 +48,9 @@ exports.responseFilter = function(req, res) {
         imageHeight: 630,
         blockRobots: siteConfig.blockRobots || libs.site.getBlockRobots(content),
         siteVerification: siteVerification,
-        canonicalUrl : siteConfig.canonicalUrl
+        canonical: siteConfig.canonical,
+        twitterUserName : siteConfig.twitterUsername
+        
     };
 
     libs.util.log(params);

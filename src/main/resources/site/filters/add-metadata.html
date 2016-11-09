@@ -1,4 +1,6 @@
 <div data-th-remove="tag">
+<meta name="twitter:site" data-th-attr="content=${twitterUserName}" />
+<meta name="twitter:image:src" data-th-src="${portal.assetUrl({'_path=img/all/fb-logo-square-800px.jpg'})}" />
 <meta data-th-if="${blockRobots}" name="robots" content="noindex,nofollow" />
 <meta data-th-if="${siteVerification}" name="google-site-verification" content="" data-th-attr="content=${siteVerification}" />
 <meta name="description" data-th-attr="content=${description}" />
@@ -11,5 +13,5 @@
 <meta property="og:image" data-th-if="${image}" data-th-attr="content=${image}" />
 <meta property="og:image:width" data-th-if="${image}" data-th-attr="content=${imageWidth}" />
 <meta property="og:image:height" data-th-if="${image}" data-th-attr="content=${imageHeight}" />
-<link data-th-if="${canonicalUrl}" data-th-attr="rel=canonical"data-th-href="${canonicalUrl}"/>
+<link data-th-if="${canonical}" data-th-attr="rel=canonical"data-th-href="${url}"/>
 </div>

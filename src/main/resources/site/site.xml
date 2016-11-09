@@ -68,14 +68,15 @@
 		<field-set name="other">
 			<label>Other</label>
 			<items>
-				<input name="twitterId" type="TextLine">
+				<input name="twitterUsername" type="TextLine">
 					<label>Twitter username</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
-				<input name="canonicalUrl" type="TextLine">
-					<label>Canonical Url</label>
+				<input name="canonical" type="CheckBox">
+					<label>Canonical</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
+
 			</items>
 		</field-set>
 	</config>
