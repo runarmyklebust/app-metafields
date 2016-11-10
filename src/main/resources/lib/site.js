@@ -110,4 +110,9 @@ exports.getOpenGraphImage = function(content, defaultImg) {
 	// Return the image URL or nothing
 	return imageOpts.id ? libs.portal.imageUrl(imageOpts) : null;
 };
-
+exports.getDomain = function(url){
+	var str = url.split('//');
+	var name = str[1].split('/') ;
+	var domainName =  str[0] +'//'+ name[0];
+	return domainName;
+};

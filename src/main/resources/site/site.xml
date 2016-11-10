@@ -76,7 +76,6 @@
 					<label>Canonical</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
-
 			</items>
 		</field-set>
 	</config>

@@ -1,6 +1,11 @@
 <div data-th-remove="tag">
-<meta name="twitter:site" data-th-attr="content=${twitterUserName}" />
-<meta name="twitter:image:src" data-th-src="${portal.assetUrl({'_path=img/all/fb-logo-square-800px.jpg'})}" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" data-th-attr="content=${title}" />
+<meta name="twitter:description" data-th-attr="content=${description}"/>
+<meta name="twitter:image:src" data-th-if="${image}" data-th-attr="content=${image}"/>
+<meta name="twitter:site" data-th-attr="content=${twitterUserName}"/>
+<meta name="twitter:domain" data-th-attr="content=${domain}"/>
+
 <meta data-th-if="${blockRobots}" name="robots" content="noindex,nofollow" />
 <meta data-th-if="${siteVerification}" name="google-site-verification" content="" data-th-attr="content=${siteVerification}" />
 <meta name="description" data-th-attr="content=${description}" />

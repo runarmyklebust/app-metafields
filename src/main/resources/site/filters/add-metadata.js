@@ -49,11 +49,12 @@ exports.responseFilter = function(req, res) {
         blockRobots: siteConfig.blockRobots || libs.site.getBlockRobots(content),
         siteVerification: siteVerification,
         canonical: siteConfig.canonical,
-        twitterUserName : siteConfig.twitterUsername
+        twitterUserName : siteConfig.twitterUsername,
+        domain : libs.site.getDomain(req.url)
         
     };
-
-    libs.util.log(params);
+    libs.util.log(req.url);
+    libs.util.log(libs.site.getDomain(req.url));
 
 	var metadata = libs.thymeleaf.render(view, params);
 
