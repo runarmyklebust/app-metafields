@@ -49,8 +49,7 @@ exports.responseFilter = function(req, res) {
         blockRobots: siteConfig.blockRobots || libs.site.getBlockRobots(content),
         siteVerification: siteVerification,
         canonical: siteConfig.canonical,
-        twitterUserName : siteConfig.twitterUsername,
-        domain : libs.site.getDomain(req.url)
+        twitterUserName : siteConfig.twitterUsername 
         
     };
 
