@@ -7,12 +7,14 @@ This app will add this functionality to your site:
 1. SEO friendly titles
 2. SEO meta description
 3. Open Graph meta data
-4. Google search console tag
-5. Robots exclude setting
+4. Twitter Cards meta data
+5. Google Search Console meta data / tag
+6. Canonical meta data
+7. Robots exclude setting
 
 ## Building and deploying
 
-There are two options. One is to simply download the app [JAR file](http://repo.enonic.com/public/com/enonic/app/metafields/1.2.0/metafields-1.2.0.jar) and move it to the XP installation's `$XP_HOME/deploy` folder.
+There are two options. One is to simply download the app [JAR file](http://repo.enonic.com/public/com/enonic/app/metafields/1.3.0/metafields-1.3.0.jar) and move it to the XP installation's `$XP_HOME/deploy` folder.
 
 Or you can build this app with Gradle. First, download the zip file of this repo. Unpack it locally. In the terminal, from the root of the project, type `./gradlew build`. On Windows, just type `gradlew build`. Next, move the JAR file from `build/libs` to your `$XP_HOME/deploy` directory. The SEO Meta Fields app will now be available to add to your websites through the Content Manager admin tool in Enonic XP.
 
@@ -30,6 +32,7 @@ This app introduces a few settings. They're controlled on the app itself on your
 2. Search engine settings
 3. Title behavior
 4. Custom JSON paths
+5. Other
 
 ### Default settings
 
@@ -55,6 +58,12 @@ When figuring out what data to put in your meta fields, this app analyzes the cu
 Add field names as comma separated strings, like `field1, field2, long-fieldname3`. It will remove spaces and it will handle dashes and other special characters in your field names. These custom fields will be checked before any other fields. If you add more than one field here, we'll let the first one overwrite any other fields on it right hand side. So if we find data in `field2` we won't look in `long-fieldname3`.
 
 We only evaluate for matches in the JSON `data`-node for each content.
+
+### Other
+
+Turn generation of canonical meta field on or off. Default is off, since most sites ship whit this already. Otherwise it will generate the meta tag with current URL. The logic is simple, it will use the current contents path as value.
+
+For Twitter Cards to work we need a Twitter user name (starting with `@`). When that is in place we can generate meta data for improved Twitter sharing.
 
 ## Waterfall logic for meta fields
 
@@ -91,18 +100,24 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 ## Releases and Compatibility
 
-| Version        | XP version |
+| Version | XP version |
 | ------------- | ------------- |
-| 1.2.0 | 6.7.3 |
-| 1.1.4 | 6.7.3 |
+| 1.3.0 | 6.7.0 |
+| 1.2.0 | 6.7.0 |
+| 1.1.4 | 6.7.0 |
 | 1.1.3 | 6.4.0 |
 | 1.1.2 | 6.4.0 |
 | 1.1.1 | 6.4.0 |
 | 1.1.0 | 6.4.0 |
-| 1.0.0 | 6.3.1 |
+| 1.0.0 | 6.3.0 |
 | 0.5.0 | 6.3.0 |
 
 ## Changelog
+
+### Version 1.3.0
+
+* Added Twitter Card meta data generation.
+* Added canonical meta data generation.
 
 ### Version 1.2.0
 

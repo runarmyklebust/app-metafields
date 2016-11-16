@@ -73,7 +73,7 @@
 					<occurrences minimum="0" maximum="1"/>
 				</input>
 				<input name="canonical" type="CheckBox">
-					<label>Canonical</label>
+					<label>Generate Canonical meta?</label>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
 			</items>
