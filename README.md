@@ -22,9 +22,9 @@ If you are upgrading to a newer version of this app, make sure to remove the old
 
 ## How to use this app
 
-After adding this app you should see `SEO Metadata` fields on both your site and on all of your contents. With these fields you can on each content set a custom title and description to be used on your site for SEO purposes.
+After adding this app you should see `SEO Metadata` fields on your site and on all of your contents. With these fields you can set a custom title and description on each content, used only for SEO purposes.
 
-**NB!** You do not need to change anything in your sites code for this app to work. It will however add meta description and open graph meta fields even if you already added this in your code, so please remove those fields first! The logic behind adding a SEO friendly title is smarter and it will never insert duplicate `<title>` tags.
+**NB!** You do not need to change anything in your sites code for this app to work. It will however add meta description, Twitter Cards, and Open Graph meta fields even if you already added this in your code, so please remove those fields first! The logic behind adding a SEO friendly title is smarter and it will never insert duplicate `<title>` tags.
 
 This app introduces a few settings. They're controlled on the app itself on your site and are used on the entire site, and/or as default fallback settings.
 
@@ -36,13 +36,13 @@ This app introduces a few settings. They're controlled on the app itself on your
 
 ### General settings
 
-**"Generate Canonical meta?"**
+**"Generate Canonical meta?"**  
 Turn generation of canonical meta field on or off. Default is off, since most sites ship with this already. If checked, it will generate the meta tag with current URL. The logic is simple, it will use the current content's path as value, something we know in Enonic XP always is unique.
 
-**"Google Search Console (site verification code)"**
+**"Google Search Console (site verification code)"**  
 Add meta tag for Google Search Console (formerly known as Google Webmaster Tools). Just fill in your ID here to generate the proper tag on all pages. Consult your Google Search Console login for finding this ID.
 
-**"Hide site from search engines?"**
+**"Hide site from search engines?"**  
 We also introduce a setting for hiding the entire site from search engine robots. This might be handy when wanting to have a live beta site but not letting search engine index it. It's up to the search engines to respect this setting, and this setting does not hide the pages from outside visitors as links to them and direct URL's will still work.
 
 ### Twitter Cards
@@ -127,6 +127,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 * Improved documentation (this file).
 * Regex force Twitter username to always begin with the @ symbol.
 * Added default settings for frontpage behavior, it now starts as checked.
+* Setting for "Append site name to title" now starts out as checked.
 * Added "-" as the default page-site title separator.
 
 ### Version 1.3.0
