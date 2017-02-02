@@ -1,6 +1,6 @@
-# SEO Meta Fields app for Enonic XP version 6
+# SEO Meta Fields app for Enonic XP
 
-This Enonic XP application adds [Open Graph](http://ogp.me/) meta-tags to your [Enonic XP](https://github.com/enonic/xp) site, it also let's you better customize your site's title tag and meta description information on each page and content. By applying mixin fields to each content you can easily improve your SEO and social sharing presence for your sites and apps.
+This Enonic XP application adds a multitude of helpful meta fields for your [Enonic XP](https://github.com/enonic/xp) site. Like [Open Graph](http://ogp.me/) meta-tags, [Twitter Cards](https://dev.twitter.com/cards/overview) meta-tags, [Google Search Console](https://www.google.com/webmasters/tools) meta-tag, and more! It also let's you better customize your site's title tag and meta description information on each page and content. By applying mixin fields to each content you can easily improve your SEO and social sharing presence for your sites and apps!
 
 This app will add this functionality to your site:
 
@@ -8,13 +8,13 @@ This app will add this functionality to your site:
 2. SEO meta description
 3. Open Graph meta data
 4. Twitter Cards meta data
-5. Google Search Console meta data / tag
-6. Canonical meta data
-7. Robots exclude setting
+5. Google Search Console meta tag
+6. Canonical meta tag
+7. Robots.txt exclude setting
 
 ## Building and deploying
 
-There are two options. One is to simply download the app [JAR file](http://repo.enonic.com/public/com/enonic/app/metafields/1.3.0/metafields-1.3.0.jar) and move it to the XP installation's `$XP_HOME/deploy` folder.
+There are two options. One is to simply download the app [JAR file](http://repo.enonic.com/public/com/enonic/app/metafields/1.3.1/metafields-1.3.1.jar) and move it to the XP installation's `$XP_HOME/deploy` folder.
 
 Or you can build this app with Gradle. First, download the zip file of this repo. Unpack it locally. In the terminal, from the root of the project, type `./gradlew build`. On Windows, just type `gradlew build`. Next, move the JAR file from `build/libs` to your `$XP_HOME/deploy` directory. The SEO Meta Fields app will now be available to add to your websites through the Content Manager admin tool in Enonic XP.
 
@@ -28,53 +28,57 @@ After adding this app you should see `SEO Metadata` fields on both your site and
 
 This app introduces a few settings. They're controlled on the app itself on your site and are used on the entire site, and/or as default fallback settings.
 
-1. Default settings
-2. Search engine settings
-3. Title behavior
-4. Custom JSON paths
-5. Other
+1. General settings
+2. Twitter Cards
+3. Fallback settings
+4. Title config
+5. Advanced: prioritized JSON paths
 
-### Default settings
+### General settings
 
-This app tries to figure out which data to use for all the meta fields based on the current content. However, on some pages, there might not be any custom data set, like on your site's first page. That's what the first settings are for: default fallbacks. Here is where you add an image to be used for Open Graph and any fallback title and meta description.
+**"Generate Canonical meta?"**
+Turn generation of canonical meta field on or off. Default is off, since most sites ship with this already. If checked, it will generate the meta tag with current URL. The logic is simple, it will use the current content's path as value, something we know in Enonic XP always is unique.
 
-### Search engine settings
+**"Google Search Console (site verification code)"**
+Add meta tag for Google Search Console (formerly known as Google Webmaster Tools). Just fill in your ID here to generate the proper tag on all pages. Consult your Google Search Console login for finding this ID.
 
-Add meta tag for Google search console (formerly known as Google Webmaster Tools). Just fill in your ID here to generate the proper tag on all pages.
-Here we also introduce a setting for hiding the entire site from search engine robots.
+**"Hide site from search engines?"**
+We also introduce a setting for hiding the entire site from search engine robots. This might be handy when wanting to have a live beta site but not letting search engine index it. It's up to the search engines to respect this setting, and this setting does not hide the pages from outside visitors as links to them and direct URL's will still work.
 
-### Title behavior
+### Twitter Cards
 
-With the title configuration you can control how we create the titles for you. If you already have a `<title>` tag in your source html, we will overwrite it and use it's location in the source code. If you do not have this tag already, we will append it at the end of the `<head>`-tag.
+For Twitter Cards to work we need a Twitter username (starting with `@`). When that is in place we can generate meta data for improved Twitter sharing called "Twitter Cards". By omitting the username no such meta data will be generated.
 
-The settings here let you control if you want to add the site's name at the end of all page's title's. You can activate this on all pages, but also control to not do this on the front page. There's also an option for controlling what separator sign to use between page name and site name (defaults to the dash character).
+### Fallback settings
 
-Meta fields for Open Graph does not use these settings, it never adds site name to it's title meta field as it is redundant data.
+This app tries to figure out which data to use for all the meta fields based on the current content. However, on some pages, there might not be any custom data set, like on your site's first page. That's what these settings are for: default fallbacks. Here is where you add a default image to fallback on for Open Graph and Twitter Cards, and any fallback title and meta description. If nothing is added here, and the app can't figure out any suitable data to use for a content, the meta fields are not generated at all.
 
-### Custom json paths
+### Title config
 
-When figuring out what data to put in your meta fields, this app analyzes the current content you're viewing. It will fetch a pre-defined set of fields in a pre-defined order (more on that later). You might however have fields with different names, or want to add more fields, or control in which order the data is evaluated. Then these settings are for you.
+With the title configuration you can control how we create the titles for you. If you already have a `<title>` tag in your source html, we will overwrite it and use it's location in the source code. It's pretty clever this way. If you do not have this tag already, we will append it at the end of the `<head>`-tag.
 
-Add field names as comma separated strings, like `field1, field2, long-fieldname3`. It will remove spaces and it will handle dashes and other special characters in your field names. These custom fields will be checked before any other fields. If you add more than one field here, we'll let the first one overwrite any other fields on it right hand side. So if we find data in `field2` we won't look in `long-fieldname3`.
+The settings here let you control if you want to add the site's name at the end of all pages' titles. You can activate this on all pages, but also control to not do this on the front page. There's also an option for controlling what separator sign to use between page name and site name (defaults to the dash character).
 
-We only evaluate for matches in the JSON `data`-node for each content.
+Note: Meta fields for Open Graph and Twitter Cards does not use these settings, it never adds site name to it's title meta field as it is redundant data.
 
-### Other
+### Advanced: prioritized JSON paths
 
-Turn generation of canonical meta field on or off. Default is off, since most sites ship whit this already. Otherwise it will generate the meta tag with current URL. The logic is simple, it will use the current contents path as value.
+When figuring out what data to put in your meta fields, this app analyzes the current content you're viewing. It will fetch a pre-defined set of fields in a pre-defined order (more on that later in the "Waterfall logic" section). You might however have fields with different names, or want to add more fields, or control in which order the data is evaluated. Then these settings are for you.
 
-For Twitter Cards to work we need a Twitter user name (starting with `@`). When that is in place we can generate meta data for improved Twitter sharing.
+Add field names as comma separated strings, like `field1, field2, long-fieldname3`. It will remove spaces and it will handle dashes and other special characters in your field names. These custom fields will be checked before any other fields. If you add more than one field here, we'll let the first one overwrite any other fields on its right hand side. So if we find data in `field2` we won't look in `long-fieldname3`. This gives you powerful control over your SEO!
+
+We only evaluate for matches in the JSON `data`-node for each content. So if you fill in `myField`, we'll look for `data.myField` in the content JSON (refer to Enonic XP's documentation on `getContent()` function).
 
 ## Waterfall logic for meta fields
 
-We will always add the meta fields for title and description, and most of the meta fields for Open Graph. However, if we cannot find any image to use, we won't add the meta fields for Open Graph image.
+We will always add the meta fields for title and description, and most of the meta fields for Open Graph. However, if we cannot find any image to use, we won't add the meta fields for Open Graph image or Twitter Cards image.
 
-It's important to understand the waterfall logic we use when evaluating which data to use for our meta fields (with the first match/hit overwriting all the following ones):
+It's important to understand the waterfall logic we use when evaluating which data to use for our meta fields (with the first match overwriting all the following ones):
 
-### For the title
+### For titles
 
 1. Current content's `SEO Metadata` mixin's `title` field.
-2. The app config has custom JSON path added (in the order defined).
+2. The app config's custom JSON paths, if any (in the order defined).
 3. Check in some commonly used fields: `title`, `header`, `heading`.
 4. The content's `displayName` field (all content has this field).
 5. See if the site itself has the `SEO Metadata` field `title` filled out.
@@ -82,26 +86,27 @@ It's important to understand the waterfall logic we use when evaluating which da
 
 For titles there is no way it can be empty, at least the last fallback will always trigger.
 
-### For the description
+### For descriptions
 
 1. Current content's `SEO Metadata` mixin's `description` field.
-2. The app config has custom JSON path added (in the order defined).
+2. The app config's custom JSON paths, if any (in the order defined).
 3. Check in some commonly used fields: `preface`, `description`, `summary`.
 4. See if the site itself has the `SEO Metadata` field `description` filled out.
-5. As a last resort, we default to the site's `description` field.
+5. As a last resort, we default to the site's `description` field (default Enonic XP data).
 6. An empty description is created.
 
 ### For images
 
-1. The app config has custom JSON path added (in the order defined).
+1. The app config's custom JSON paths, if any (in the order defined).
 2. Check in some commonly used fields: `image`, `images`.
-3. Resort to the default images set on the app itself.
-4. If still nothing is found we won't show an image at all (the meta fields for the image are not added).
+3. Resort to the fallback image set on the app itself.
+4. If nothing is found the meta fields for the image are not created.
 
 ## Releases and Compatibility
 
 | Version | XP version |
 | ------------- | ------------- |
+| 1.3.1 | 6.7.0 |
 | 1.3.0 | 6.7.0 |
 | 1.2.0 | 6.7.0 |
 | 1.1.4 | 6.7.0 |
@@ -113,6 +118,10 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 | 0.5.0 | 6.3.0 |
 
 ## Changelog
+
+### Version 1.3.1
+
+* Greatly improved usability of app by adding help texts, restructure site.xml, and improve all labels, and this documentation.
 
 ### Version 1.3.0
 
