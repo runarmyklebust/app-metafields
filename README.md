@@ -121,7 +121,13 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 ### Version 1.3.1
 
-* Greatly improved usability of app by adding help texts, restructure site.xml, and improve all labels, and this documentation.
+* Greatly improved usability of app by adding help texts to all the fields.
+* Changed the overall structure of settings for the app. Now with more logical groups (field sets).
+* Gave multiple labels improved names, making it more obvious what they do.
+* Improved documentation (this file).
+* Regex force Twitter username to always begin with the @ symbol.
+* Added default settings for frontpage behavior, it now starts as checked.
+* Added "-" as the default page-site title separator.
 
 ### Version 1.3.0
 
