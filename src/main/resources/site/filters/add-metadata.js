@@ -59,19 +59,23 @@ exports.responseFilter = function(req, res) {
     res.pageContributions.headEnd = libs.util.data.forceArray(res.pageContributions.headEnd);
     res.pageContributions.headEnd.push(metadata);
 
+	// Handle injection of title - use any existing tag by replacing its content.
+	var title = '<title>' + pageTitle + titleAppendix + '</title>';
+	var titleAdded = false;
 	if (res.contentType === 'text/html') {
 		 if (res.body) {
 			if (typeof res.body === 'string') {
 				// Find a title in the html and use that instead of adding our own title
 				var hasIndex = res.body.indexOf('<title>') > -1;
-				var title = '<title>' + pageTitle + titleAppendix + '</title>';
 				if (hasIndex) {
 					res.body = res.body.replace(/(<title>)(.*?)(<\/title>)/i, title);
-				} else {
-					res.pageContributions.headEnd.push(title);
+					titleAdded = true;
 				}
 			}
 		}
+	}
+	if (!titleAdded) {
+		res.pageContributions.headEnd.push(title);
 	}
 
     if (req.params) {
