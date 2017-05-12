@@ -61,7 +61,7 @@ exports.responseFilter = function(req, res) {
 
 	if (res.contentType === 'text/html') {
 		 if (res.body) {
-			if (res.body != '') {
+			if (res.body typeof 'string') {
 				// Find a title in the html and use that instead of adding our own title
 				var hasIndex = res.body.indexOf('<title>') > -1;
 				var title = '<title>' + pageTitle + titleAppendix + '</title>';
