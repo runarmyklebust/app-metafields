@@ -49,8 +49,8 @@ exports.responseFilter = function(req, res) {
         blockRobots: siteConfig.blockRobots || libs.site.getBlockRobots(content),
         siteVerification: siteVerification,
         canonical: siteConfig.canonical,
-        twitterUserName : siteConfig.twitterUsername 
-        
+        twitterUserName : siteConfig.twitterUsername
+
     };
 
 	var metadata = libs.thymeleaf.render(view, params);
@@ -69,9 +69,11 @@ exports.responseFilter = function(req, res) {
         }
     }
 
-    if (req.params.debug === 'true') {
-        res.applyFilters = false; // Skip other filters
-    }
+    if (req.params) {
+	    if (req.params.debug === 'true') {
+	        res.applyFilters = false; // Skip other filters
+	    }
+	 }
 
     return res;
 };
