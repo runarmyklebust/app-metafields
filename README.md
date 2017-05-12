@@ -12,15 +12,11 @@ This app will add the following functionality to your site:
 6. Canonical meta tag
 7. Robots.txt exclude setting
 
-## Building and deploying
+## Installation
 
-You have three options: One is to simply download the app [JAR file](http://repo.enonic.com/public/com/enonic/app/metafields/1.3.1/metafields-1.3.1.jar) and move it to the XP installation's `$XP_HOME/deploy` folder.
+Go into the Enonic XP Application admin tool and install the app from the [Enonic Market](https://market.enonic.com/).
 
-Or you can build this app with Gradle. First, download the zip file of this repo. Unpack it locally. In the terminal, from the root of the project, type `./gradlew build`. On Windows, just type `gradlew build`. Next, move the newly generated JAR file from `build/libs` to your `$XP_HOME/deploy` directory.
-
-Or you can just go into the Enonic XP Application admin tool and install the app from the [Enonic Market](https://market.enonic.com/).
-
-The SEO Meta Fields app will then be available to add to your websites through the Content Studio admin tool in Enonic XP. Edit your site content to add an Enonic XP app like this one.
+The SEO Meta Fields app will then be available to add to your websites through the Content Studio admin tool in Enonic XP. Edit your site content to add this app. Remember to save (after you've configured the app).
 
 ## How to use this app
 
@@ -108,6 +104,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 | Version | XP version |
 | ------------- | ------------- |
+| 1.3.2 | 6.7.0 |
 | 1.3.1 | 6.7.0 |
 | 1.3.0 | 6.7.0 |
 | 1.2.0 | 6.7.0 |
@@ -120,6 +117,11 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 | 0.5.0 | 6.3.0 |
 
 ## Changelog
+
+### Version 1.3.2
+
+* **Bug fixed** don't intercept content types other than html files. Can cause crashes on websites.
+* Upgrade to Gradle 3.
 
 ### Version 1.3.1
 
