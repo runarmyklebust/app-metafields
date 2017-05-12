@@ -53,21 +53,26 @@ exports.responseFilter = function(req, res) {
 
     };
 
-	var metadata = libs.thymeleaf.render(view, params);
+    var metadata = libs.thymeleaf.render(view, params);
 
+	 // Force arrays since single values will be return as string instead of array
     res.pageContributions.headEnd = libs.util.data.forceArray(res.pageContributions.headEnd);
     res.pageContributions.headEnd.push(metadata);
 
-    if (res.body) {
-        // Can we find a title in the html? Use that instead of adding our own title
-        var hasIndex = res.body.indexOf('<title>') > -1;
-        var title = '<title>' + pageTitle + titleAppendix + '</title>';
-        if (hasIndex) {
-            res.body = res.body.replace(/(<title>)(.*?)(<\/title>)/i, title);
-        } else {
-            res.pageContributions.headEnd.push(title);
-        }
-    }
+	if (res.contentType === 'text/html') {
+		 if (res.body) {
+			if (res.body != '') {
+				// Find a title in the html and use that instead of adding our own title
+				var hasIndex = res.body.indexOf('<title>') > -1;
+				var title = '<title>' + pageTitle + titleAppendix + '</title>';
+				if (hasIndex) {
+					res.body = res.body.replace(/(<title>)(.*?)(<\/title>)/i, title);
+				} else {
+					res.pageContributions.headEnd.push(title);
+				}
+			}
+		}
+	}
 
     if (req.params) {
 	    if (req.params.debug === 'true') {
