@@ -25,11 +25,12 @@ exports.responseFilter = function(req, res) {
     var frontpage = site._path === content._path;
     var pageTitle = libs.site.getPageTitle(content, site);
 
-    // Concat site title?
+    // Concat site title? Trigger if set to true in settings, or if not set at all (default = true)
     var titleAppendix = '';
-    if (siteConfig.titleBehaviour) {
+    if (siteConfig.titleBehaviour || !siteConfig.hasOwnProperty("titleBehaviour") ) {
         var separator = siteConfig.titleSeparator || '-';
-        if (!frontpage || !siteConfig.titleFrontpageBehaviour) {
+		  var titleRemoveOnFrontpage = siteConfig.hasOwnProperty("titleFrontpageBehaviour") ? siteConfig.titleFrontpageBehaviour : true; // Default true needs to be respected
+		  if (!frontpage || !titleRemoveOnFrontpage) {
             titleAppendix = ' ' + separator + ' ' + site.displayName;
         }
     }
