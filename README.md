@@ -121,6 +121,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 ### Version 1.3.2
 
 * **Bug fixed** don't intercept content types other than html files. Can cause crashes on websites.
+* Improve title behaviour on clean installs of the app.
 * Upgrade to Gradle 3.
 
 ### Version 1.3.1
