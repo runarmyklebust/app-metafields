@@ -120,8 +120,8 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 ### Version 1.3.2
 
-* **Bug fixed** don't intercept content types other than html files. Can cause crashes on websites.
-* Improve title behaviour on clean installs of the app.
+* **Bug fixed** don't intercept content types other than html files. Can cause crashes on websites generating XML or JSON.
+* Improve title behavior on clean installs of the app.
 * Upgrade to Gradle 3.
 
 ### Version 1.3.1
@@ -131,7 +131,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 * Gave multiple labels improved names, making it more obvious what they do.
 * Improved documentation (this file).
 * Regex force Twitter username to always begin with the @ symbol.
-* Added default settings for frontpage behavior, it now starts as checked.
+* Added default settings for front page behavior, it now starts as checked.
 * Setting for "Append site name to title" now starts out as checked.
 * Added "-" as the default page-site title separator.
 
