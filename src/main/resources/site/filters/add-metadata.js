@@ -55,28 +55,28 @@ exports.responseFilter = function(req, res) {
 
     var metadata = libs.thymeleaf.render(view, params);
 
-	 // Force arrays since single values will be return as string instead of array
+    // Force arrays since single values will be return as string instead of array
     res.pageContributions.headEnd = libs.util.data.forceArray(res.pageContributions.headEnd);
     res.pageContributions.headEnd.push(metadata);
 
-	// Handle injection of title - use any existing tag by replacing its content.
-	var title = '<title>' + pageTitle + titleAppendix + '</title>';
-	var titleAdded = false;
-	if (res.contentType === 'text/html') {
-		 if (res.body) {
-			if (typeof res.body === 'string') {
-				// Find a title in the html and use that instead of adding our own title
-				var hasIndex = res.body.indexOf('<title>') > -1;
-				if (hasIndex) {
-					res.body = res.body.replace(/(<title>)(.*?)(<\/title>)/i, title);
-					titleAdded = true;
-				}
-			}
-		}
-	}
-	if (!titleAdded) {
-		res.pageContributions.headEnd.push(title);
-	}
+    // Handle injection of title - use any existing tag by replacing its content.
+    var title = '<title>' + pageTitle + titleAppendix + '</title>';
+    var titleAdded = false;
+    if (res.contentType === 'text/html') {
+         if (res.body) {
+            if (typeof res.body === 'string') {
+                // Find a title in the html and use that instead of adding our own title
+                var hasIndex = res.body.indexOf('<title>') > -1;
+                if (hasIndex) {
+                    res.body = res.body.replace(/(<title>)(.*?)(<\/title>)/i, title);
+                    titleAdded = true;
+                }
+            }
+        }
+    }
+    if (!titleAdded) {
+        res.pageContributions.headEnd.push(title);
+    }
 
     if (req.params) {
 	    if (req.params.debug === 'true') {
