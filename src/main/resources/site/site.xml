@@ -38,9 +38,29 @@
 		<field-set name="defaults">
 			<label>Fallback settings</label>
 			<items>
+				<input name="useHttps" type="CheckBox">
+					<label>Use https for absolute fallback image paths?</label>
+					<help-text>Absolute URLs are normally returned as http. Check this to force them to https!</help-text>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
 				<input name="seoImage" type="ImageSelector">
 					<label>Content image fallback</label>
 					<help-text>If current content image is not found, use this as last resort. Tip: add company logo here!</help-text>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+				<input name="seoImageIsPrescaled" type="CheckBox">
+					<label>Serve the content fallback image as is. No system scaling.</label>
+					<help-text>Image will otherwise be scaled to 1200x630px and set to jpg with quality 85</help-text>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+				<input name="frontpageImage" type="ImageSelector">
+					<label>Frontpage image fallback</label>
+					<help-text>Use this for a special image for the frontpage only!</help-text>
+					<occurrences minimum="0" maximum="1"/>
+				</input>
+				<input name="frontpageImageIsPrescaled" type="CheckBox">
+					<label>Serve the frontpage image as is. No system scaling.</label>
+					<help-text>Image will otherwise be scaled to 1200x630px and set to jpg with quality 85</help-text>
 					<occurrences minimum="0" maximum="1"/>
 				</input>
 				<input name="seoTitle" type="TextLine">

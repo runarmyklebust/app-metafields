@@ -104,6 +104,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 | Version | XP version |
 | ------------- | ------------- |
+| 1.4.0 | 6.7.0 |
 | 1.3.3 | 6.7.0 |
 | 1.3.2 | 6.7.0 |
 | 1.3.1 | 6.7.0 |
@@ -118,6 +119,12 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 | 0.5.0 | 6.3.0 |
 
 ## Changelog
+
+### Version 1.4.0
+
+* Added config option to return separate fallback image for frontpage.
+* Added config option to return raw (unscaled) fallback images for both frontpage and normal content.
+* Added config option to return fallback images as https.
 
 ### Version 1.3.3
 

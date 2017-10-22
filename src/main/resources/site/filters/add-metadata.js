@@ -29,22 +29,41 @@ exports.responseFilter = function(req, res) {
     var titleAppendix = '';
     if (siteConfig.titleBehaviour || !siteConfig.hasOwnProperty("titleBehaviour") ) {
         var separator = siteConfig.titleSeparator || '-';
-		  var titleRemoveOnFrontpage = siteConfig.hasOwnProperty("titleFrontpageBehaviour") ? siteConfig.titleFrontpageBehaviour : true; // Default true needs to be respected
-		  if (!frontpage || !titleRemoveOnFrontpage) {
+          var titleRemoveOnFrontpage = siteConfig.hasOwnProperty("titleFrontpageBehaviour") ? siteConfig.titleFrontpageBehaviour : true; // Default true needs to be respected
+          if (!frontpage || !titleRemoveOnFrontpage) {
             titleAppendix = ' ' + separator + ' ' + site.displayName;
         }
     }
 
-	 var siteVerification = siteConfig.siteVerification || null;
+    var siteVerification = siteConfig.siteVerification || null;
+
+    var url = libs.portal.pageUrl({ path: content._path, type: "absolute" });
+    var isFrontpage = site._path === content._path;
+    var fallbackImage = siteConfig.seoImage;
+    var fallbackImageIsPrescaled = siteConfig.seoImageIsPrescaled;
+    if (isFrontpage && siteConfig.frontpageImage) {
+        fallbackImage = siteConfig.frontpageImage;
+        fallbackImageIsPrescaled = siteConfig.frontpageImageIsPrescaled;
+    }
+    var image = libs.site.getOpenGraphImage(content, fallbackImage, fallbackImageIsPrescaled);
+    // Fix hard coded URL schema returned by portal functions
+    if (siteConfig.useHttps) {
+        if (url) {
+            url = url.replace('http://', 'https://');
+        }
+        if (image) {
+            image = image.replace('http://', 'https://');
+        }
+    }
 
     var params = {
         title: pageTitle,
         description: libs.site.getMetaDescription(content, site),
         siteName: site.displayName,
         locale: localeMap[lang] || localeMap.en,
-        type: site._path === content._path ? 'website' : 'article',
-        url: libs.portal.pageUrl({ path: content._path, type: "absolute" }),
-        image: libs.site.getOpenGraphImage(content, siteConfig.seoImage),
+        type: isFrontpage ? 'website' : 'article',
+        url: url,
+        image: image,
         imageWidth: 1200, // Twice of 600x315, for retina
         imageHeight: 630,
         blockRobots: siteConfig.blockRobots || libs.site.getBlockRobots(content),
@@ -80,10 +99,10 @@ exports.responseFilter = function(req, res) {
     }
 
     if (req.params) {
-	    if (req.params.debug === 'true') {
-	        res.applyFilters = false; // Skip other filters
-	    }
-	 }
+        if (req.params.debug === 'true') {
+            res.applyFilters = false; // Skip other filters
+        }
+     }
 
     return res;
 };
