@@ -124,7 +124,6 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 * Added config option to return separate fallback image for frontpage.
 * Added config option to return raw (unscaled) fallback images for both frontpage and normal content.
-* Added config option to return fallback images as https.
 
 ### Version 1.3.3
 
