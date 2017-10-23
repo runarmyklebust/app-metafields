@@ -46,15 +46,6 @@ exports.responseFilter = function(req, res) {
         fallbackImageIsPrescaled = siteConfig.frontpageImageIsPrescaled;
     }
     var image = libs.site.getOpenGraphImage(content, fallbackImage, fallbackImageIsPrescaled);
-    // Fix hard coded URL schema returned by portal functions
-    if (siteConfig.useHttps) {
-        if (url) {
-            url = url.replace('http://', 'https://');
-        }
-        if (image) {
-            image = image.replace('http://', 'https://');
-        }
-    }
 
     var params = {
         title: pageTitle,
