@@ -13,8 +13,8 @@
 			<occurrences minimum="0" maximum="1"/>
 		</input>
 		<input name="blockRobots" type="CheckBox">
-			<label>Hide from search engines?</label>
-			<help-text>Checking this will tell search engines to skip this particular page. Note: The page is not hidden and can still be accessed via URL or links, but search engines will try and not list it in their search results.</help-text>
+			<label>Hide from external search engines?</label>
+			<help-text>Checking this will tell external search engines to skip this particular page. Note: The page is not hidden and can still be accessed via URL or links, but search engines will try and not list it in their search results.</help-text>
 			<occurrences minimum="0" maximum="1"/>
 		</input>
 	</items>
