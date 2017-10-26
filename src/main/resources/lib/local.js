@@ -9,6 +9,7 @@ var mixinPath = 'meta-data';
 function getConfig() {
 	return libs.portal.getSiteConfig();
 }
+
 function commaStringToArray(str) {
 	var commas = str || '';
 	var arr = commas.split(',');
@@ -19,7 +20,6 @@ function commaStringToArray(str) {
 	}
 	return arr;
 }
-
 
 function findValueInJson(json, paths) {
 	var value = null;
@@ -45,11 +45,9 @@ function findValueInJson(json, paths) {
 	return value;
 } // function findValueInJson
 
-
 function isString(o) {
 	return typeof o === 'string' || o instanceof String;
 }
-
 
 function stringOrNull(o) {
 	return isString(o) ? o : null;
