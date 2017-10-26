@@ -105,29 +105,42 @@ exports.getMetaDescription = function(content, site) {
 	return metaDescription;
 };
 
-exports.getOpenGraphImage = function(content, defaultImg) {
+exports.getOpenGraphImage = function(content, defaultImg, defaultImgPrescaled) {
 	var siteConfig = getConfig();
 
 	var userDefinedPaths = siteConfig.pathsImages || '';
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
 	var userDefinedValue = userDefinedPaths ? findValueInJson(content,userDefinedArray) : null;
 
-	// Set basic image options
-	var imageOpts = {
-		scale: 'block(1200,630)', // Open Graph requires 600x315 for landscape format. Double that for retina display.
-		quality: 85,
-		format: 'jpg',
-		type: 'absolute'
-	};
+	var ogImage;
 
-	// Try to find an image in the content's image or images properties
-	var imageArray = libs.util.data.forceArray( userDefinedValue || content.data.image || content.data.images || []);
+    // Try to find an image in the content's image or images properties
+    var imageArray = libs.util.data.forceArray( userDefinedValue || content.data.image || content.data.images || []);
 
-	// Set the ID to either the first image in the set or the default image ID
-	imageOpts.id = imageArray.length ? imageArray[0] : defaultImg;
+    if (imageArray.length || (defaultImg && !defaultImgPrescaled)) {
+        // Set basic image options
+        var imageOpts = {
+            scale: 'block(1200,630)', // Open Graph requires 600x315 for landscape format. Double that for retina display.
+            quality: 85,
+            format: 'jpg',
+            type: 'absolute'
+        };
+
+        // Set the ID to either the first image in the set or use the default image ID
+        imageOpts.id = imageArray.length ? imageArray[0] : defaultImg;
+
+        ogImage = imageOpts.id ? libs.portal.imageUrl(imageOpts) : null;
+	} else if (defaultImg && defaultImgPrescaled) {
+        // Serve pre-optimized image directly
+        ogImage = libs.portal.attachmentUrl({
+            id:defaultImg,
+            type:'absolute'
+        });
+    }
 
 	// Return the image URL or nothing
-	return imageOpts.id ? libs.portal.imageUrl(imageOpts) : null;
+	return ogImage;
 };
+
 
 
