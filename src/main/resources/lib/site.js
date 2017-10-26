@@ -3,7 +3,7 @@ var libs = {
 	util: require('/lib/enonic/util')
 };
 
-var appNamePath = app.name.replace(/\./g,'-');
+var appNamePath = libs.util.app.getJsonName();
 var mixinPath = 'meta-data';
 
 function getConfig() {
@@ -141,6 +141,3 @@ exports.getOpenGraphImage = function(content, defaultImg, defaultImgPrescaled) {
 	// Return the image URL or nothing
 	return ogImage;
 };
-
-
-
