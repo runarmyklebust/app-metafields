@@ -2,7 +2,7 @@ var libs = {
     portal: require('/lib/xp/portal'),
     thymeleaf: require('/lib/xp/thymeleaf'),
     util: require('/lib/enonic/util'),
-    site: require('/lib/site')
+    local: require('/lib/local')
 };
 
 var view = resolve('add-metadata.html');
@@ -23,7 +23,7 @@ exports.responseFilter = function(req, res) {
 
     var lang = content.language || site.language || 'en';
     var frontpage = site._path === content._path;
-    var pageTitle = libs.site.getPageTitle(content, site);
+    var pageTitle = libs.local.getPageTitle(content, site);
 
     // Concat site title? Trigger if set to true in settings, or if not set at all (default = true)
     var titleAppendix = '';
@@ -45,11 +45,11 @@ exports.responseFilter = function(req, res) {
         fallbackImage = siteConfig.frontpageImage;
         fallbackImageIsPrescaled = siteConfig.frontpageImageIsPrescaled;
     }
-    var image = libs.site.getOpenGraphImage(content, fallbackImage, fallbackImageIsPrescaled);
+    var image = libs.local.getOpenGraphImage(content, fallbackImage, fallbackImageIsPrescaled);
 
     var params = {
         title: pageTitle,
-        description: libs.site.getMetaDescription(content, site),
+        description: libs.local.getMetaDescription(content, site),
         siteName: site.displayName,
         locale: localeMap[lang] || localeMap.en,
         type: isFrontpage ? 'website' : 'article',
@@ -57,7 +57,7 @@ exports.responseFilter = function(req, res) {
         image: image,
         imageWidth: 1200, // Twice of 600x315, for retina
         imageHeight: 630,
-        blockRobots: siteConfig.blockRobots || libs.site.getBlockRobots(content),
+        blockRobots: siteConfig.blockRobots || libs.local.getBlockRobots(content),
         siteVerification: siteVerification,
         canonical: siteConfig.canonical,
         twitterUserName : siteConfig.twitterUsername
