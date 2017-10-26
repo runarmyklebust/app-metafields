@@ -122,8 +122,9 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 ### Version 1.4.0
 
-* Added config option to return separate fallback image for frontpage.
-* Added config option to return raw (unscaled) fallback images for both frontpage and normal content.
+* Added config option to return separate fallback image for frontpage. Credit @nerdegutt
+* Added config option to return raw (unscaled) fallback images for both frontpage and normal content. Credit @nerdegutt
+* Using HtmlArea as description basis now possible, tags stripped. (#29)
 * Changing the label for "hide from search engine". (#30)
 
 ### Version 1.3.3

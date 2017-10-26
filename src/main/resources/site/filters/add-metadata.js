@@ -29,8 +29,8 @@ exports.responseFilter = function(req, res) {
     var titleAppendix = '';
     if (siteConfig.titleBehaviour || !siteConfig.hasOwnProperty("titleBehaviour") ) {
         var separator = siteConfig.titleSeparator || '-';
-          var titleRemoveOnFrontpage = siteConfig.hasOwnProperty("titleFrontpageBehaviour") ? siteConfig.titleFrontpageBehaviour : true; // Default true needs to be respected
-          if (!frontpage || !titleRemoveOnFrontpage) {
+        var titleRemoveOnFrontpage = siteConfig.hasOwnProperty("titleFrontpageBehaviour") ? siteConfig.titleFrontpageBehaviour : true; // Default true needs to be respected
+        if (!frontpage || !titleRemoveOnFrontpage) {
             titleAppendix = ' ' + separator + ' ' + site.displayName;
         }
     }
