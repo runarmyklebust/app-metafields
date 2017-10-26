@@ -100,6 +100,10 @@ exports.getMetaDescription = function(content, site) {
 					|| siteConfig.seoDescription // Use default for site
 					|| site.description; // Use bottom default
 
+	// Strip away all html tags, in case there's any in the description.
+	var regex = /(<([^>]+)>)/ig;
+	metaDescription = metaDescription.replace(regex, "");
+
 	return metaDescription;
 };
 
