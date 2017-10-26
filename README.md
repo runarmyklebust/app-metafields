@@ -124,6 +124,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 * Added config option to return separate fallback image for frontpage.
 * Added config option to return raw (unscaled) fallback images for both frontpage and normal content.
+* Changing the label for "hide from search engine". (#30)
 
 ### Version 1.3.3
 
