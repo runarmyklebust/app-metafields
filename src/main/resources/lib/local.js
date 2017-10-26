@@ -98,7 +98,8 @@ exports.getMetaDescription = function(content, site) {
 					: userDefinedValue
 					|| content.data.preface || content.data.description || content.data.summary // Use typical content summary names
 					|| siteConfig.seoDescription // Use default for site
-					|| site.description; // Use bottom default
+					|| site.description // Use bottom default
+					|| ''; // Don't crash plugin on clean installs
 
 	// Strip away all html tags, in case there's any in the description.
 	var regex = /(<([^>]+)>)/ig;
