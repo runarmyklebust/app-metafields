@@ -16,7 +16,7 @@ This app will add the following functionality to your site:
 
 Go into the Enonic XP Application admin tool and install the app from the [Enonic Market](https://market.enonic.com/).
 
-The SEO Meta Fields app will then be available to add to your websites through the Content Studio admin tool in Enonic XP. Edit your site content to add this app. Remember to save (after you've configured the app).
+The **SEO Meta Fields** app will then be available to add to your websites through the Content Studio admin tool in Enonic XP. Edit your site content to add this app. Remember to save (after you've configured the app).
 
 ## How to use this app
 
@@ -75,27 +75,27 @@ It's important to understand the waterfall logic we use when evaluating which da
 
 ### For titles
 
-1. Current content's `SEO Metadata` mixin's `title` field.
+1. Current content's `SEO` mixin's `title` field.
 2. The app config's custom JSON paths, if any (in the order defined).
 3. Check in some commonly used fields: `title`, `header`, `heading`.
 4. The content's `displayName` field (all content has this field).
-5. See if the site itself has the `SEO Metadata` field `title` filled out.
+5. See if the site itself has the `SEO` field `title` filled out.
 6. As a last resort, we default to the site's `displayName` field.
 
 For titles there is no way it can be empty, at least the last fallback will always trigger.
 
 ### For descriptions
 
-1. Current content's `SEO Metadata` mixin's `description` field.
+1. Current content's `SEO` mixin's `description` field.
 2. The app config's custom JSON paths, if any (in the order defined).
 3. Check in some commonly used fields: `preface`, `description`, `summary`.
-4. See if the site itself has the `SEO Metadata` field `description` filled out.
+4. See if the site itself has the `SEO` field `description` filled out.
 5. As a last resort, we default to the site's `description` field (default Enonic XP data).
 6. An empty description is created.
 
 ### For images
 
-1. Current content's `SEO Metadata` mixin's `image` field.
+1. Current content's `SEO` mixin's `image` field.
 2. The app config's custom JSON paths, if any (in the order defined).
 3. Check in some commonly used fields: `image`, `images`.
 4. Resort to the fallback image set on the app itself.
@@ -126,6 +126,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 * New: Possibility to override/add custom image per content.
 * Fix: Automatically skip converting images to JPG if it's a SVG being used.
+* Changed: Fieldset display-name is now only "SEO" instead of "SEO Metadata".
 
 ### Version 1.4.0
 
