@@ -147,21 +147,16 @@ exports.getOpenGraphImage = function(content, defaultImg, defaultImgPrescaled) {
 		  var theImage = libs.content.get({
 			  key: imageOpts.id
 		  });
-		  var resetConfig = false;
 		  var mimeType = null;
 		  if (theImage) {
 			  if (theImage.data.media.attachment) {
 				  mimeType = theImage.attachments[theImage.data.media.attachment].mimeType; // Get the actual mimeType
 			  } else if (theImage.data.media) {
 				  mimeType = theImage.attachments[theImage.data.media].mimeType;
-			  } else {
-				  resetConfig = true;
 			  }
-			  if (mimeType === 'image/svg+xml') { resetConfig = true }
-		  } else {
-			  resetConfig = true;
 		  }
-		  if (resetConfig) { // Reset forced format on SVG to make them servable through portal.imageUrl().
+		  // Reset forced format on SVG to make them servable through portal.imageUrl().
+		  if (!mimeType || mimeType === 'image/svg+xml') {
 			  imageOpts.quality = null;
 			  imageOpts.format = null;
 		  }
