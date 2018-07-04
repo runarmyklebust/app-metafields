@@ -95,10 +95,11 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 ### For images
 
-1. The app config's custom JSON paths, if any (in the order defined).
-2. Check in some commonly used fields: `image`, `images`.
-3. Resort to the fallback image set on the app itself.
-4. If nothing is found the meta fields for the image are not created.
+1. Current content's `SEO Metadata` mixin's `image` field.
+2. The app config's custom JSON paths, if any (in the order defined).
+3. Check in some commonly used fields: `image`, `images`.
+4. Resort to the fallback image set on the app itself.
+5. If nothing is found the meta fields for the image are not created.
 
 ## Releases and Compatibility
 
@@ -124,7 +125,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 ### Version 1.5.0
 
 * New: Possibility to override/add custom image per content.
-* Fix: Don't force SVG images into JPGs (URL will break).
+* Fix: Automatically skip converting images to JPG if it's a SVG being used.
 
 ### Version 1.4.0
 
