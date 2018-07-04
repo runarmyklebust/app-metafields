@@ -136,7 +136,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 ### Version 1.3.3
 
-* Handle nested userDefinedPaths and non strings when overriding title.
+* Handle nested userDefinedPaths and non-strings when overriding title.
 
 ### Version 1.3.2
 
