@@ -1,5 +1,6 @@
 var libs = {
 	portal: require('/lib/xp/portal'),
+	content: require('/lib/xp/content'),
 	util: require('/lib/enonic/util')
 };
 
@@ -55,25 +56,24 @@ function stringOrNull(o) {
 
 
 exports.getBlockRobots = function(content) {
-	var setInMixin = content.x[appNamePath]
+	var setWithMixin = content.x[appNamePath]
 		&& content.x[appNamePath][mixinPath]
 		&& content.x[appNamePath][mixinPath].blockRobots;
-	return setInMixin;
+	return setWithMixin;
 };
 
 exports.getPageTitle = function(content, site) {
 	var siteConfig = getConfig();
 
-	var setInMixin = content.x[appNamePath]
-		&& content.x[appNamePath][mixinPath]
-		&& content.x[appNamePath][mixinPath].seoTitle;
-
 	var userDefinedPaths = siteConfig.pathsTitles;
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
 	var userDefinedValue = userDefinedPaths ? findValueInJson(content, userDefinedArray) : null;
 
+	var setWithMixin = content.x[appNamePath]
+	&& content.x[appNamePath][mixinPath]
+	&& content.x[appNamePath][mixinPath].seoTitle;
 
-	var metaTitle = setInMixin ? stringOrNull(content.x[appNamePath][mixinPath].seoTitle) // Get from mixin
+	var metaTitle = setWithMixin ? stringOrNull(content.x[appNamePath][mixinPath].seoTitle) // Get from mixin
 			: stringOrNull(userDefinedValue) // json property defined by user as important
 			|| stringOrNull(content.data.title) || stringOrNull(content.data.heading) || stringOrNull(content.data.header) // Use other typical content titles (overrides displayName)
 			|| stringOrNull(content.displayName) // Use content's display name
@@ -94,6 +94,7 @@ exports.getMetaDescription = function(content, site) {
 	var setWithMixin = content.x[appNamePath]
 			&& content.x[appNamePath][mixinPath]
 			&& content.x[appNamePath][mixinPath].seoDescription;
+
 	var metaDescription = setWithMixin ? content.x[appNamePath][mixinPath].seoDescription // Get from mixin
 					: userDefinedValue
 					|| content.data.preface || content.data.description || content.data.summary // Use typical content summary names
@@ -115,12 +116,22 @@ exports.getOpenGraphImage = function(content, defaultImg, defaultImgPrescaled) {
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
 	var userDefinedValue = userDefinedPaths ? findValueInJson(content,userDefinedArray) : null;
 
+	var setWithMixin = content.x[appNamePath]
+		&& content.x[appNamePath][mixinPath]
+		&& content.x[appNamePath][mixinPath].seoImage;
+
 	var ogImage;
 
     // Try to find an image in the content's image or images properties
-    var imageArray = libs.util.data.forceArray( userDefinedValue || content.data.image || content.data.images || []);
+    var imageArray = libs.util.data.forceArray(
+	 		setWithMixin ? stringOrNull(content.x[appNamePath][mixinPath].seoImage)
+			: userDefinedValue
+			|| content.data.image
+			|| content.data.images
+			|| []);
 
     if (imageArray.length || (defaultImg && !defaultImgPrescaled)) {
+
         // Set basic image options
         var imageOpts = {
             scale: 'block(1200,630)', // Open Graph requires 600x315 for landscape format. Double that for retina display.
@@ -131,6 +142,26 @@ exports.getOpenGraphImage = function(content, defaultImg, defaultImgPrescaled) {
 
         // Set the ID to either the first image in the set or use the default image ID
         imageOpts.id = imageArray.length ? imageArray[0] : defaultImg;
+
+		  // Fetch actual image, make sure not to force it into .jpg if it's a SVG-file.
+		  var theImage = libs.content.get({
+			  key: imageOpts.id
+		  });
+		  var resetConfig = false;
+		  if (theImage) {
+			  if (theImage.data.media.attachment) {
+				  var mimeType = theImage.attachments[theImage.data.media.attachment].mimeType; // Get the actual mimeType
+				  if (mimeType === 'image/svg+xml') { resetConfig = true }
+			  } else {
+				  resetConfig = true;
+			  }
+		  } else {
+			  resetConfig = true;
+		  }
+		  if (resetConfig) { // Reset forced format on SVG to make them servable through portal.imageUrl().
+			  imageOpts.quality = null;
+			  imageOpts.format = null;
+		  }
 
         ogImage = imageOpts.id ? libs.portal.imageUrl(imageOpts) : null;
 	} else if (defaultImg && defaultImgPrescaled) {

@@ -104,6 +104,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 | Version | XP version |
 | ------------- | ------------- |
+| 1.5.0 | 6.7.0 |
 | 1.4.0 | 6.7.0 |
 | 1.3.3 | 6.7.0 |
 | 1.3.2 | 6.7.0 |
@@ -119,6 +120,11 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 | 0.5.0 | 6.3.0 |
 
 ## Changelog
+
+### Version 1.5.0
+
+* New: Possibility to override/add custom image per content.
+* Fix: Don't force SVG images into JPGs (URL will break).
 
 ### Version 1.4.0
 
