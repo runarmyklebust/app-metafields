@@ -127,6 +127,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 * New: Possibility to override/add custom image per content.
 * Fix: Automatically skip converting images to JPG if it's a SVG being used.
 * Changed: Fieldset display-name is now only "SEO" instead of "SEO Metadata".
+* Changed: Using new x-data format making SEO fieldset optional.
 
 ### Version 1.4.0
 
