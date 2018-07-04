@@ -20,11 +20,11 @@ The **SEO Meta Fields** app will then be available to add to your websites throu
 
 ## How to use this app
 
-After adding this app you should see a new `SEO`-section on your site and on all of your contents. The fields in this section can be used to set a custom title, description and/or image on each content, used only for SEO purposes.
+After adding this app you should see a new `SEO`-section on your site and on all of your contents. The fields in this section can be used to set a custom title, description and/or image on each content, used only for SEO purposes. Starting with 6.15, click the "+ SEO" (or anywhere on the box) to add the SEO fields to any content when editing it. With the fields added you can tailor your SEO as needed.
 
 **NB!** You do not need to change anything in your code for this app to work. It will however add meta description, Twitter Cards, and Open Graph meta fields even if you already added this in your code, so please remove those fields first! The logic behind adding a SEO friendly title is smarter and it will never insert duplicate `<title>` tags.
 
-This app introduces a few settings. They're controlled on the app itself (on your site content) and are used across the entire site, and/or as default fallback settings.
+This app introduces a number of global settings. They're controlled on the app itself (on your site content) and are used across the entire site, and/or as default fallback settings.
 
 1. General settings
 2. Twitter Cards
