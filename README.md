@@ -105,7 +105,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 | Version | XP version |
 | ------------- | ------------- |
-| 1.5.0 | 6.7.0 |
+| 1.5.0 | 6.15.0 |
 | 1.4.0 | 6.7.0 |
 | 1.3.3 | 6.7.0 |
 | 1.3.2 | 6.7.0 |
@@ -128,6 +128,8 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 * Fix: Automatically skip converting images to JPG if it's a SVG being used.
 * Changed: Fieldset display-name is now only "SEO" instead of "SEO Metadata".
 * Changed: Using new x-data format making SEO fieldset optional.
+* Update gradle build-file to modern format.
+* Requires Enonic XP 6.15.
 
 ### Version 1.4.0
 
