@@ -148,13 +148,16 @@ exports.getOpenGraphImage = function(content, defaultImg, defaultImgPrescaled) {
 			  key: imageOpts.id
 		  });
 		  var resetConfig = false;
+		  var mimeType = null;
 		  if (theImage) {
 			  if (theImage.data.media.attachment) {
-				  var mimeType = theImage.attachments[theImage.data.media.attachment].mimeType; // Get the actual mimeType
-				  if (mimeType === 'image/svg+xml') { resetConfig = true }
+				  mimeType = theImage.attachments[theImage.data.media.attachment].mimeType; // Get the actual mimeType
+			  } else if (theImage.data.media) {
+				  mimeType = theImage.attachments[theImage.data.media].mimeType;
 			  } else {
 				  resetConfig = true;
 			  }
+			  if (mimeType === 'image/svg+xml') { resetConfig = true }
 		  } else {
 			  resetConfig = true;
 		  }
