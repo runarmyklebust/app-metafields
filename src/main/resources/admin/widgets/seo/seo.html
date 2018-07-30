@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>SEO Metafields</title>
+		<style>
+		.seo-table {
+			margin: 10px;
+			background-color: white;
+			padding: 10px;
+			border: 1px solid #eee;
+		}
+		.seo-table.compact dl {
+			overflow: hidden;
+			padding-top: 8px;
+		}
+		.seo-table.compact dt {
+			float: left;
+			width: 35%;
+		}
+		.seo-table.compact dd {
+			float: left;
+			width: 65%;
+		}
+		.seo-table dt {
+			font-weight: bold;
+		}
+		.seo-table dt:after {
+			content: ":";
+		}
+		.seo-table dt + dd {
+			margin-bottom: 10px;
+		}
+		.seo-table.compact dd {
+			margin-bottom: 4px;
+		}
+		.seo-table h2 {
+			font-size: 20px;
+			text-align: center;
+			position: relative;
+		}
+		.seo-table h2::after {
+			content: "";
+			position: absolute;
+			bottom: 2px;
+			left: calc(50% - 15px);
+			background-color: #00b7ff;
+			width: 30px;
+			height: 3px;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="seo-table">
+			<h2>Summary</h2>
+			<dl>
+				<dt>Title</dt>
+				<dd data-th-text="${summary.title}"></dd>
+				<dt>SEO title</dt>
+				<dd data-th-text="${summary.fullTitle}"></dd>
+				<dt>Meta Description</dt>
+				<dd data-th-text="${summary.description}"></dd>
+				<dt>Image</dt>
+				<dd data-th-text="${summary.image}">link</dd>
+				<dt>Canonical</dt>
+				<dd>xxx</dd>
+				<dt>Google Search Console</dt>
+				<dd>xxx</dd>
+			</dl>
+		</div>
+		<div class="seo-table compact">
+			<h2>Facebook <small>(open graph)</small></h2>
+			<dl>
+				<dt>&lt;og:title&gt;</dt>
+				<dd>x</dd>
+				<dt>&lt;og:description&gt;</dt>
+				<dd>x</dd>
+				<dt>&lt;og:site_name&gt;</dt>
+				<dd>x</dd>
+				<dt>&lt;og:url&gt;</dt>
+				<dd>x</dd>
+				<dt>&lt;og:type&gt;</dt>
+				<dd>x</dd>
+				<dt>&lt;og:locale&gt;</dt>
+				<dd>x</dd>
+				<dt>&lt;og:image&gt;</dt>
+				<dd data-th-text="${og.image}">???</dd>
+				<dt>&lt;og:image:width&gt;</dt>
+				<dd>link</dd>
+				<dt>&lt;og:image:height&gt;</dt>
+				<dd>link</dd>
+			</dl>
+			<p>
+				TODO: Get end-URL<br />
+				<a href="https://developers.facebook.com/tools/debug/sharing/">Preview page from Facebook</a>
+			</p>
+		</div>
+		<div class="seo-table compact">
+			<h2>Twitter Cards</h2>
+			<dl>
+				<dt>&lt;twitter:card&gt;</dt>
+				<dd>x</dd>
+				<dt>&lt;twitter:title&gt;</dt>
+				<dd>x</dd>
+				<dt>&lt;twitter:description&gt;</dt>
+				<dd>x</dd>
+				<dt>&lt;twitter:image:src&gt;</dt>
+				<dd data-th-text="${twitter.image}">x</dd>
+				<dt>&lt;twitter:site&gt;</dt>
+				<dd>x</dd>
+			</dl>
+			<p>
+				TODO: Get end-URL<br />
+				<a href="https://cards-dev.twitter.com/validator">Preview page on Twitter</a>
+			</p>
+		</div>
+	</body>
+</html>
