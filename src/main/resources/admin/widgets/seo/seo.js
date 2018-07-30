@@ -28,12 +28,12 @@ exports.get = function(req) {
          "meta-data"
 */
 
-	var site = {};//libs.portal.getSite();
+	var site = {};//{ displayName: 'alpha!' };
 	var siteConfig = {};//libs.portal.getSiteConfig();
 
 	var lang = content.language || site.language || 'en';
-	var frontpage = site._path === content._path;
-	var pageTitle = {};// libs.local.getPageTitle(content, site);
+	var frontpage = false;//site._path === content._path;
+	var pageTitle = {};//libs.local.getPageTitle(content, { pathsTitles: '', seoTitle: '' });
 	var description = {};//libs.local.getMetaDescription(content, site);
 
 	// Concat site title? Trigger if set to true in settings, or if not set at all (default = true)
