@@ -83,7 +83,8 @@ exports.get = function(req) {
 			title: pageTitle,
 			fullTitle: fullTitle,
 			description: description,
-			image: image
+			image: image,
+			canonical: url
 		},
 		og: {
 			image: image
