@@ -129,7 +129,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 * Changed: Fieldset display-name is now only "SEO" instead of "SEO Metadata".
 * Changed: Using new x-data format making SEO fieldset optional.
 * Update gradle build-file to modern format.
-* Requires Enonic XP 6.15.
+* Require Enonic XP 6.15.
 
 ### Version 1.4.0
 
