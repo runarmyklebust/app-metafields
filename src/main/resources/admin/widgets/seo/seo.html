@@ -60,6 +60,10 @@
 		.seo-table .center {
 			text-align: center;
 		}
+		.seo-table .message-empty {
+			font-style: italic;
+			color: #999;
+		}
 		</style>
 	</head>
 	<body>
@@ -69,12 +73,17 @@
 				<dt>Block robots</dt>
 				<dd>
 					<p data-th-if="${summary.blockRobots}" data-th-text="'Search engines are being blocked!'" class="warning"></p>
-					<p data-th-unless="${summary.blockRobots}" data-th-text="'Nope =)'"></p>
+					<p data-th-unless="${summary.blockRobots}" data-th-text="'Nope =)'" class="message-empty"></p>
 				</dd>
 				<dt>SEO title</dt>
 				<dd data-th-text="${summary.fullTitle}"></dd>
 				<dt>Meta Description</dt>
-				<dd data-th-text="${summary.description}"></dd>
+				<dd>
+					<p data-th-if="${summary.description}" data-th-text="${summary.description}"></p>
+					<p data-th-unless="${summary.description}" class="message-empty">
+						No description found!
+					</p>
+				</dd>
 				<dt>Image</dt>
 				<dd>
 					<div data-th-if="${summary.image}">
@@ -105,8 +114,10 @@
 				<dd data-th-text="${og.locale}">x</dd>
 				<dt title="&lt;og:title&gt;">Title</dt>
 				<dd data-th-text="${og.title}">x</dd>
-				<dt title="&lt;og:description&gt;">Description</dt>
-				<dd data-th-text="${og.description}">x</dd>
+				<div data-th-remove="tag" data-th-if="${og.description}">
+					<dt title="&lt;og:description&gt;">Description</dt>
+					<dd data-th-text="${og.description}">x</dd>
+				</div>
 				<dt title="&lt;og:url&gt;">Url</dt>
 				<dd data-th-text="${og.url}">x</dd>
 				<dt title="&lt;og:image&gt;">Image</dt>
@@ -139,8 +150,10 @@
 				<dd data-th-text="${twitter.site}">x</dd>
 				<dt title="&lt;twitter:title&gt;">Title</dt>
 				<dd data-th-text="${twitter.title}">x</dd>
-				<dt title="&lt;twitter:description&gt;">Description</dt>
-				<dd data-th-text="${twitter.description}">x</dd>
+				<div data-th-remove="tag" data-th-if="${twitter.description}">
+					<dt title="&lt;twitter:description&gt;">Description</dt>
+					<dd data-th-text="${twitter.description}">x</dd>
+				</div>
 				<dt title="&lt;twitter:image:src&gt;">Image</dt>
 				<dd>
 					<div data-th-if="${twitter.image}">

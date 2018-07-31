@@ -26,29 +26,22 @@ exports.getSite = function() {
 }
 
 exports.get = function(req) {
-
-	var content = libs.content.get({
-		key: req.params.contentId
-	});
-	//libs.util.log(content);
-	//return;
 /*
 	TODO: Display content settings? If any, then fallbacks.
 	x": {
      "com-enonic-app-metafields": {
          "meta-data"
 */
-
+	var content = libs.content.get({ key: req.params.contentId });
 	var site = exports.getSite();
-	//libs.util.log(site);
 	var siteConfig = libs.local.getSiteConfig(site, app.name);
-	//libs.util.log(siteConfig);
-	//return;
+
 	var lang = content.language || site.language || 'en';
 	var isFrontpage = site._path === content._path;
 	var pageTitle = libs.local.getPageTitle(content, site);
 	var titleAppendix = libs.local.getAppendix(site, siteConfig, isFrontpage);
 	var description = libs.local.getMetaDescription(content, site);
+	if (description === '') description = null;
 	var url = libs.portal.pageUrl({ path: content._path, type: "absolute" });
 	var fallbackImage = siteConfig.seoImage;
 	var fallbackImageIsPrescaled = siteConfig.seoImageIsPrescaled;
