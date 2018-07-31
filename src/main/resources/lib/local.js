@@ -81,6 +81,19 @@ function stringOrNull(o) {
 	return isString(o) ? o : null;
 }
 
+// Concat site title? Trigger if set to true in settings, or if not set at all (default = true)
+exports.getAppendix = function(site, siteConfig, isFrontpage) {
+	var titleAppendix = '';
+	if (siteConfig.titleBehaviour || !siteConfig.hasOwnProperty("titleBehaviour") ) {
+		 var separator = siteConfig.titleSeparator || '-';
+		 var titleRemoveOnFrontpage = siteConfig.hasOwnProperty("titleFrontpageBehaviour") ? siteConfig.titleFrontpageBehaviour : true; // Default true needs to be respected
+		 if (!isFrontpage || !titleRemoveOnFrontpage) {
+			  titleAppendix = ' ' + separator + ' ' + site.displayName;
+		 }
+	}
+	return titleAppendix;
+}
+
 
 exports.getBlockRobots = function(content) {
 	var setWithMixin = content.x[appNamePath]

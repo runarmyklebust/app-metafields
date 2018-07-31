@@ -22,23 +22,13 @@ exports.responseFilter = function(req, res) {
     var siteConfig = libs.portal.getSiteConfig();
 
     var lang = content.language || site.language || 'en';
-    var frontpage = site._path === content._path;
+    var isFrontpage = site._path === content._path;
     var pageTitle = libs.local.getPageTitle(content, site);
-
-    // Concat site title? Trigger if set to true in settings, or if not set at all (default = true)
-    var titleAppendix = '';
-    if (siteConfig.titleBehaviour || !siteConfig.hasOwnProperty("titleBehaviour") ) {
-        var separator = siteConfig.titleSeparator || '-';
-        var titleRemoveOnFrontpage = siteConfig.hasOwnProperty("titleFrontpageBehaviour") ? siteConfig.titleFrontpageBehaviour : true; // Default true needs to be respected
-        if (!frontpage || !titleRemoveOnFrontpage) {
-            titleAppendix = ' ' + separator + ' ' + site.displayName;
-        }
-    }
+    var titleAppendix = libs.local.getAppendix(site, siteConfig, isFrontpage);
 
     var siteVerification = siteConfig.siteVerification || null;
 
     var url = libs.portal.pageUrl({ path: content._path, type: "absolute" });
-    var isFrontpage = site._path === content._path;
     var fallbackImage = siteConfig.seoImage;
     var fallbackImageIsPrescaled = siteConfig.seoImageIsPrescaled;
     if (isFrontpage && siteConfig.frontpageImage) {
