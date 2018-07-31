@@ -79,7 +79,8 @@ exports.get = function(req) {
 			description: description,
 			image: image,
 			site: siteConfig.twitterUsername || null
-		}
+		},
+		assetsUrl: libs.portal.assetUrl({path: ""})
 	};
 
 	return {

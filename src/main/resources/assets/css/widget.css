@@ -1,0 +1,60 @@
+.seo-table {
+	margin: 10px;
+	background-color: white;
+	padding: 10px;
+	border: 1px solid #eee;
+}
+	.seo-table dl {
+		margin-top: 8px;
+	}
+	.seo-table.compact dl {
+		overflow: hidden;
+	}
+	.seo-table.compact dt {
+		float: left;
+		width: 35%;
+	}
+	.seo-table.compact dd {
+		float: left;
+		width: 65%;
+	}
+	.seo-table dt {
+		font-weight: bold;
+	}
+	.seo-table dt:after {
+		content: ":";
+	}
+	.seo-table dt + dd {
+		margin-bottom: 10px;
+	}
+	.seo-table.compact dd {
+		margin-bottom: 4px;
+	}
+	.seo-table dd img {
+		max-width: 100%;
+	}
+	.seo-table h2 {
+		font-size: 20px;
+		text-align: center;
+		position: relative;
+	}
+	.seo-table h2::after {
+		content: "";
+		position: absolute;
+		bottom: 2px;
+		left: calc(50% - 15px);
+		background-color: #00b7ff;
+		width: 30px;
+		height: 3px;
+	}
+	.seo-table .warning {
+		font-weight: bold;
+		color: red;
+	}
+	.seo-table .center {
+		text-align: center;
+	}
+	.seo-table .message-empty {
+		font-style: italic;
+		color: #999;
+	}
