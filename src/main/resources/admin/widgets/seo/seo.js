@@ -70,33 +70,11 @@ exports.get = function(req) {
 		 fallbackImageIsPrescaled = siteConfig.frontpageImageIsPrescaled;
 	}
 	var image = libs.local.getOpenGraphImage(content, site, fallbackImage, fallbackImageIsPrescaled);
-/*
-	var params = {
-		 title: pageTitle,
-		 description: libs.local.getMetaDescription(content, site),
-		 siteName: site.displayName,
-		 locale: localeMap[lang] || localeMap.en,
-		 type: isFrontpage ? 'website' : 'article',
-		 url: url,
-		 image: image,
-		 blockRobots: siteConfig.blockRobots || libs.local.getBlockRobots(content),
-		 siteVerification: siteVerification,
-		 canonical: siteConfig.canonical,
-		 twitterUserName : siteConfig.twitterUsername
-
-	};
-*/
-
-	// TODO: We need info on if Twitter is used or not, display info if not.
-	// TODO: If canonical is turned off, display info about this.
-
-	// Handle injection of title - use any existing tag by replacing its content.
-	var fullTitle = pageTitle + titleAppendix;
 
 	var params = {
 		summary: {
 			title: pageTitle,
-			fullTitle: fullTitle,
+			fullTitle: (pageTitle + titleAppendix),
 			description: description,
 			image: image,
 			canonical: (siteConfig.canonical ? url : null),
@@ -106,6 +84,9 @@ exports.get = function(req) {
 			type: (isFrontpage ? 'website' : 'article'),
 			title: pageTitle,
 			description: description,
+			siteName: site.displayName,
+			url: url,
+			locale: (localeMap[lang] || localeMap.en),
 			image: {
 				src: image,
 				width: 1200, // Twice of 600x315, for retina

@@ -66,10 +66,11 @@
 		<div class="seo-table">
 			<h2>Summary</h2>
 			<dl>
-<!--
-				<dt>Title</dt>
-				<dd data-th-text="${summary.title}"></dd>
--->
+				<dt>Block robots</dt>
+				<dd>
+					<p data-th-if="${summary.blockRobots}" data-th-text="'Search engines are being blocked!'" class="warning"></p>
+					<p data-th-unless="${summary.blockRobots}" data-th-text="'Nope =)'"></p>
+				</dd>
 				<dt>SEO title</dt>
 				<dd data-th-text="${summary.fullTitle}"></dd>
 				<dt>Meta Description</dt>
@@ -85,33 +86,29 @@
 				</dd>
 				<dt>Canonical URL</dt>
 				<dd>
+					TODO: Get end-URL<br />
 					<a data-th-if="${summary.canonical}" data-th-text="${summary.canonical}" data-th-href="${summary.canonical}" target="_blank"></a>
 					<p data-th-unless="${summary.canonical}">
 						<em>Canonical not activated!</em>
 					</p>
-				</dd>
-				<dt>Block robots</dt>
-				<dd>
-					<p data-th-if="${summary.blockRobots}" data-th-text="'Search engines are being blocked!'" class="warning"></p>
-					<p data-th-unless="${summary.blockRobots}" data-th-text="'Nope =)'"></p>
 				</dd>
 			</dl>
 		</div>
 		<div class="seo-table compact">
 			<h2>Facebook <small>(open graph)</small></h2>
 			<dl>
+				<dt title="&lt;og:site_name&gt;">Site name</dt>
+				<dd data-th-text="${og.siteName}">x</dd>
+				<dt title="&lt;og:type&gt;">Type</dt>
+				<dd data-th-text="${og.type}">x</dd>
+				<dt title="&lt;og:locale&gt;">Locale</dt>
+				<dd data-th-text="${og.locale}">x</dd>
 				<dt title="&lt;og:title&gt;">Title</dt>
 				<dd data-th-text="${og.title}">x</dd>
 				<dt title="&lt;og:description&gt;">Description</dt>
 				<dd data-th-text="${og.description}">x</dd>
-				<dt title="&lt;og:site_name&gt;">Site name</dt>
-				<dd>x</dd>
 				<dt title="&lt;og:url&gt;">Url</dt>
-				<dd>x</dd>
-				<dt title="&lt;og:type&gt;">Type</dt>
-				<dd data-th-text="${og.type}">x</dd>
-				<dt title="&lt;og:locale&gt;">Locale</dt>
-				<dd>x</dd>
+				<dd data-th-text="${og.url}">x</dd>
 				<dt title="&lt;og:image&gt;">Image</dt>
 				<dd>
 					<div data-th-if="${og.image}">
@@ -135,9 +132,11 @@
 		</div>
 		<div class="seo-table compact">
 			<h2>Twitter Cards</h2>
-			<dl data-th-if="twitter.active">
+			<dl data-th-if="${twitter.active}">
 				<dt title="&lt;twitter:card&gt;">Card</dt>
 				<dd>summary_large_image</dd>
+				<dt title="&lt;twitter:site&gt;">Site</dt>
+				<dd data-th-text="${twitter.site}">x</dd>
 				<dt title="&lt;twitter:title&gt;">Title</dt>
 				<dd data-th-text="${twitter.title}">x</dd>
 				<dt title="&lt;twitter:description&gt;">Description</dt>
@@ -151,14 +150,12 @@
 						<em>No image used!</em>
 					</div>
 				</dd>
-				<dt title="&lt;twitter:site&gt;">Site</dt>
-				<dd data-th-text="${twitter.site}">x</dd>
 			</dl>
-			<p data-th-if="twitter.active" class="center">
+			<p data-th-if="${twitter.active}" class="center">
 				TODO: Get end-URL<br />
 				<a href="https://cards-dev.twitter.com/validator" target="_blank">Preview page on Twitter</a>
 			</p>
-			<p data-th-unless="twitter.active">
+			<p data-th-unless="${twitter.active}" class="center">
 				<em>Twitter cards are not activated!</em>
 			</p>
 		</div>
