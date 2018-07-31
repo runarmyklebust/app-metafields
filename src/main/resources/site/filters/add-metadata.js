@@ -45,7 +45,7 @@ exports.responseFilter = function(req, res) {
         fallbackImage = siteConfig.frontpageImage;
         fallbackImageIsPrescaled = siteConfig.frontpageImageIsPrescaled;
     }
-    var image = libs.local.getOpenGraphImage(content, fallbackImage, fallbackImageIsPrescaled);
+    var image = libs.local.getOpenGraphImage(content, site, fallbackImage, fallbackImageIsPrescaled);
 
     var params = {
         title: pageTitle,

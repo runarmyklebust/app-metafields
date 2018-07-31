@@ -34,6 +34,9 @@
 		.seo-table.compact dd {
 			margin-bottom: 4px;
 		}
+		.seo-table dd img {
+			max-width: 100%;
+		}
 		.seo-table h2 {
 			font-size: 20px;
 			text-align: center;
@@ -61,7 +64,14 @@
 				<dt>Meta Description</dt>
 				<dd data-th-text="${summary.description}"></dd>
 				<dt>Image</dt>
-				<dd data-th-text="${summary.image}">link</dd>
+				<dd>
+					<div data-th-if="${summary.image}">
+						<img data-th-src="${summary.image}" />
+					</div>
+					<div data-th-unless="${summary.image}">
+						<em>No image found!</em>
+					</div>
+				</dd>
 				<dt>Canonical</dt>
 				<dd data-th-text="${summary.canonical}">xxx</dd>
 			</dl>

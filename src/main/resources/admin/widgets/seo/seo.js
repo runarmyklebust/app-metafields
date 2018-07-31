@@ -14,6 +14,17 @@ var localeMap = {
     en: 'en_US'
 };
 
+exports.getSite = function() {
+	// Code courtesy of PVMerlo at Enonic Discuss - https://discuss.enonic.com/u/PVMerlo
+	var sitesResult = libs.content.query({
+		query: "_path LIKE '/content/*' AND data.siteConfig.applicationKey = '" + app.name + "'",
+		contentTypes: ["portal:site"]
+	});
+	//libs.util.log(sitesResult);
+	// TODO: we need to order this result so we don't get random site.
+	return sitesResult.hits[0];
+}
+
 exports.get = function(req) {
 
 	var content = libs.content.get({
@@ -28,13 +39,15 @@ exports.get = function(req) {
          "meta-data"
 */
 
-	var site = {};//{ displayName: 'alpha!' };
-	var siteConfig = {};//libs.portal.getSiteConfig();
-
+	var site = exports.getSite();
+	//libs.util.log(site);
+	var siteConfig = libs.local.getSiteConfig(site, app.name);
+	//libs.util.log(siteConfig);
+	//return;
 	var lang = content.language || site.language || 'en';
-	var frontpage = false;//site._path === content._path;
-	var pageTitle = {};//libs.local.getPageTitle(content, { pathsTitles: '', seoTitle: '' });
-	var description = {};//libs.local.getMetaDescription(content, site);
+	var frontpage = site._path === content._path;
+	var pageTitle = libs.local.getPageTitle(content, site);
+	var description = libs.local.getMetaDescription(content, site);
 
 	// Concat site title? Trigger if set to true in settings, or if not set at all (default = true)
 	var titleAppendix = '';
@@ -56,7 +69,7 @@ exports.get = function(req) {
 		 fallbackImage = siteConfig.frontpageImage;
 		 fallbackImageIsPrescaled = siteConfig.frontpageImageIsPrescaled;
 	}
-	var image = {};//libs.local.getOpenGraphImage(content, fallbackImage, fallbackImageIsPrescaled);
+	var image = libs.local.getOpenGraphImage(content, site, fallbackImage, fallbackImageIsPrescaled);
 /*
 	var params = {
 		 title: pageTitle,

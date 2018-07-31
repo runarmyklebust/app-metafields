@@ -7,9 +7,36 @@ var libs = {
 var appNamePath = libs.util.app.getJsonName();
 var mixinPath = 'meta-data';
 
-function getConfig() {
-	return libs.portal.getSiteConfig();
+function getConfig(site) {
+	var config = libs.portal.getSiteConfig();
+	if (!config) {
+		config = exports.getSiteConfig(site, app.name);
+	}
+	return config;
 }
+exports.getSiteConfig = function(site, applicationKey) {
+	// Code courtesy of PVMerlo at Enonic Discuss - https://discuss.enonic.com/u/PVMerlo
+	if(!site || site == null || typeof site === "undefined"){
+		site = exports.getSite();
+	}
+	if (site) {
+		if (site.data) {
+			if (site.data.siteConfig) {
+				var siteConfigs = libs.util.data.forceArray(site.data.siteConfig);
+				var siteConfig = {};
+				siteConfigs.forEach( function(cfg) {
+					if (applicationKey && cfg.applicationKey == applicationKey){
+						siteConfig = cfg;
+					} else if (!applicationKey && cfg.applicationKey == app.name) {
+						siteConfig = cfg;
+					}
+				});
+				return siteConfig.config;
+			}
+		}
+	}
+};
+
 
 function commaStringToArray(str) {
 	var commas = str || '';
@@ -63,9 +90,9 @@ exports.getBlockRobots = function(content) {
 };
 
 exports.getPageTitle = function(content, site) {
-	var siteConfig = getConfig();
+	var siteConfig = getConfig(site);
 
-	var userDefinedPaths = siteConfig.pathsTitles;
+	var userDefinedPaths = siteConfig.pathsTitles || '';
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
 	var userDefinedValue = userDefinedPaths ? findValueInJson(content, userDefinedArray) : null;
 
@@ -85,9 +112,9 @@ exports.getPageTitle = function(content, site) {
 };
 
 exports.getMetaDescription = function(content, site) {
-	var siteConfig = getConfig();
+	var siteConfig = getConfig(site);
 
-	var userDefinedPaths = siteConfig.pathsDescriptions;
+	var userDefinedPaths = siteConfig.pathsDescriptions || '';
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
 	var userDefinedValue = userDefinedPaths ? findValueInJson(content,userDefinedArray) : null;
 
@@ -109,8 +136,8 @@ exports.getMetaDescription = function(content, site) {
 	return metaDescription;
 };
 
-exports.getOpenGraphImage = function(content, defaultImg, defaultImgPrescaled) {
-	var siteConfig = getConfig();
+exports.getOpenGraphImage = function(content, site, defaultImg, defaultImgPrescaled) {
+	var siteConfig = getConfig(site);
 
 	var userDefinedPaths = siteConfig.pathsImages || '';
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
