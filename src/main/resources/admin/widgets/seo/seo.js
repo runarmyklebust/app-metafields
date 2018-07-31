@@ -79,8 +79,6 @@ exports.get = function(req) {
 		 type: isFrontpage ? 'website' : 'article',
 		 url: url,
 		 image: image,
-		 imageWidth: 1200, // Twice of 600x315, for retina
-		 imageHeight: 630,
 		 blockRobots: siteConfig.blockRobots || libs.local.getBlockRobots(content),
 		 siteVerification: siteVerification,
 		 canonical: siteConfig.canonical,
@@ -88,6 +86,10 @@ exports.get = function(req) {
 
 	};
 */
+
+	// TODO: We need info on if Twitter is used or not, display info if not.
+	// TODO: If canonical is turned off, display info about this.
+
 	// Handle injection of title - use any existing tag by replacing its content.
 	var fullTitle = pageTitle + titleAppendix;
 
@@ -97,17 +99,25 @@ exports.get = function(req) {
 			fullTitle: fullTitle,
 			description: description,
 			image: image,
-			canonical: url
+			canonical: (siteConfig.canonical ? url : null),
+			blockRobots: (siteConfig.blockRobots || libs.local.getBlockRobots(content))
 		},
 		og: {
+			type: (isFrontpage ? 'website' : 'article'),
 			title: pageTitle,
 			description: description,
-			image: image
+			image: {
+				src: image,
+				width: 1200, // Twice of 600x315, for retina
+				height: 630
+			}
 		},
 		twitter: {
+			active: (siteConfig.twitterUsername ? true : false),
 			title: pageTitle,
 			description: description,
-			image: image
+			image: image,
+			site: siteConfig.twitterUsername || null
 		}
 	};
 

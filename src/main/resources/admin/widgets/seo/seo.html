@@ -10,9 +10,11 @@
 			padding: 10px;
 			border: 1px solid #eee;
 		}
+		.seo-table dl {
+			margin-top: 8px;
+		}
 		.seo-table.compact dl {
 			overflow: hidden;
-			padding-top: 8px;
 		}
 		.seo-table.compact dt {
 			float: left;
@@ -51,14 +53,23 @@
 			width: 30px;
 			height: 3px;
 		}
+		.seo-table .warning {
+			font-weight: bold;
+			color: red;
+		}
+		.seo-table .center {
+			text-align: center;
+		}
 		</style>
 	</head>
 	<body>
 		<div class="seo-table">
 			<h2>Summary</h2>
 			<dl>
+<!--
 				<dt>Title</dt>
 				<dd data-th-text="${summary.title}"></dd>
+-->
 				<dt>SEO title</dt>
 				<dd data-th-text="${summary.fullTitle}"></dd>
 				<dt>Meta Description</dt>
@@ -72,8 +83,18 @@
 						<em>No image found!</em>
 					</div>
 				</dd>
-				<dt>Canonical</dt>
-				<dd data-th-text="${summary.canonical}">xxx</dd>
+				<dt>Canonical URL</dt>
+				<dd>
+					<a data-th-if="${summary.canonical}" data-th-text="${summary.canonical}" data-th-href="${summary.canonical}" target="_blank"></a>
+					<p data-th-unless="${summary.canonical}">
+						<em>Canonical not activated!</em>
+					</p>
+				</dd>
+				<dt>Block robots</dt>
+				<dd>
+					<p data-th-if="${summary.blockRobots}" data-th-text="'Search engines are being blocked!'" class="warning"></p>
+					<p data-th-unless="${summary.blockRobots}" data-th-text="'Nope =)'"></p>
+				</dd>
 			</dl>
 		</div>
 		<div class="seo-table compact">
@@ -88,26 +109,28 @@
 				<dt title="&lt;og:url&gt;">Url</dt>
 				<dd>x</dd>
 				<dt title="&lt;og:type&gt;">Type</dt>
-				<dd>x</dd>
+				<dd data-th-text="${og.type}">x</dd>
 				<dt title="&lt;og:locale&gt;">Locale</dt>
 				<dd>x</dd>
 				<dt title="&lt;og:image&gt;">Image</dt>
-				<dd data-th-text="${og.image}">???</dd>
-				<dt title="&lt;og:image:width&gt;">Image width</dt>
-				<dd>x</dd>
-				<dt title="&lt;og:image:height&gt;">Image height</dt>
-				<dd>x</dd>
+				<dd data-th-text="${og.image ? og.image.src : '<em>No image used</em>'}">???</dd>
+				<div data-th-remove="tag" data-th-if="og.image">
+					<dt title="&lt;og:image:width&gt;">Image width</dt>
+					<dd data-th-text="${og.image.width}">x</dd>
+					<dt title="&lt;og:image:height&gt;">Image height</dt>
+					<dd data-th-text="${og.image.height}">x</dd>
+				</div>
 			</dl>
-			<p>
+			<p class="center">
 				TODO: Get end-URL<br />
-				<a href="https://developers.facebook.com/tools/debug/sharing/">Preview page from Facebook</a>
+				<a href="https://developers.facebook.com/tools/debug/sharing/" target="_blank">Preview page from Facebook</a>
 			</p>
 		</div>
 		<div class="seo-table compact">
 			<h2>Twitter Cards</h2>
-			<dl>
+			<dl data-th-if="twitter.active">
 				<dt title="&lt;twitter:card&gt;">Card</dt>
-				<dd>x</dd>
+				<dd>summary_large_image</dd>
 				<dt title="&lt;twitter:title&gt;">Title</dt>
 				<dd data-th-text="${twitter.title}">x</dd>
 				<dt title="&lt;twitter:description&gt;">Description</dt>
@@ -115,11 +138,14 @@
 				<dt title="&lt;twitter:image:src&gt;">Image</dt>
 				<dd data-th-text="${twitter.image}">x</dd>
 				<dt title="&lt;twitter:site&gt;">Site</dt>
-				<dd>x</dd>
+				<dd data-th-text="${twitter.site}">x</dd>
 			</dl>
-			<p>
+			<p data-th-if="twitter.active" class="center">
 				TODO: Get end-URL<br />
-				<a href="https://cards-dev.twitter.com/validator">Preview page on Twitter</a>
+				<a href="https://cards-dev.twitter.com/validator" target="_blank">Preview page on Twitter</a>
+			</p>
+			<p data-th-unless="twitter.active">
+				<em>Twitter cards are not activated!</em>
 			</p>
 		</div>
 	</body>
