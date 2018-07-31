@@ -113,7 +113,14 @@
 				<dt title="&lt;og:locale&gt;">Locale</dt>
 				<dd>x</dd>
 				<dt title="&lt;og:image&gt;">Image</dt>
-				<dd data-th-text="${og.image ? og.image.src : '<em>No image used</em>'}">???</dd>
+				<dd>
+					<div data-th-if="${og.image}">
+						<img data-th-src="${og.image.src}" />
+					</div>
+					<div data-th-unless="${og.image}">
+						<em>No image used!</em>
+					</div>
+				</dd>
 				<div data-th-remove="tag" data-th-if="og.image">
 					<dt title="&lt;og:image:width&gt;">Image width</dt>
 					<dd data-th-text="${og.image.width}">x</dd>
@@ -136,7 +143,14 @@
 				<dt title="&lt;twitter:description&gt;">Description</dt>
 				<dd data-th-text="${twitter.description}">x</dd>
 				<dt title="&lt;twitter:image:src&gt;">Image</dt>
-				<dd data-th-text="${twitter.image}">x</dd>
+				<dd>
+					<div data-th-if="${twitter.image}">
+						<img data-th-src="${twitter.image}" />
+					</div>
+					<div data-th-unless="${twitter.image}">
+						<em>No image used!</em>
+					</div>
+				</dd>
 				<dt title="&lt;twitter:site&gt;">Site</dt>
 				<dd data-th-text="${twitter.site}">x</dd>
 			</dl>
