@@ -79,24 +79,24 @@
 		<div class="seo-table compact">
 			<h2>Facebook <small>(open graph)</small></h2>
 			<dl>
-				<dt>&lt;og:title&gt;</dt>
+				<dt title="&lt;og:title&gt;">Title</dt>
+				<dd data-th-text="${og.title}">x</dd>
+				<dt title="&lt;og:description&gt;">Description</dt>
+				<dd data-th-text="${og.description}">x</dd>
+				<dt title="&lt;og:site_name&gt;">Site name</dt>
 				<dd>x</dd>
-				<dt>&lt;og:description&gt;</dt>
+				<dt title="&lt;og:url&gt;">Url</dt>
 				<dd>x</dd>
-				<dt>&lt;og:site_name&gt;</dt>
+				<dt title="&lt;og:type&gt;">Type</dt>
 				<dd>x</dd>
-				<dt>&lt;og:url&gt;</dt>
+				<dt title="&lt;og:locale&gt;">Locale</dt>
 				<dd>x</dd>
-				<dt>&lt;og:type&gt;</dt>
-				<dd>x</dd>
-				<dt>&lt;og:locale&gt;</dt>
-				<dd>x</dd>
-				<dt>&lt;og:image&gt;</dt>
+				<dt title="&lt;og:image&gt;">Image</dt>
 				<dd data-th-text="${og.image}">???</dd>
-				<dt>&lt;og:image:width&gt;</dt>
-				<dd>link</dd>
-				<dt>&lt;og:image:height&gt;</dt>
-				<dd>link</dd>
+				<dt title="&lt;og:image:width&gt;">Image width</dt>
+				<dd>x</dd>
+				<dt title="&lt;og:image:height&gt;">Image height</dt>
+				<dd>x</dd>
 			</dl>
 			<p>
 				TODO: Get end-URL<br />
@@ -106,15 +106,15 @@
 		<div class="seo-table compact">
 			<h2>Twitter Cards</h2>
 			<dl>
-				<dt>&lt;twitter:card&gt;</dt>
+				<dt title="&lt;twitter:card&gt;">Card</dt>
 				<dd>x</dd>
-				<dt>&lt;twitter:title&gt;</dt>
-				<dd>x</dd>
-				<dt>&lt;twitter:description&gt;</dt>
-				<dd>x</dd>
-				<dt>&lt;twitter:image:src&gt;</dt>
+				<dt title="&lt;twitter:title&gt;">Title</dt>
+				<dd data-th-text="${twitter.title}">x</dd>
+				<dt title="&lt;twitter:description&gt;">Description</dt>
+				<dd data-th-text="${twitter.description}">x</dd>
+				<dt title="&lt;twitter:image:src&gt;">Image</dt>
 				<dd data-th-text="${twitter.image}">x</dd>
-				<dt>&lt;twitter:site&gt;</dt>
+				<dt title="&lt;twitter:site&gt;">Site</dt>
 				<dd>x</dd>
 			</dl>
 			<p>

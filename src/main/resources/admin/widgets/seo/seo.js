@@ -100,9 +100,13 @@ exports.get = function(req) {
 			canonical: url
 		},
 		og: {
+			title: pageTitle,
+			description: description,
 			image: image
 		},
 		twitter: {
+			title: pageTitle,
+			description: description,
 			image: image
 		}
 	};
