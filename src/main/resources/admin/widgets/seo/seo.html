@@ -106,8 +106,8 @@
 					<div data-th-if="${twitter.image}">
 						<img data-th-src="${twitter.image}" />
 					</div>
-					<div data-th-unless="${twitter.image}">
-						<em>No image used!</em>
+					<div data-th-unless="${twitter.image}" class="message-empty">
+						No image used!
 					</div>
 				</dd>
 			</dl>
@@ -115,7 +115,7 @@
 				<a href="https://cards-dev.twitter.com/validator" target="_blank">Preview page on Twitter</a>
 			</p>
 			<p data-th-unless="${twitter.active}" class="center">
-				<em>Twitter cards are not activated!</em>
+				Twitter cards are not activated!
 			</p>
 		</div>
 	</body>
