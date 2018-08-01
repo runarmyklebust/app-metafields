@@ -8,11 +8,12 @@
 <!--
 	Now:
 	TODO: Refactoring of code in JS ... don't duplicate from other files. Perhaps create entire ojects in local.js?
-	TODO: Don't spawn anything for content without templates, folders, images, etc. Gives no meaning.
 	TODO: Somehow piece together the full end-URL (respecting vhost) instead of showing the admin-url. Could also - dirty - remove /admin etc from URL ... but that is not the best solution.
 	TODO: Add some minor intro text (possible to minimize) at the top?
+	TODO: Link to Twitter/FB debuggers in a way so that the end-URL is sent to them.
 
 	Future:
+	TODO: Don't spawn anything for content without templates, folders, images, etc. Gives no meaning.
 	TODO: Perhaps add (?) icons with info for each data.
 	TODO: Possibility to click title, desc, image and see the water fall logic and where data is found?
 	TODO: Grade each data based on amount of text etc. Red, yellow, green. And info about it (best-practise).
@@ -40,16 +41,15 @@
 					<div data-th-if="${summary.image}">
 						<img data-th-src="${summary.image}" />
 					</div>
-					<div data-th-unless="${summary.image}">
-						<em>No image found!</em>
+					<div data-th-unless="${summary.image}" class="message-empty">
+						No image found!
 					</div>
 				</dd>
 				<dt>Canonical URL</dt>
 				<dd>
-					TODO: Get end-URL<br />
 					<a data-th-if="${summary.canonical}" data-th-text="${summary.canonical}" data-th-href="${summary.canonical}" target="_blank"></a>
-					<p data-th-unless="${summary.canonical}">
-						<em>Canonical not activated!</em>
+					<p data-th-unless="${summary.canonical}" class="message-empty">
+						Canonical not activated!
 					</p>
 				</dd>
 			</dl>
@@ -74,21 +74,17 @@
 				<dt title="&lt;og:image&gt;">Image</dt>
 				<dd>
 					<div data-th-if="${og.image}">
-						<img data-th-src="${og.image.src}" />
+						<img data-th-src="${og.image.src}" /><br />
+						<p title="&lt;og:image:width&gt; and &lt;og:image:height&gt;">
+							<span data-th-text="${og.image.width}">x</span>x<span data-th-text="${og.image.height}">x</span>
+						</p>
 					</div>
-					<div data-th-unless="${og.image}">
-						<em>No image used!</em>
+					<div data-th-unless="${og.image}" class="message-empty">
+						No image used!
 					</div>
 				</dd>
-				<div data-th-remove="tag" data-th-if="og.image">
-					<dt title="&lt;og:image:width&gt;">Image width</dt>
-					<dd data-th-text="${og.image.width}">x</dd>
-					<dt title="&lt;og:image:height&gt;">Image height</dt>
-					<dd data-th-text="${og.image.height}">x</dd>
-				</div>
 			</dl>
 			<p class="center">
-				TODO: Get end-URL<br />
 				<a href="https://developers.facebook.com/tools/debug/sharing/" target="_blank">Preview page from Facebook</a>
 			</p>
 		</div>
@@ -116,7 +112,6 @@
 				</dd>
 			</dl>
 			<p data-th-if="${twitter.active}" class="center">
-				TODO: Get end-URL<br />
 				<a href="https://cards-dev.twitter.com/validator" target="_blank">Preview page on Twitter</a>
 			</p>
 			<p data-th-unless="${twitter.active}" class="center">
