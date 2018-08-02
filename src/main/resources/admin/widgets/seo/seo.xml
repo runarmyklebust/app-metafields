@@ -1,5 +1,5 @@
 <widget>
-	<display-name>SEO Metafields</display-name>
+	<display-name>SEO Meta Fields</display-name>
 	<interfaces>
 		<interface>contentstudio.detailpanel</interface>
 	</interfaces>
