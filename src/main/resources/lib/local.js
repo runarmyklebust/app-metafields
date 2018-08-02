@@ -28,13 +28,10 @@ exports.getLang = function(content, site) {
 }
 exports.getSite = function(siteUrl) {
 	// Code courtesy of PVMerlo at Enonic Discuss - https://discuss.enonic.com/u/PVMerlo
-	log.info(siteUrl);
-	log.info(app.name);
 	var sitesResult = libs.content.query({
 		query: "_path LIKE '/content/*' AND _name LIKE '" + siteUrl + "' AND data.siteConfig.applicationKey = '" + app.name + "'",
 		contentTypes: ["portal:site"]
 	});
-	libs.util.log(sitesResult);
 	return sitesResult.hits[0];
 }
 exports.getSiteConfig = function(site, applicationKey) {
