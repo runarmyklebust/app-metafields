@@ -5,23 +5,15 @@
 		<title>SEO Meta Fields</title>
 		<link rel="stylesheet" type="text/css" data-th-href="${assetsUrl + '/css/widget.css'}">
 	</head>
-<!--
-	Now:
-	TODO: Refactoring of code in JS ... don't duplicate from other files. Perhaps create entire ojects in local.js?
-	TODO: Add some minor intro text (possible to minimize) at the top?
-	TODO: Link to Twitter/FB debuggers in a way so that the end-URL is sent to them.
-	BUG: If more than one site present, getSite() will only get the first one. Make sure to get current site!
-	BUG: If more than one site present, clicking one without SEO Metafield app will still trigger the widget and generate data. This should be turned off!
-
-
-	Future:
-	TODO: Somehow piece together the full end-URL (respecting vhost) instead of showing the admin-url. Currently not possible in XP to get "end URL" with code as code is not aware of server config.
-	TODO: Don't spawn anything for content without templates, folders, images, etc. Gives no meaning.
-	TODO: Perhaps add (?) icons with info for each data.
-	TODO: Possibility to click title, desc, image and see the water fall logic and where data is found?
-	TODO: Grade each data based on amount of text etc. Red, yellow, green. And info about it (best-practise).
--->
-	<body>
+<body>
+	<div data-th-unless="${summary}" class="xpapp-seo-metafields">
+		<div class="seo-table">
+			<p class="seo-info-box">
+				To view SEO stats for this site's contents, add the <strong>SEO Meta Fields</strong> app to the site content.
+			</p>
+		</div>
+	</div>
+	<div data-th-if="${summary}" class="xpapp-seo-metafields">
 		<p class="seo-info-box">
 			This app helps you by generating meta-data that improves SEO and social media sharing. For this specific content/page, the following general data is extracted by the app. Keep scrolling to see what data Facebook and Twitter will find.
 		</p>
@@ -81,18 +73,15 @@
 				</div>
 				<dt title="&lt;og:url&gt;">Url</dt>
 				<dd data-th-text="${'[SITE_URL]' + og.url}">x</dd>
-				<dt title="&lt;og:image&gt;">Image</dt>
-				<dd>
-					<div data-th-if="${og.image}">
+				<div data-th-remove="tag" data-th-if="${og.image.src}">
+					<dt title="&lt;og:image&gt;">Image</dt>
+					<dd>
 						<img data-th-src="${og.image.src}" /><br />
 						<p title="&lt;og:image:width&gt; and &lt;og:image:height&gt;">
 							<span data-th-text="${og.image.width}">x</span>x<span data-th-text="${og.image.height}">x</span>
 						</p>
-					</div>
-					<div data-th-unless="${og.image}" class="message-empty">
-						No image used!
-					</div>
-				</dd>
+					</dd>
+				</div>
 			</dl>
 			<p class="center">
 				<a href="https://developers.facebook.com/tools/debug/sharing/" target="_blank">Open the Facebook debugger</a>
@@ -128,5 +117,6 @@
 				Twitter cards are not activated!
 			</p>
 		</div>
-	</body>
+	</div>
+</body>
 </html>

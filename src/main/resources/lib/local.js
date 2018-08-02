@@ -26,11 +26,19 @@ exports.getLang = function(content, site) {
 	var lang = content.language || site.language || 'en';
 	return localeMap[lang] || localeMap.en
 }
+exports.getSite = function(siteUrl) {
+	// Code courtesy of PVMerlo at Enonic Discuss - https://discuss.enonic.com/u/PVMerlo
+	log.info(siteUrl);
+	log.info(app.name);
+	var sitesResult = libs.content.query({
+		query: "_path LIKE '/content/*' AND _name LIKE '" + siteUrl + "' AND data.siteConfig.applicationKey = '" + app.name + "'",
+		contentTypes: ["portal:site"]
+	});
+	libs.util.log(sitesResult);
+	return sitesResult.hits[0];
+}
 exports.getSiteConfig = function(site, applicationKey) {
 	// Code courtesy of PVMerlo at Enonic Discuss - https://discuss.enonic.com/u/PVMerlo
-	if(!site || site == null || typeof site === "undefined"){
-		site = exports.getSite();
-	}
 	if (site) {
 		if (site.data) {
 			if (site.data.siteConfig) {

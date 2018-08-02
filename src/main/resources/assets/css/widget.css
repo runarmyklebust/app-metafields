@@ -1,44 +1,44 @@
-.seo-table {
+.xpapp-seo-metafields .seo-table {
 	margin: 10px;
 	background-color: white;
 	padding: 10px;
 	border: 1px solid #eee;
 }
-	.seo-table dl {
+	.xpapp-seo-metafields .seo-table dl {
 		margin-top: 8px;
 	}
-	.seo-table.compact dl {
+	.xpapp-seo-metafields .seo-table.compact dl {
 		overflow: hidden;
 	}
-	.seo-table.compact dt {
+	.xpapp-seo-metafields .seo-table.compact dt {
 		float: left;
 		width: 35%;
 	}
-	.seo-table.compact dd {
+	.xpapp-seo-metafields .seo-table.compact dd {
 		float: left;
 		width: 65%;
 	}
-	.seo-table dt {
+	.xpapp-seo-metafields .seo-table dt {
 		font-weight: bold;
 	}
-	.seo-table dt:after {
+	.xpapp-seo-metafields .seo-table dt:after {
 		content: ":";
 	}
-	.seo-table dt + dd {
+	.xpapp-seo-metafields .seo-table dt + dd {
 		margin-bottom: 10px;
 	}
-	.seo-table.compact dd {
+	.xpapp-seo-metafields .seo-table.compact dd {
 		margin-bottom: 4px;
 	}
-	.seo-table dd img {
+	.xpapp-seo-metafields .seo-table dd img {
 		max-width: 100%;
 	}
-	.seo-table h2 {
+	.xpapp-seo-metafields .seo-table h2 {
 		font-size: 20px;
 		text-align: center;
 		position: relative;
 	}
-	.seo-table h2::after {
+	.xpapp-seo-metafields .seo-table h2::after {
 		content: "";
 		position: absolute;
 		bottom: 2px;
@@ -47,20 +47,20 @@
 		width: 30px;
 		height: 3px;
 	}
-	.seo-table .warning {
+	.xpapp-seo-metafields .seo-table .warning {
 		font-weight: bold;
 		color: red;
 	}
-	.seo-table .center {
+	.xpapp-seo-metafields .seo-table .center {
 		text-align: center;
 	}
-	.seo-table .message-empty {
+	.xpapp-seo-metafields .seo-table .message-empty {
 		font-style: italic;
 		color: #999;
 	}
-	.seo-info-box {
+	.xpapp-seo-metafields .seo-info-box {
 		padding: 18px 12px 6px 12px;
 	}
-	.seo-info-box strong {
+	.xpapp-seo-metafields .seo-info-box strong {
 		font-weight: bold;
 	}
