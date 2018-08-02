@@ -6,14 +6,6 @@ var libs = {
 	local: require('/lib/local')
 };
 
-var localeMap = {
-    da: 'da_DK',
-    sv: 'sv_SE',
-    pl: 'pl_PL',
-    no: 'nb_NO',
-    en: 'en_US'
-};
-
 exports.getSite = function() {
 	// Code courtesy of PVMerlo at Enonic Discuss - https://discuss.enonic.com/u/PVMerlo
 	var sitesResult = libs.content.query({
@@ -36,13 +28,17 @@ exports.get = function(req) {
 	var site = exports.getSite();
 	var siteConfig = libs.local.getSiteConfig(site, app.name);
 
-	var lang = content.language || site.language || 'en';
 	var isFrontpage = site._path === content._path;
+
 	var pageTitle = libs.local.getPageTitle(content, site);
 	var titleAppendix = libs.local.getAppendix(site, siteConfig, isFrontpage);
 	var description = libs.local.getMetaDescription(content, site);
 	if (description === '') description = null;
+
+	var frontpageUrl = libs.portal.pageUrl({ path: site._path, type: "absolute" });
 	var url = libs.portal.pageUrl({ path: content._path, type: "absolute" });
+	var justThePath = url.replace(frontpageUrl,'');
+
 	var fallbackImage = siteConfig.seoImage;
 	var fallbackImageIsPrescaled = siteConfig.seoImageIsPrescaled;
 	if (isFrontpage && siteConfig.frontpageImage) {
@@ -57,7 +53,7 @@ exports.get = function(req) {
 			fullTitle: (pageTitle + titleAppendix),
 			description: description,
 			image: image,
-			canonical: (siteConfig.canonical ? url : null),
+			canonical: (siteConfig.canonical ? justThePath : null),
 			blockRobots: (siteConfig.blockRobots || libs.local.getBlockRobots(content))
 		},
 		og: {
@@ -65,8 +61,8 @@ exports.get = function(req) {
 			title: pageTitle,
 			description: description,
 			siteName: site.displayName,
-			url: url,
-			locale: (localeMap[lang] || localeMap.en),
+			url: justThePath,
+			locale: libs.local.getLang(content,site),
 			image: {
 				src: image,
 				width: 1200, // Twice of 600x315, for retina

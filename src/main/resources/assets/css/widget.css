@@ -58,3 +58,9 @@
 		font-style: italic;
 		color: #999;
 	}
+	.seo-info-box {
+		padding: 18px 12px 6px 12px;
+	}
+	.seo-info-box strong {
+		font-weight: bold;
+	}

@@ -7,21 +7,11 @@ var libs = {
 
 var view = resolve('add-metadata.html');
 
-// Format locale into the ISO format that Open Graph wants
-var localeMap = {
-    da: 'da_DK',
-    sv: 'sv_SE',
-    pl: 'pl_PL',
-    no: 'nb_NO',
-    en: 'en_US'
-};
-
 exports.responseFilter = function(req, res) {
     var site = libs.portal.getSite();
     var content = libs.portal.getContent();
     var siteConfig = libs.portal.getSiteConfig();
 
-    var lang = content.language || site.language || 'en';
     var isFrontpage = site._path === content._path;
     var pageTitle = libs.local.getPageTitle(content, site);
     var titleAppendix = libs.local.getAppendix(site, siteConfig, isFrontpage);
@@ -41,7 +31,7 @@ exports.responseFilter = function(req, res) {
         title: pageTitle,
         description: libs.local.getMetaDescription(content, site),
         siteName: site.displayName,
-        locale: localeMap[lang] || localeMap.en,
+        locale: libs.local.getLang(content,site),
         type: isFrontpage ? 'website' : 'article',
         url: url,
         image: image,

@@ -14,6 +14,18 @@ function getConfig(site) {
 	}
 	return config;
 }
+exports.getLang = function(content, site) {
+	// Format locale into the ISO format that Open Graph wants.
+	var localeMap = {
+	    da: 'da_DK',
+	    sv: 'sv_SE',
+	    pl: 'pl_PL',
+	    no: 'nb_NO',
+	    en: 'en_US'
+	};
+	var lang = content.language || site.language || 'en';
+	return localeMap[lang] || localeMap.en
+}
 exports.getSiteConfig = function(site, applicationKey) {
 	// Code courtesy of PVMerlo at Enonic Discuss - https://discuss.enonic.com/u/PVMerlo
 	if(!site || site == null || typeof site === "undefined"){
