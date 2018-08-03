@@ -11,6 +11,7 @@ This app will add the following functionality to your site:
 5. Google Search Console meta tag
 6. Canonical meta tag
 7. Robots.txt exclude setting
+8. **New in 1.6**: Widget for Content Studio that displays all the SEO data!
 
 ## Installation
 
@@ -105,6 +106,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 | Version | XP version |
 | ------------- | ------------- |
+| 1.6.0 | 6.15.0 |
 | 1.5.0 | 6.15.0 |
 | 1.4.0 | 6.7.0 |
 | 1.3.3 | 6.7.0 |
@@ -121,6 +123,10 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 | 0.5.0 | 6.3.0 |
 
 ## Changelog
+
+### Version 1.6.0
+
+* New: Handy widget that displays what data each content item will expose to Facebook and Twitter and Google bots
 
 ### Version 1.5.0
 
