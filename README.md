@@ -6,12 +6,13 @@ This app will add the following functionality to your site:
 
 1. SEO friendly titles
 2. SEO meta description
-3. Open Graph meta data
-4. Twitter Cards meta data
-5. Google Search Console meta tag
-6. Canonical meta tag
-7. Robots.txt exclude setting
-8. **New in 1.6**: Widget for Content Studio that displays all the SEO data!
+3. **New in 1.5**: Social media sharing image (custom per content)
+4. Open Graph meta data
+5. Twitter Cards meta data
+6. Google Search Console meta tag
+7. Canonical meta tag
+8. Robots.txt exclude setting
+9. **New in 1.6**: Widget for Content Studio that displays all the SEO data!
 
 ## Installation
 
