@@ -69,7 +69,7 @@ function commaStringToArray(str) {
 function findValueInJson(json, paths) {
 	var value = null;
 	var pathLength = paths.length;
-	var jsonPath = ";"
+	var jsonPath = ";";
 
 	for (var i = 0; i < pathLength; i++) {
 		if ( paths[i] ) {
