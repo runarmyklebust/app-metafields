@@ -12,6 +12,15 @@ function getConfig(site) {
 	if (!config) {
 		config = exports.getSiteConfig(site, app.name);
 	}
+	if(app.config && !config.disableAppConfig) {
+		for (var prop in app.config) {
+			var value = app.config[prop];
+			if (value === 'true' || value === 'false') {
+				value = value === 'true';
+			}
+			config[prop] = value;
+		}
+	}
 	return config;
 }
 exports.getLang = function(content, site) {
@@ -99,7 +108,8 @@ function stringOrNull(o) {
 }
 
 // Concat site title? Trigger if set to true in settings, or if not set at all (default = true)
-exports.getAppendix = function(site, siteConfig, isFrontpage) {
+exports.getAppendix = function(site, isFrontpage) {
+	var siteConfig = getConfig(site);
 	var titleAppendix = '';
 	if (siteConfig.titleBehaviour || !siteConfig.hasOwnProperty("titleBehaviour") ) {
 		 var separator = siteConfig.titleSeparator || '-';
