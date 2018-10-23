@@ -69,6 +69,22 @@ exports.responseFilter = function(req, res) {
         res.pageContributions.headEnd.push(titleHtml);
     }
 
+	 // Locate the <html> tag and make sure the "og" namespace is added.
+    var ogAttribute = ' prefix="og: http://ogp.me/ns#"';
+    var ogAdded = false;
+    if (res.contentType === 'text/html') {
+         if (res.body) {
+            if (typeof res.body === 'string') {
+                // Find a title in the html and use that instead of adding our own title
+                var hasIndex = res.body.indexOf('<title>') > -1;
+                if (hasIndex) {
+                    res.body = res.body.replace(/(<title>)(.*?)(<\/title>)/i, titleHtml);
+                    titleAdded = true;
+                }
+            }
+        }
+    }
+
     if (req.params) {
         if (req.params.debug === 'true') {
             res.applyFilters = false; // Skip other filters
