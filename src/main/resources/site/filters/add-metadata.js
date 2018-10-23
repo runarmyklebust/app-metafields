@@ -53,6 +53,7 @@ exports.responseFilter = function(req, res) {
     // Handle injection of title - use any existing tag by replacing its content.
 	 // Also - Locate the <html> tag and make sure the "og" namespace is added.
     var titleHtml = '<title>' + pageTitle + titleAppendix + '</title>';
+	 var ogAttribute = ' prefix="og: http://ogp.me/ns#"';
     var titleAdded = false, ogAdded = false;
     if (res.contentType === 'text/html') {
          if (res.body) {
@@ -63,10 +64,11 @@ exports.responseFilter = function(req, res) {
                     res.body = res.body.replace(/(<title>)(.*?)(<\/title>)/i, titleHtml);
                     titleAdded = true;
                 }
-					 var ogAttribute = ' prefix="og: http://ogp.me/ns#"';
-					 var ogHasIndex = res.body.indexOf('<html') > -1;
-                if (ogHasIndex) {
-                    res.body = res.body.replace(/(<html)(.*?)(>)/i, titleHtml);
+					 // Find <html> and if it does not have propper og prefix - inject it!
+					 var htmlHasIndex = res.body.indexOf('<html') > -1;
+					 var ogHasIndex = res.body.indexOf('<html' + ogAttribute) > -1;
+                if (htmlHasIndex && !ogHasIndex) {
+                    res.body = res.body.substr(0, htmlHasIndex+5) + ogAttribute + res.body.substr(htmlHasIndex+5);
                     ogAdded = true;
                 }
             }
