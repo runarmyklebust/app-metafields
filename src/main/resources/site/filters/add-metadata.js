@@ -53,7 +53,7 @@ exports.responseFilter = function(req, res) {
     // Handle injection of title - use any existing tag by replacing its content.
 	 // Also - Locate the <html> tag and make sure the "og" namespace is added.
     var titleHtml = '<title>' + pageTitle + titleAppendix + '</title>';
-	 var ogAttribute = 'og:http://ogp.me/ns#';
+	 var ogAttribute = 'og: http://ogp.me/ns#';
     var titleAdded = false, ogAdded = false;
     if (res.contentType === 'text/html') {
          if (res.body) {
@@ -65,44 +65,38 @@ exports.responseFilter = function(req, res) {
                     titleAdded = true;
                 }
 					 // Find <html> and if it does not have proper "og"-prefix - inject it!
-					 var htmlIndex = res.body.indexOf('<html');
+					 var htmlIndex = res.body.toLowerCase().indexOf('<html');
 					 var endHtmlIndex = res.body.indexOf('>', htmlIndex);
 					 var htmlTagContents = res.body.substr(htmlIndex+5, endHtmlIndex-htmlIndex-5).trim(); // Inside <html XX> - 5 is number of characters for <html
-					 var htmlTagAttributes = htmlTagContents.split(" "); // Split on space so we can locate
-				 	 /*
+					 var htmlTagAttributes = htmlTagContents.replace('\t','').replace('\n','').split(" "); // Split on space so we can locate
+
 					 log.info(htmlIndex+5);
 					 log.info(endHtmlIndex-htmlIndex+5);
 					 log.info(htmlIndex);
 					 log.info(endHtmlIndex);
 					 libs.util.log(htmlTagAttributes);
-					 */
+
 					 var prefixFound = false;
 					 for (var i = 0; i < htmlTagAttributes.length; i++) {
 					 	var keyValues = htmlTagAttributes[i].split("=");
-						if (keyValues[0].trim() === 'prefix') {
-							keyValues[1] += ' ' + ogAttribute;
+						if (keyValues[0].toLowerCase().trim() === 'prefix') {
 							prefixFound = true;
-							htmlTagAttributes[i] = keyValues.join("=");
+							if (keyValues[1].indexOf(ogAttribute) > -1) {
+								keyValues[1] += ' ' + ogAttribute;
+								htmlTagAttributes[i] = keyValues.join("=");
+								log.info("Joined - " + htmlTagAttributes[i]);
+							}
 						}
 					 }
 					 if (!prefixFound) {
 						 htmlTagAttributes.push('prefix="' + ogAttribute + '"');
 					 }
+					 // Join the new html element string, and create the new body to return.
 					 var fixedHtmlTag = htmlTagAttributes.join(" ");
 					 res.body = res.body.substr(0, htmlIndex+5)
 					 			 + ' '
 					 			 + fixedHtmlTag
 					 			 + res.body.substr(endHtmlIndex);
-/*
-					 var attributeIndex = res.body.indexOf('prefix=', htmlIndex);
-					 if (attributeIndex > endHtmlIndex) { attributeIndex = -1; } // Reset attributeIndex if found outside of html-tag.
-					 var htmlHasIndex = htmlIndex > -1;
-					 var ogHasIndex = res.body.indexOf('<html' + ogAttribute) > -1;
-                if (htmlHasIndex && !ogHasIndex) {
-                    res.body = res.body.substr(0, htmlIndex+5) + ogAttribute + res.body.substr(htmlIndex+5);
-                    ogAdded = true;
-                }
-*/
             }
         }
     }
