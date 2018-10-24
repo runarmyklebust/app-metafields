@@ -67,32 +67,39 @@ exports.responseFilter = function(req, res) {
 					 // Find <html> and if it does not have proper "og"-prefix - inject it!
 					 var htmlIndex = res.body.toLowerCase().indexOf('<html');
 					 var endHtmlIndex = res.body.indexOf('>', htmlIndex);
-					 var htmlTagContents = res.body.substr(htmlIndex+5, endHtmlIndex-htmlIndex-5).trim(); // Inside <html XX> - 5 is number of characters for <html
-					 var htmlTagAttributes = htmlTagContents.replace('\t','').replace('\n','').split(" "); // Split on space so we can locate
-
-					 log.info(htmlIndex+5);
-					 log.info(endHtmlIndex-htmlIndex+5);
-					 log.info(htmlIndex);
-					 log.info(endHtmlIndex);
-					 libs.util.log(htmlTagAttributes);
-
+					 var thereIsAnAttributeThere = false;
+					 var tagAttributes = res.body.indexOf('=', htmlIndex);
 					 var prefixFound = false;
-					 for (var i = 0; i < htmlTagAttributes.length; i++) {
-					 	var keyValues = htmlTagAttributes[i].split("=");
-						if (keyValues[0].toLowerCase().trim() === 'prefix') {
-							prefixFound = true;
-							if (keyValues[1].indexOf(ogAttribute) > -1) {
-								keyValues[1] += ' ' + ogAttribute;
-								htmlTagAttributes[i] = keyValues.join("=");
-								log.info("Joined - " + htmlTagAttributes[i]);
+					 if (tagAttributes) { thereIsAnAttributeThere = true; }
+					 if (thereIsAnAttributeThere) {
+						 var htmlTagContents = res.body.substr(htmlIndex+5, endHtmlIndex-htmlIndex-5).trim(); // Inside <html XX> - 5 is number of characters for <html
+						 var htmlTagAttributes = htmlTagContents.split("="); // Split on = so we can locate all the attributes.
+
+						 log.info(htmlIndex+5);
+						 log.info(endHtmlIndex-htmlIndex+5);
+						 log.info(htmlIndex);
+						 log.info(endHtmlIndex);
+						 libs.util.log(htmlTagAttributes);
+
+						 for (var i = 0; i < htmlTagAttributes.length; i++) {
+						 	//var keyValues = htmlTagAttributes[i].split(" ");
+							if (htmlTagAttributes[i].toLowerCase().trim() === 'prefix') {
+								prefixFound = true;
+								if (htmlTagAttributes[i+1].indexOf(ogAttribute) === -1) {
+									log.info("Before join - " + htmlTagAttributes[i+1]);
+									htmlTagAttributes[i+1] = htmlTagAttributes[i+1].substr(0,htmlTagAttributes[i+1].length-1) + ' ' + ogAttribute + htmlTagAttributes[i+1].substr(-1);
+									log.info("After join - " + htmlTagAttributes[i+1]);
+								} else {
+									log.info("Already in the tag!");
+								}
 							}
-						}
-					 }
-					 if (!prefixFound) {
-						 htmlTagAttributes.push('prefix="' + ogAttribute + '"');
+						 }
 					 }
 					 // Join the new html element string, and create the new body to return.
-					 var fixedHtmlTag = htmlTagAttributes.join(" ");
+					 var fixedHtmlTag = htmlTagAttributes.join("=");
+					 if (!prefixFound) {
+						 fixedHtmlTag += ' prefix="' + ogAttribute + '"';
+					 }
 					 res.body = res.body.substr(0, htmlIndex+5)
 					 			 + ' '
 					 			 + fixedHtmlTag
