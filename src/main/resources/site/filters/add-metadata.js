@@ -53,7 +53,6 @@ exports.responseFilter = function(req, res) {
     // Handle injection of title - use any existing tag by replacing its content.
 	 // Also - Locate the <html> tag and make sure the "og" namespace is added.
     var titleHtml = '<title>' + pageTitle + titleAppendix + '</title>';
-	 var prefixAttribute = 'prefix=';
 	 var ogAttribute = 'og:http://ogp.me/ns#';
     var titleAdded = false, ogAdded = false;
     if (res.contentType === 'text/html') {
@@ -65,14 +64,45 @@ exports.responseFilter = function(req, res) {
                     res.body = res.body.replace(/(<title>)(.*?)(<\/title>)/i, titleHtml);
                     titleAdded = true;
                 }
-					 // Find <html> and if it does not have propper og prefix - inject it!
-					 var htmlIndex = res.body.indexOf('<html')
+					 // Find <html> and if it does not have proper "og"-prefix - inject it!
+					 var htmlIndex = res.body.indexOf('<html');
+					 var endHtmlIndex = res.body.indexOf('>', htmlIndex);
+					 var htmlTagContents = res.body.substr(htmlIndex+5, endHtmlIndex-htmlIndex-5).trim(); // Inside <html XX> - 5 is number of characters for <html
+					 var htmlTagAttributes = htmlTagContents.split(" "); // Split on space so we can locate
+				 	 /*
+					 log.info(htmlIndex+5);
+					 log.info(endHtmlIndex-htmlIndex+5);
+					 log.info(htmlIndex);
+					 log.info(endHtmlIndex);
+					 libs.util.log(htmlTagAttributes);
+					 */
+					 var prefixFound = false;
+					 for (var i = 0; i < htmlTagAttributes.length; i++) {
+					 	var keyValues = htmlTagAttributes[i].split("=");
+						if (keyValues[0].trim() === 'prefix') {
+							keyValues[1] += ' ' + ogAttribute;
+							prefixFound = true;
+							htmlTagAttributes[i] = keyValues.join("=");
+						}
+					 }
+					 if (!prefixFound) {
+						 htmlTagAttributes.push('prefix="' + ogAttribute + '"');
+					 }
+					 var fixedHtmlTag = htmlTagAttributes.join(" ");
+					 res.body = res.body.substr(0, htmlIndex+5)
+					 			 + ' '
+					 			 + fixedHtmlTag
+					 			 + res.body.substr(endHtmlIndex);
+/*
+					 var attributeIndex = res.body.indexOf('prefix=', htmlIndex);
+					 if (attributeIndex > endHtmlIndex) { attributeIndex = -1; } // Reset attributeIndex if found outside of html-tag.
 					 var htmlHasIndex = htmlIndex > -1;
 					 var ogHasIndex = res.body.indexOf('<html' + ogAttribute) > -1;
                 if (htmlHasIndex && !ogHasIndex) {
                     res.body = res.body.substr(0, htmlIndex+5) + ogAttribute + res.body.substr(htmlIndex+5);
                     ogAdded = true;
                 }
+*/
             }
         }
     }
