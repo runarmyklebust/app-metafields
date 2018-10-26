@@ -70,14 +70,31 @@ Add field names as comma separated strings, like `field1, field2, long-fieldname
 
 We only evaluate for matches in the JSON `data`-node for each content. So if you fill in `myField`, we'll look for `data.myField` in the content JSON (refer to Enonic XP's documentation on `getContent()` function).
 
-### Advanced: configuration files
+### Advanced: default configuration files
 
-You can put a file on the server to configure all running instances of the app across one server. This is a feature that you can turn on and off per site through the app setting interface when adding the app. This means you can have the cake and eat it too!
+You can put a file on the server to configure all running instances of the app across one server. This is a feature that you can turn on and off per site through the app setting interface when adding the app (through the `Don't overwrite values from app.config` setting). This means you can have the cake and eat it too!
 
 Locate your `$XP_HOME/config/` folder and create a file called `app-metafields.cfg` and fill it with data like this, changing variables as needed (comment out the ones you don't need):
 
 ```
-canonical=true
+canonical = true|false
+siteVerification = "xxx"
+blockRobots = true|false
+# This one is specific for the configuration file, use it when editing the app config in Content Studio to overwrite any configuration from this file.
+# disableAppConfig = true|false
+titleSeparator = "<3"
+titleBehaviour = true|false
+titleFrontpageBehaviour = true|false
+twitterUsername = "@EnonicHQ"
+# seoImage = "[AnyImageContentID]"
+seoImageIsPrescaled = true|false
+# frontpageImage = "[AnyImageContentID]"
+frontpageImageIsPrescaled = true|false
+seoTitle = "Fallback title"
+seoDescription = "Fallback description"
+pathsImages = "media.mediaImage.imgSrc, mediaImage"
+pathsTitles = "data.customTitle, someField"
+pathsDescriptions = "data.description, data.preface"
 ```
 
 ## Waterfall logic for meta fields
@@ -140,10 +157,11 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 ### Version 1.7.0
 
 * New: configure the app from configuration files on the server. Credit @edwardgronroos of TINE AS.
+* Fix: Inject the `og:` namespace prefix definition in the `<html>`-tag automatically.
 
 ### Version 1.6.0
 
-* New: Handy widget that displays what data each content item will expose to Facebook and Twitter and Google bots
+* New: Handy widget that displays what data each content item will expose to Facebook and Twitter and Google bots.
 
 ### Version 1.5.0
 

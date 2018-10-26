@@ -75,12 +75,6 @@ exports.responseFilter = function(req, res) {
 						 var htmlTagContents = res.body.substr(htmlIndex+5, endHtmlIndex-htmlIndex-5).trim(); // Inside <html XX> - 5 is number of characters for <html
 						 var htmlTagAttributes = htmlTagContents.split("="); // Split on = so we can locate all the attributes.
 
-						 log.info(htmlIndex+5);
-						 log.info(endHtmlIndex-htmlIndex+5);
-						 log.info(htmlIndex);
-						 log.info(endHtmlIndex);
-						 libs.util.log(htmlTagAttributes);
-
 						 for (var i = 0; i < htmlTagAttributes.length; i++) {
 						 	//var keyValues = htmlTagAttributes[i].split(" ");
 							if (htmlTagAttributes[i].toLowerCase().trim() === 'prefix') {
