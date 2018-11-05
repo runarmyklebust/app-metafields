@@ -72,11 +72,12 @@ We only evaluate for matches in the JSON `data`-node for each content. So if you
 
 ### Advanced: default configuration files
 
-You can put a file on the server to configure all running instances of the app across one server. This is a feature that you can turn on and off per site through the app setting interface when adding the app (through the `Don't overwrite values from app.config` setting). This means you can have the cake and eat it too!
+You can put a file on the server to configure all running instances of the app across one server. This is a feature that you can turn on and off per site through the app's configuration when adding the app (through the `Don't overwrite values from app.config` setting). This means you can have the cake and eat it too!
 
-Locate your `$XP_HOME/config/` folder and create a file called `app-metafields.cfg` and fill it with data like this, changing variables as needed (comment out the ones you don't need):
+Locate your `$XP_HOME/config/` folder and create a file called `com.enonic.app.metafields.cfg` and fill it with data like this, changing variables as needed (remove or comment out the ones you don't need):
 
 ```
+# Configuration file for SEO Metafields app.
 canonical = true|false
 siteVerification = "xxx"
 blockRobots = true|false
@@ -96,6 +97,8 @@ pathsImages = "media.mediaImage.imgSrc, mediaImage"
 pathsTitles = "data.customTitle, someField"
 pathsDescriptions = "data.description, data.preface"
 ```
+
+**NB!** When using this file, any corresponding setting in the admin UI will be overwritten. It is not possible, currently, to preview the values from the configuration files.
 
 ## Waterfall logic for meta fields
 

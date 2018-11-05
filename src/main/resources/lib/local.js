@@ -12,15 +12,20 @@ function getConfig(site) {
 	if (!config) {
 		config = exports.getSiteConfig(site, app.name);
 	}
+	libs.util.log(config);
+	libs.util.log(app.config);
 	if(app.config && !config.disableAppConfig) {
 		for (var prop in app.config) {
 			var value = app.config[prop];
-			if (value === 'true' || value === 'false') {
-				value = value === 'true';
+			if (prop !== 'config.filename' && prop !== 'service.pid') { // Default props for .cfg-files, not to use further.
+				if (value === 'true' || value === 'false') {
+					value = value === 'true';
+				}
+				config[prop] = value;
 			}
-			config[prop] = value;
 		}
 	}
+	libs.util.log(config);
 	return config;
 }
 exports.getLang = function(content, site) {
@@ -43,6 +48,8 @@ exports.getSite = function(siteUrl) {
 	});
 	return sitesResult.hits[0];
 }
+
+// Find the site config even when the context is not known.
 exports.getSiteConfig = function(site, applicationKey) {
 	// Code courtesy of PVMerlo at Enonic Discuss - https://discuss.enonic.com/u/PVMerlo
 	if (site) {
