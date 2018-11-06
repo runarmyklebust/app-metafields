@@ -10,7 +10,7 @@ var view = resolve('add-metadata.html');
 exports.responseFilter = function(req, res) {
     var site = libs.portal.getSite();
     var content = libs.portal.getContent();
-	 var siteConfig = libs.local.getSiteConfig(site, app.name);
+	 var siteConfig = libs.local.getTheConfig(site);
 
     var isFrontpage = site._path === content._path;
     var pageTitle = libs.local.getPageTitle(content, site);

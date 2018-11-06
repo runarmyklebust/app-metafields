@@ -7,13 +7,12 @@ var libs = {
 var appNamePath = libs.util.app.getJsonName();
 var mixinPath = 'meta-data';
 
-function getConfig(site) {
+// The configuration needs to be fetched first from site config (using current content if site context is not available - like for widgets), and lastly we'll check for any config files and use these to overwrite.
+exports.getTheConfig = function(site) {
 	var config = libs.portal.getSiteConfig();
 	if (!config) {
 		config = exports.getSiteConfig(site, app.name);
 	}
-	libs.util.log(config);
-	libs.util.log(app.config);
 	if(app.config && !config.disableAppConfig) {
 		for (var prop in app.config) {
 			var value = app.config[prop];
@@ -25,9 +24,9 @@ function getConfig(site) {
 			}
 		}
 	}
-	libs.util.log(config);
 	return config;
-}
+};
+
 exports.getLang = function(content, site) {
 	// Format locale into the ISO format that Open Graph wants.
 	var localeMap = {
@@ -116,7 +115,7 @@ function stringOrNull(o) {
 
 // Concat site title? Trigger if set to true in settings, or if not set at all (default = true)
 exports.getAppendix = function(site, isFrontpage) {
-	var siteConfig = getConfig(site);
+	var siteConfig = exports.getTheConfig(site);
 	var titleAppendix = '';
 	if (siteConfig.titleBehaviour || !siteConfig.hasOwnProperty("titleBehaviour") ) {
 		 var separator = siteConfig.titleSeparator || '-';
@@ -128,7 +127,6 @@ exports.getAppendix = function(site, isFrontpage) {
 	return titleAppendix;
 }
 
-
 exports.getBlockRobots = function(content) {
 	var setWithMixin = content.x[appNamePath]
 		&& content.x[appNamePath][mixinPath]
@@ -137,7 +135,7 @@ exports.getBlockRobots = function(content) {
 };
 
 exports.getPageTitle = function(content, site) {
-	var siteConfig = getConfig(site);
+	var siteConfig = exports.getTheConfig(site);
 
 	var userDefinedPaths = siteConfig.pathsTitles || '';
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
@@ -159,7 +157,7 @@ exports.getPageTitle = function(content, site) {
 };
 
 exports.getMetaDescription = function(content, site) {
-	var siteConfig = getConfig(site);
+	var siteConfig = exports.getTheConfig(site);
 
 	var userDefinedPaths = siteConfig.pathsDescriptions || '';
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];
@@ -184,7 +182,7 @@ exports.getMetaDescription = function(content, site) {
 };
 
 exports.getOpenGraphImage = function(content, site, defaultImg, defaultImgPrescaled) {
-	var siteConfig = getConfig(site);
+	var siteConfig = exports.getTheConfig(site);
 
 	var userDefinedPaths = siteConfig.pathsImages || '';
 	var userDefinedArray = userDefinedPaths ? commaStringToArray(userDefinedPaths) : [];

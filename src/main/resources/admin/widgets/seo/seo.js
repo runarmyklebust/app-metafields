@@ -30,7 +30,7 @@ exports.get = function(req) {
 		var parts = content._path.split('/');
 		var site = libs.local.getSite(parts[1]); // Send the first /x/-part of the content's path.
 		if (site) {
-			var siteConfig = libs.local.getSiteConfig(site, app.name);
+			var siteConfig = libs.local.getTheConfig(site);
 			if (siteConfig) {
 				var isFrontpage = site._path === content._path;
 				var pageTitle = libs.local.getPageTitle(content, site);
