@@ -98,7 +98,9 @@ pathsTitles = "data.customTitle, someField"
 pathsDescriptions = "data.description, data.preface"
 ```
 
-**NB!** When using this file, any corresponding setting in the admin UI will be overwritten. It is not possible, currently, to preview the values from the configuration files.
+You can find this example file in the root directory of this repo.
+
+**NB!** When using this file, any corresponding setting in the admin UI will be overwritten. It is not possible, currently, to preview the values from the configuration files from the admin UI.
 
 ## Waterfall logic for meta fields
 
