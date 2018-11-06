@@ -2,7 +2,7 @@ var libs = {
     portal: require('/lib/xp/portal'),
     thymeleaf: require('/lib/xp/thymeleaf'),
     util: require('/lib/enonic/util'),
-    local: require('/lib/local')
+    common: require('/lib/common')
 };
 
 var view = resolve('add-metadata.html');
@@ -10,11 +10,11 @@ var view = resolve('add-metadata.html');
 exports.responseFilter = function(req, res) {
     var site = libs.portal.getSite();
     var content = libs.portal.getContent();
-	 var siteConfig = libs.local.getTheConfig(site);
+	 var siteConfig = libs.common.getTheConfig(site);
 
     var isFrontpage = site._path === content._path;
-    var pageTitle = libs.local.getPageTitle(content, site);
-    var titleAppendix = libs.local.getAppendix(site, isFrontpage);
+    var pageTitle = libs.common.getPageTitle(content, site);
+    var titleAppendix = libs.common.getAppendix(site, isFrontpage);
 
     var siteVerification = siteConfig.siteVerification || null;
 
@@ -25,23 +25,22 @@ exports.responseFilter = function(req, res) {
         fallbackImage = siteConfig.frontpageImage;
         fallbackImageIsPrescaled = siteConfig.frontpageImageIsPrescaled;
     }
-    var image = libs.local.getOpenGraphImage(content, site, fallbackImage, fallbackImageIsPrescaled);
+    var image = libs.common.getOpenGraphImage(content, site, fallbackImage, fallbackImageIsPrescaled);
 
     var params = {
         title: pageTitle,
-        description: libs.local.getMetaDescription(content, site),
+        description: libs.common.getMetaDescription(content, site),
         siteName: site.displayName,
-        locale: libs.local.getLang(content,site),
+        locale: libs.common.getLang(content,site),
         type: isFrontpage ? 'website' : 'article',
         url: url,
         image: image,
         imageWidth: 1200, // Twice of 600x315, for retina
         imageHeight: 630,
-        blockRobots: siteConfig.blockRobots || libs.local.getBlockRobots(content),
+        blockRobots: siteConfig.blockRobots || libs.common.getBlockRobots(content),
         siteVerification: siteVerification,
         canonical: siteConfig.canonical,
         twitterUserName : siteConfig.twitterUsername
-
     };
 
     var metadata = libs.thymeleaf.render(view, params);
@@ -76,15 +75,14 @@ exports.responseFilter = function(req, res) {
 						 var htmlTagAttributes = htmlTagContents.split("="); // Split on = so we can locate all the attributes.
 
 						 for (var i = 0; i < htmlTagAttributes.length; i++) {
-						 	//var keyValues = htmlTagAttributes[i].split(" ");
 							if (htmlTagAttributes[i].toLowerCase().trim() === 'prefix') {
 								prefixFound = true;
 								if (htmlTagAttributes[i+1].indexOf(ogAttribute) === -1) {
-									log.info("Before join - " + htmlTagAttributes[i+1]);
+									//log.info("Before join - " + htmlTagAttributes[i+1]);
 									htmlTagAttributes[i+1] = htmlTagAttributes[i+1].substr(0,htmlTagAttributes[i+1].length-1) + ' ' + ogAttribute + htmlTagAttributes[i+1].substr(-1);
-									log.info("After join - " + htmlTagAttributes[i+1]);
+									//log.info("After join - " + htmlTagAttributes[i+1]);
 								} else {
-									log.info("Already in the tag!");
+									//log.info("Already in the tag!");
 								}
 							}
 						 }

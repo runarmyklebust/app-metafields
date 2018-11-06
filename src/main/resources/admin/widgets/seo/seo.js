@@ -3,11 +3,11 @@ var libs = {
 	content: require('/lib/xp/content'),
 	thymeleaf: require('/lib/xp/thymeleaf'),
 	util: require('/lib/enonic/util'),
-	local: require('/lib/local')
+	common: require('/lib/common')
 };
 
 /*
-TODO: Refactoring of code in JS ... perhaps create entire ojects for each social media in local.js?
+TODO: Refactoring of code in JS ... perhaps create entire ojects for each social media in common.js?
 TODO: Link to Twitter/FB debuggers in a way so that the end-URL is sent to them (auto post?).
 TODO: Possible to minimize help-texts (remember with cookie).
 TODO: Somehow piece together the full end-URL (respecting vhost) instead of showing the admin-url. Currently not possible in XP to get "end URL" with code as code is not aware of server config.
@@ -28,14 +28,14 @@ exports.get = function(req) {
 	if (content) {
 		// The first part of the content '_path' is the site's URL, make sure to fetch current site!
 		var parts = content._path.split('/');
-		var site = libs.local.getSite(parts[1]); // Send the first /x/-part of the content's path.
+		var site = libs.common.getSite(parts[1]); // Send the first /x/-part of the content's path.
 		if (site) {
-			var siteConfig = libs.local.getTheConfig(site);
+			var siteConfig = libs.common.getTheConfig(site);
 			if (siteConfig) {
 				var isFrontpage = site._path === content._path;
-				var pageTitle = libs.local.getPageTitle(content, site);
-				var titleAppendix = libs.local.getAppendix(site, siteConfig, isFrontpage);
-				var description = libs.local.getMetaDescription(content, site);
+				var pageTitle = libs.common.getPageTitle(content, site);
+				var titleAppendix = libs.common.getAppendix(site, siteConfig, isFrontpage);
+				var description = libs.common.getMetaDescription(content, site);
 				if (description === '') description = null;
 
 				var frontpageUrl = libs.portal.pageUrl({ path: site._path, type: "absolute" });
@@ -48,7 +48,7 @@ exports.get = function(req) {
 					 fallbackImage = siteConfig.frontpageImage;
 					 fallbackImageIsPrescaled = siteConfig.frontpageImageIsPrescaled;
 				}
-				var image = libs.local.getOpenGraphImage(content, site, fallbackImage, fallbackImageIsPrescaled);
+				var image = libs.common.getOpenGraphImage(content, site, fallbackImage, fallbackImageIsPrescaled);
 
 				params = {
 					summary: {
@@ -57,7 +57,7 @@ exports.get = function(req) {
 						description: description,
 						image: image,
 						canonical: (siteConfig.canonical ? justThePath : null),
-						blockRobots: (siteConfig.blockRobots || libs.local.getBlockRobots(content))
+						blockRobots: (siteConfig.blockRobots || libs.common.getBlockRobots(content))
 					},
 					og: {
 						type: (isFrontpage ? 'website' : 'article'),
@@ -65,7 +65,7 @@ exports.get = function(req) {
 						description: description,
 						siteName: site.displayName,
 						url: justThePath,
-						locale: libs.local.getLang(content,site),
+						locale: libs.common.getLang(content,site),
 						image: {
 							src: image,
 							width: 1200, // Twice of 600x315, for retina
