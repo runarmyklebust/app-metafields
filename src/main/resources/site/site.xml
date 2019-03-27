@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-	<config>
+	<form>
 		<field-set name="settings">
 			<label>General settings</label>
 			<items>
@@ -119,8 +119,8 @@
 				</input>
 			</items>
 		</field-set>
-	</config>
-	<filters>
-		<response-filter name="add-metadata" order="10"/>
-	</filters>
+	</form>
+	<processors>
+		<response-processor name="add-metadata" order="10"/>
+	</processors>
 </site>

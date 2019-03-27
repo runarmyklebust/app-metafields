@@ -1,8 +1,8 @@
 var libs = {
 	portal: require('/lib/xp/portal'),
 	content: require('/lib/xp/content'),
-	thymeleaf: require('/lib/xp/thymeleaf'),
-	util: require('/lib/enonic/util'),
+	thymeleaf: require('/lib/thymeleaf'),
+	util: require('/lib/util'),
 	common: require('/lib/common')
 };
 
@@ -25,7 +25,12 @@ exports.get = function(req) {
 */
 	var params = {};
 	var content = libs.content.get({ key: req.params.contentId });
-	if (content) {
+
+    if (!content && portalLib.getContent()) {
+        content = portalLib.getContent()._id;
+    }
+
+    if (content) {
 		// The first part of the content '_path' is the site's URL, make sure to fetch current site!
 		var parts = content._path.split('/');
 		var site = libs.common.getSite(parts[1]); // Send the first /x/-part of the content's path.

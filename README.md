@@ -140,6 +140,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 | Version | XP version |
 | ------------- | ------------- |
+| 1.8.0 | 7.0.0 |
 | 1.7.0 | 6.15.0 |
 | 1.6.0 | 6.15.0 |
 | 1.5.0 | 6.15.0 |
@@ -158,6 +159,11 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 | 0.5.0 | 6.3.0 |
 
 ## Changelog
+
+### Version 1.8.0
+
+* Upgraded to work with Enonic XP 7.x.  -  Fairly simple and straightforward changes to references
+and build tools to make it compatible with 7.x.  Will not work with XP 6.x.
 
 ### Version 1.7.0
 

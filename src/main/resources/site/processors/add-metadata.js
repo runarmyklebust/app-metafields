@@ -1,13 +1,13 @@
 var libs = {
     portal: require('/lib/xp/portal'),
-    thymeleaf: require('/lib/xp/thymeleaf'),
-    util: require('/lib/enonic/util'),
+    thymeleaf: require('/lib/thymeleaf'),
+    util: require('/lib/util'),
     common: require('/lib/common')
 };
 
 var view = resolve('add-metadata.html');
 
-exports.responseFilter = function(req, res) {
+exports.responseProcessor = function(req, res) {
     var site = libs.portal.getSite();
     var content = libs.portal.getContent();
 	 var siteConfig = libs.common.getTheConfig(site);
