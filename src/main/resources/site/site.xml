@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-	<config>
-		<field-set name="settings">
+	<form>
+		<field-set>
 			<label>General settings</label>
 			<items>
 				<input name="canonical" type="CheckBox">
@@ -28,7 +28,7 @@
 				</input>
 			</items>
 		</field-set>
-		<field-set name="twitter">
+		<field-set>
 			<label>Twitter Cards</label>
 			<items>
 				<input name="twitterUsername" type="TextLine">
@@ -41,7 +41,7 @@
 				</input>
 			</items>
 		</field-set>
-		<field-set name="defaults">
+		<field-set>
 			<label>Fallback settings</label>
 			<items>
 				<input name="seoImage" type="ImageSelector">
@@ -76,7 +76,7 @@
 				</input>
 			</items>
 		</field-set>
-		<field-set name="titles">
+		<field-set>
 			<label>Title config</label><!-- Title handling yes/no -->
 			<items>
 				<input name="titleBehaviour" type="CheckBox">
@@ -99,7 +99,7 @@
 				</input>
 			</items>
 		</field-set>
-		<field-set name="json">
+		<field-set>
 			<label>Advanced: prioritized JSON paths</label><!-- Customized paths yes/no --><!-- +Text about advanced/custom settings needed -->
 			<items>
 				<input name="pathsImages" type="TextLine">
@@ -119,8 +119,9 @@
 				</input>
 			</items>
 		</field-set>
-	</config>
-	<filters>
-		<response-filter name="add-metadata" order="10"/>
-	</filters>
+	</form>
+	<x-data name="meta-data" />
+	<processors>
+		<response-processor name="add-metadata" order="10"/>
+	</processors>
 </site>

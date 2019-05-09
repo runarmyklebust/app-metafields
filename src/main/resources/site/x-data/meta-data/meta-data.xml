@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <x-data>
 	<display-name>SEO</display-name>
-	<items>
+	<form>
 		<input name="seoTitle" type="TextLine">
 			<label>Override title</label>
 			<help-text>Normally we use each content's displayName to generate the title tag, but if you want you can override it here on a per content basis.</help-text>
@@ -22,5 +22,5 @@
 			<help-text>Checking this will tell external search engines to skip this particular page. Note: The page is not hidden and can still be accessed via URL or links, but search engines will try and not list it in their search results.</help-text>
 			<occurrences minimum="0" maximum="1"/>
 		</input>
-	</items>
+	</form>
 </x-data>
