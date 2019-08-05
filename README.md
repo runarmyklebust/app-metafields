@@ -140,6 +140,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 | Version | XP version |
 | ------------- | ------------- |
+| 1.8.1 | 7.0.0 |
 | 1.8.0 | 7.0.0 |
 | 1.7.0 | 6.15.0 |
 | 1.6.0 | 6.15.0 |
@@ -159,6 +160,10 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 | 0.5.0 | 6.3.0 |
 
 ## Changelog
+
+### Version 1.8.1
+
+Fixed widget not showing in the context panel of Content Studio
 
 ### Version 1.8.0
 
