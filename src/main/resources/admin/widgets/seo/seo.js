@@ -23,12 +23,22 @@ exports.get = function(req) {
      "com-enonic-app-metafields": {
          "meta-data"
 */
-	var params = {};
-	var content = libs.content.get({ key: req.params.contentId });
 
-    if (!content && portalLib.getContent()) {
-        content = portalLib.getContent()._id;
-    }
+	var contentId = req.params.contentId;
+
+	if (!contentId && libs.portal.getContent()) {
+		contentId = libs.portal.getContent()._id;
+	}
+
+	if (!contentId) {
+		return {
+			contentType: 'text/html',
+			body: '<widget class="error">No content selected</widget>'
+		};
+	}
+
+	var params = {};
+	var content = libs.content.get({ key: contentId });
 
     if (content) {
 		// The first part of the content '_path' is the site's URL, make sure to fetch current site!
@@ -83,8 +93,7 @@ exports.get = function(req) {
 						description: description,
 						image: image,
 						site: siteConfig.twitterUsername || null
-					},
-					assetsUrl: libs.portal.assetUrl({path: ""})
+					}
 				};
 			}
 		}
