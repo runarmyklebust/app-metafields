@@ -151,7 +151,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 ### Version 1.8.3
 
-Added support for nested images (inside item- or option-setc)
+Added support for nested images (inside item- or option-sets)
 
 ### Version 1.8.2
 
