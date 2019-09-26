@@ -213,25 +213,25 @@ exports.getOpenGraphImage = function(content, site, defaultImg, defaultImgPresca
         };
 
         // Set the ID to either the first image in the set or use the default image ID
-        imageOpts.id = imageArray.length ? imageArray[0] : defaultImg;
+        imageOpts.id = imageArray.length ? (imageArray[0].image || imageArray[0]) : defaultImg;
 
-		  // Fetch actual image, make sure not to force it into .jpg if it's a SVG-file.
-		  var theImage = libs.content.get({
-			  key: imageOpts.id
-		  });
-		  var mimeType = null;
-		  if (theImage) {
-			  if (theImage.data.media.attachment) {
-				  mimeType = theImage.attachments[theImage.data.media.attachment].mimeType; // Get the actual mimeType
-			  } else if (theImage.data.media) {
-				  mimeType = theImage.attachments[theImage.data.media].mimeType;
-			  }
+		// Fetch actual image, make sure not to force it into .jpg if it's a SVG-file.
+		var theImage = libs.content.get({
+		  key: imageOpts.id
+		});
+		var mimeType = null;
+		if (theImage) {
+		  if (theImage.data.media.attachment) {
+			  mimeType = theImage.attachments[theImage.data.media.attachment].mimeType; // Get the actual mimeType
+		  } else if (theImage.data.media) {
+			  mimeType = theImage.attachments[theImage.data.media].mimeType;
 		  }
-		  // Reset forced format on SVG to make them servable through portal.imageUrl().
-		  if (!mimeType || mimeType === 'image/svg+xml') {
-			  imageOpts.quality = null;
-			  imageOpts.format = null;
-		  }
+		}
+		// Reset forced format on SVG to make them servable through portal.imageUrl().
+		if (!mimeType || mimeType === 'image/svg+xml') {
+		  imageOpts.quality = null;
+		  imageOpts.format = null;
+		}
 
         ogImage = imageOpts.id ? libs.portal.imageUrl(imageOpts) : null;
 	} else if (defaultImg && defaultImgPrescaled) {
