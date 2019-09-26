@@ -140,7 +140,7 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 
 | Version | XP version |
 | ------------- | ------------- |
-| 1.8.0-1.8.2 | 7.0.0 |
+| 1.8.0-1.8.3 | 7.0.0 |
 | 1.5.0-1.7.0 | 6.15.0 |
 | 1.1.4-1.4.0 | 6.7.0 |
 | 1.1.0-1.1.3 | 6.4.0 |
@@ -148,6 +148,14 @@ For titles there is no way it can be empty, at least the last fallback will alwa
 | 0.5.0 | 6.3.0 |
 
 ## Changelog
+
+### Version 1.8.3
+
+Added support for nested images (inside item- or option-setc)
+
+### Version 1.8.2
+
+Fixed 404 error on CSS reference in widget panel
 
 ### Version 1.8.1
 
