@@ -17,4 +17,5 @@
 <meta name="twitter:description" data-th-attr="content=${description}"/><div data-th-if="${image}" data-th-remove="tag">
 <meta name="twitter:image:src" data-th-attr="content=${image}"/></div>
 <meta name="twitter:site" data-th-attr="content=${twitterUserName}"/></div>
+<div data-th-each="customItem, iterStat : ${custom}" data-th-remove="tag"><meta data-th-property="${customItem.key}" data-th-attr="content=${customItem.value}"/></div>
 </div>
